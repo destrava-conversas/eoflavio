@@ -1352,8 +1352,8 @@ a.rabisco:focus-visible{outline:3px solid #fff;outline-offset:4px;border-radius:
 .crit-det>summary::before{content:"";width:8px;height:8px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(-45deg);transition:transform .15s}
 .crit-det[open]>summary::before{transform:rotate(45deg)}
 .crit-det .crit{margin:4px 0 4px}
-.res-nav{flex-wrap:wrap;margin:18px 0 0}
-.copy-hint{margin:10px 0 0;font-size:14px;line-height:1.5;color:var(--muted)}
+.res-nav{flex-wrap:wrap;margin:30px 0 4px}
+.copy-hint{margin:0 0 18px;font-size:14px;line-height:1.5;color:var(--muted)}
 </style>
 </head>
 <body>
@@ -1445,11 +1445,11 @@ a.rabisco:focus-visible{outline:3px solid #fff;outline-offset:4px;border-radius:
       <p class="sum" id="sel-sum" hidden></p>
       <details class="crit-det" id="crit-det"><summary>Como classificamos</summary><p class="crit" id="sel-crit"></p></details>
       <div class="res-btns res-nav"><a class="res-btn" href="#acoes" id="go-acoes">Ações</a><a class="res-btn" href="#comparacao" id="go-cmp">Compare</a><a class="res-btn" href="#rank" id="go-rank">Ranking</a></div>
-      <p class="copy-hint">Você pode copiar e enviar cada ação para alguém ou para uma IA, inclusive para verificar a veracidade da informação.</p>
       <p class="verdict" id="verdict" hidden></p>
 
 
     <div class="res-acoes" id="acoes">
+      <p class="copy-hint">Você pode copiar e enviar cada ação para alguém ou para uma IA, inclusive para verificar a veracidade da informação.</p>
       <div class="lists" id="lists">
         <div class="col contra">
           <h3>Ações contra<span id="cnt-contra"></span></h3>
