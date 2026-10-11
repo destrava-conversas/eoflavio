@@ -1322,6 +1322,8 @@ body.in-px .pickbar{display:none!important}
 .px .px-count{margin:16px 0 8px}
 .px .px-rg + .px-sub{margin-top:24px}
 .px .px-rg b{display:block;margin-bottom:2px}
+.px .px-h4{margin:28px 0 4px}
+.px-f{scroll-margin-top:190px}
 </style>
 </head>
 <body>
@@ -3340,10 +3342,17 @@ LK_R.push(["pl", "educacao", "A reforma de 2017 extinguiu ", [["Polen-Analysen",
   }
   function pxOpenFicha(k){
     var d=$('parca-'+k); if(!d) return;
-    d.open=true;
+    [].slice.call(document.querySelectorAll('#px-fichas details.px-f')).forEach(function(o){ if(o!==d && o.open) o.open=false; });
+    d.open=true; pxWho();
     var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    requestAnimationFrame(function(){ d.scrollIntoView({behavior: reduce?'auto':'smooth', block:'start'}); });
+    var go=function(){
+      var tb=document.querySelector('.topbar'), bar=$('pxbar'), who=$('pxbar-who');
+      var off=(tb?tb.offsetHeight:60) + (bar && !bar.hidden ? bar.offsetHeight : 0) + (who && who.hidden ? 44 : 0) + 12;
+      window.scrollTo({top: d.getBoundingClientRect().top + window.scrollY - off, behavior: reduce?'auto':'smooth'});
+    };
+    requestAnimationFrame(function(){ requestAnimationFrame(go); });
   }
+  window.pxOpenFicha=pxOpenFicha;
   function pxWho(){ var w=$('pxbar-who'); if(!w) return; [].slice.call(w.children).forEach(function(b){ var d=$('parca-'+b.getAttribute('data-k')); b.setAttribute('aria-pressed', d && d.open ? 'true':'false'); }); }
   function pxBarUpdate(){
     var bar=$('pxbar'), panel=$('parcas-panel'), tb=document.querySelector('.topbar'); if(!bar||!panel) return;
@@ -3639,6 +3648,7 @@ LK_R.push(["pl", "educacao", "A reforma de 2017 extinguiu ", [["Polen-Analysen",
       e.preventDefault();
       var li = document.getElementById(h.slice(1));
       if(li){
+        if(li.tagName==='DETAILS' && window.pxOpenFicha){ window.pxOpenFicha(li.id.slice(6)); li.classList.remove('flash'); void li.offsetWidth; li.classList.add('flash'); return; }
         if(li.tagName==='DETAILS') li.open=true;
         var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
         setTimeout(function(){ li.scrollIntoView({behavior: reduce?'auto':'smooth', block: li.tagName==='DETAILS'?'start':'center'}); li.classList.remove('flash'); void li.offsetWidth; li.classList.add('flash'); }, 30);
