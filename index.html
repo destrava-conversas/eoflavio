@@ -1356,6 +1356,15 @@ a.rabisco:focus-visible{outline:3px solid #fff;outline-offset:4px;border-radius:
 .copy-hint{margin:0 0 18px;font-size:14px;line-height:1.5;color:var(--muted)}
 .sec-nav{margin:26px 0 0;padding-top:18px;border-top:1px solid var(--line)}
 .res-btn.is-cur{background:var(--ink);color:var(--surface);cursor:default}
+a.c-go{text-decoration:none;color:inherit;border-radius:10px;cursor:pointer}
+a.c-go .l{text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:4px;text-decoration-color:color-mix(in srgb,currentColor 40%,transparent)}
+a.c-go:hover .l{color:var(--ink);text-decoration-color:currentColor}
+a.c-go:hover .n{filter:brightness(1.1)}
+a.c-go:focus-visible{outline:3px solid var(--fil);outline-offset:4px}
+a.c-go[aria-disabled="true"]{cursor:default}
+a.c-go[aria-disabled="true"] .l{text-decoration:none}
+#col-contra,#col-pro{scroll-margin-top:136px}
+@media(max-width:600px){#col-contra,#col-pro{scroll-margin-top:124px}}
 </style>
 </head>
 <body>
@@ -1433,8 +1442,8 @@ a.rabisco:focus-visible{outline:3px solid #fff;outline-offset:4px;border-radius:
       <h4 class="selpill" id="sel-pill"></h4>
       <p class="sub" id="sel-sub"></p>
       <div class="counts">
-        <div class="c-contra"><span class="n" id="n-contra">0</span><span class="l">ações contra</span></div>
-        <div class="c-pro"><span class="n" id="n-pro">0</span><span class="l">ações a favor</span></div>
+        <a class="c-contra c-go" href="#col-contra" id="go-contra"><span class="n" id="n-contra">0</span><span class="l">ações contra</span></a>
+        <a class="c-pro c-go" href="#col-pro" id="go-pro"><span class="n" id="n-pro">0</span><span class="l">ações a favor</span></a>
       </div>
       <div class="therm">
         <div class="track" role="img" id="track" aria-label="Termômetro">
@@ -1453,12 +1462,12 @@ a.rabisco:focus-visible{outline:3px solid #fff;outline-offset:4px;border-radius:
     <div class="res-acoes" id="acoes">
       <p class="copy-hint">Você pode copiar e enviar cada ação para alguém ou para uma IA, inclusive para verificar a veracidade da informação.</p>
       <div class="lists" id="lists">
-        <div class="col contra">
+        <div class="col contra" id="col-contra">
           <h3>Ações contra<span id="cnt-contra"></span></h3>
           <ul class="list" id="list-contra"></ul>
           <button type="button" class="more" id="more-contra" aria-expanded="false" aria-controls="list-contra" hidden>Ver mais</button>
         </div>
-        <div class="col pro">
+        <div class="col pro" id="col-pro">
           <h3>Ações a favor<span id="cnt-pro"></span></h3>
           <ul class="list" id="list-pro"></ul>
           <button type="button" class="more" id="more-pro" aria-expanded="false" aria-controls="list-pro" hidden>Ver mais</button>
@@ -2855,7 +2864,7 @@ LK_R.push(["pl", "educacao", "A reforma de 2017 extinguiu ", [["Polen-Analysen",
       ss.appendChild(la);
       ss.appendChild(document.createTextNode(sub.slice(ix+subC.n.length)));
     } else ss.textContent = sub || 'Soma dos sete líderes';
-    $('n-contra').textContent = t.contra;
+    $('n-contra').textContent = t.contra; (function(){ [['go-contra',t.contra],['go-pro',t.pro]].forEach(function(x){ var a=$(x[0]); if(!a) return; if(x[1]>0){ a.removeAttribute('aria-disabled'); a.setAttribute('title','Ver as ações'); } else { a.setAttribute('aria-disabled','true'); a.removeAttribute('title'); } }); })();
     $('n-pro').textContent = t.pro;
     var lc0 = document.querySelector('.c-contra .l'), lp0 = document.querySelector('.c-pro .l');
     if(lc0) lc0.textContent = t.contra===1 ? 'ação contra' : 'ações contra';
@@ -3682,6 +3691,7 @@ LK_R.push(["pl", "educacao", "A reforma de 2017 extinguiu ", [["Polen-Analysen",
     chk();
   })();
 
+  document.addEventListener('click', function(e){ var g=e.target.closest&&e.target.closest('a.c-go[aria-disabled="true"]'); if(g){ e.preventDefault(); } }, true);
   document.addEventListener('click', function(e){
     var a = e.target.closest && e.target.closest('a[href="#parcas"], a[href="#legenda"], a[href^="#parca-"]');
     if(!a) return;
