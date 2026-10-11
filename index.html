@@ -1314,6 +1314,10 @@ body.in-px .pickbar{display:none!important}
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]) #parcas h2,:root:not([data-theme="light"]) #parcas .toggle{color:#7DB8F0}}
 :root[data-theme="dark"] #parcas h2,:root[data-theme="dark"] #parcas .toggle{color:#7DB8F0}
 @media(max-width:560px){.legend-row.legend-stack aside.legend{padding:18px 16px}.legend-row.legend-stack aside.legend h2{font-size:22px}}
+.px .px-key{margin:16px 0 6px}
+.px-det.px-regua{margin-top:12px}
+.px-det.px-regua .px-bars{padding:0 14px}
+.px-det.px-regua .px-small:first-of-type{margin-top:10px}
 </style>
 </head>
 <body>
@@ -1590,12 +1594,6 @@ body.in-px .pickbar{display:none!important}
       <p class="px-intro">Ser de direita é uma posição política legítima. A ciência política separa a direita da <b>direita radical</b> e da <b>extrema direita</b> por um critério: a relação com a democracia liberal, o pluralismo e os direitos das minorias. Não é a economia.</p>
       <div class="px-spec" id="px-spec"></div>
       <p class="px-key" id="px-specnota"></p>
-      <div class="px-regua">
-        <h4>Régua externa: antipluralismo dos partidos</h4>
-        <p class="px-small">Índice do V-Dem (V-Party), de 0 a 1, medido por especialistas: quanto mais alto, menor o compromisso com o pluralismo, mais demonização de opositores e desrespeito a minorias. Não há escore para os partidos de Milei, Bukele e Kast, que não constam na base (eleições até 2019).</p>
-        <div class="px-bars" id="px-bars"></div>
-        <p class="px-legend"><span><i class="sw parca"></i>partido de um parça</span><span><i class="sw sec"></i>outros da direita radical</span><span><i class="sw ref"></i>referência</span></p>
-      </div>
     </section>
 
     <section class="px-sec" id="px-pilares">
@@ -1622,6 +1620,11 @@ body.in-px .pickbar{display:none!important}
       <div class="px-selbox" id="px-sel" aria-live="polite"></div>
       <details class="lg-more px-det"><summary>Padrões em comum</summary><div class="px-pad" id="px-pad"></div></details>
       <details class="lg-more px-det cx-all"><summary>Todas as ligações, com fontes</summary><ul class="list cx-list" id="cx-list"></ul></details>
+      <details class="lg-more px-det px-regua"><summary>Régua externa: antipluralismo dos partidos</summary>
+        <p class="px-small">Índice do V-Dem (V-Party), de 0 a 1, medido por especialistas: quanto mais alto, menor o compromisso com o pluralismo, mais demonização de opositores e desrespeito a minorias. Não há escore para os partidos de Milei, Bukele e Kast, que não constam na base (eleições até 2019).</p>
+        <div class="px-bars" id="px-bars"></div>
+        <p class="px-legend"><span><i class="sw parca"></i>partido de um parça</span><span><i class="sw sec"></i>outros da direita radical</span><span><i class="sw ref"></i>referência</span></p>
+      </details>
     </section>
 
     <section class="px-sec" id="px-quem">
