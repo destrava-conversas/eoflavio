@@ -1344,6 +1344,16 @@ a.rabisco:focus-visible{outline:3px solid #fff;outline-offset:4px;border-radius:
 .dem-quote figcaption b{color:var(--ink)}
 .dem-quote .dem-src{display:block;margin-top:6px;font-size:13px}
 .dem-quote a{color:var(--pro-ink);text-underline-offset:2px}
+#sel-sum{display:none!important}
+.crit-det{margin:16px 0 0;border-top:1px solid var(--line);padding-top:10px}
+.crit-det[hidden]{display:none}
+.crit-det>summary{cursor:pointer;font-size:14px;font-weight:700;color:var(--ink);list-style:none;display:inline-flex;align-items:center;gap:8px;min-height:36px}
+.crit-det>summary::-webkit-details-marker{display:none}
+.crit-det>summary::before{content:"";width:8px;height:8px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(-45deg);transition:transform .15s}
+.crit-det[open]>summary::before{transform:rotate(45deg)}
+.crit-det .crit{margin:4px 0 4px}
+.res-nav{flex-wrap:wrap;margin:18px 0 0}
+.copy-hint{margin:10px 0 0;font-size:14px;line-height:1.5;color:var(--muted)}
 </style>
 </head>
 <body>
@@ -1417,7 +1427,7 @@ a.rabisco:focus-visible{outline:3px solid #fff;outline-offset:4px;border-radius:
     </div>
 
     <div class="res-card" id="resumo">
-      <div class="rhead res-head"><h2 class="res-t" id="res-title">O que eles fizeram</h2><div class="res-btns"><a class="res-btn" href="#comparacao" id="go-cmp">Compare</a><a class="res-btn" href="#rank" id="go-rank">Ranking</a></div></div>
+      <div class="rhead res-head"><h2 class="res-t" id="res-title">O que eles fizeram</h2></div>
       <h4 class="selpill" id="sel-pill"></h4>
       <p class="sub" id="sel-sub"></p>
       <div class="counts">
@@ -1432,8 +1442,10 @@ a.rabisco:focus-visible{outline:3px solid #fff;outline-offset:4px;border-radius:
         </div>
         <div class="ends"><span class="a">Ações contra</span><span class="b">Ações a favor</span></div>
       </div>
-      <p class="sum" id="sel-sum"></p>
-      <p class="crit" id="sel-crit"></p>
+      <p class="sum" id="sel-sum" hidden></p>
+      <details class="crit-det" id="crit-det"><summary>Como classificamos</summary><p class="crit" id="sel-crit"></p></details>
+      <div class="res-btns res-nav"><a class="res-btn" href="#acoes" id="go-acoes">Ações</a><a class="res-btn" href="#comparacao" id="go-cmp">Compare</a><a class="res-btn" href="#rank" id="go-rank">Ranking</a></div>
+      <p class="copy-hint">Você pode copiar e enviar cada ação para alguém ou para uma IA, inclusive para verificar a veracidade da informação.</p>
       <p class="verdict" id="verdict" hidden></p>
 
 
@@ -2817,13 +2829,12 @@ LK_R.push(["pl", "educacao", "A reforma de 2017 extinguiu ", [["Polen-Analysen",
     $('ctx-sel').textContent = gn + ' · ' + cLab;
     (function(){ var box=$('sel-crit'); box.innerHTML=''; var t = state.g==='all' ? '' : (CRITERIA[state.g] || ''); box.hidden = !t; if(!t) return;
       var m = t.match(/^A favor:\s*([\s\S]*?)\s*Contra:\s*([\s\S]*)$/);
-      box.appendChild(el('b','crit-k','Como classificamos: '));
       if(!m){ box.appendChild(document.createTextNode(t)); return; }
       var lc = m[2].replace(/\.\s*$/,''), lp = m[1].replace(/\.\s*$/,'');
-      box.appendChild(document.createTextNode('conta como contra o que ' + lc.charAt(0).toLowerCase() + lc.slice(1) + '; como a favor, o que ' + lp.charAt(0).toLowerCase() + lp.slice(1) + '.'));
+      box.appendChild(document.createTextNode('Conta como contra o que ' + lc.charAt(0).toLowerCase() + lc.slice(1) + '; como a favor, o que ' + lp.charAt(0).toLowerCase() + lp.slice(1) + '.'));
     })();
     renderExamples();
-    $('sel-crit').hidden = !$('sel-crit').textContent;
+    $('sel-crit').hidden = !$('sel-crit').textContent; $('crit-det').hidden = $('sel-crit').hidden; $('crit-det').open = false;
     renderSplit();
     var sub = '';
     var subC = null;
