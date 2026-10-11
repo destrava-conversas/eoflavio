@@ -1,0 +1,731 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>E a Economia?</title>
+<meta name="description" content="Mais de 20 anos de dados oficiais da economia brasileira, governo por governo, comparados a 12 países emergentes.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:title" content="E a Economia? Brasil em Dados">
+<meta property="og:description" content="Mais de 20 anos de dados oficiais da economia brasileira, governo por governo, comparados a 12 países emergentes.">
+<meta property="og:url" content="https://destrava-conversas.github.io/eoflavio/economia/">
+<link rel="canonical" href="https://destrava-conversas.github.io/eoflavio/economia/">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Public+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F5F7F9; --card:#FFFFFF; --ink:#15202B; --muted:#56646F; --line:#D8DEE4; --soft:#E9EEF3;
+  --ctrl:#8995A1; --bandb:rgba(110,125,140,.07); --bandl:rgba(110,125,140,.17);
+  --good:#4AA3E0; --bad:#E0701A; --tie:#8995A1; --brand:#1B5FA8;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#0F151B; --card:#151D25; --ink:#E8EDF2; --muted:#9AA8B5; --line:#2A3540; --soft:#1C2731;
+    --ctrl:#7E8A96; --bandb:rgba(150,165,180,.06); --bandl:rgba(150,165,180,.15);
+    --good:#6CC0F5; --bad:#F0903C; --tie:#8C98A4;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0F151B; --card:#151D25; --ink:#E8EDF2; --muted:#9AA8B5; --line:#2A3540; --soft:#1C2731;
+  --ctrl:#7E8A96; --bandb:rgba(150,165,180,.06); --bandl:rgba(150,165,180,.15);
+  --good:#6CC0F5; --bad:#F0903C; --tie:#8C98A4;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-padding-top:8.5rem}
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Public Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;font-size:1.0625rem;line-height:1.55;
+  padding-bottom:env(safe-area-inset-bottom,0px)}
+main{max-width:46rem;margin:0 auto;padding:0 max(1rem,env(safe-area-inset-right)) 3rem max(1rem,env(safe-area-inset-left))}
+h1,h2,h3{line-height:1.15;margin:0}
+a{color:inherit;text-decoration-thickness:2px;text-underline-offset:3px;text-decoration-color:var(--good)}
+button,select{font:inherit}
+:focus-visible{outline:3px solid var(--good);outline-offset:3px;border-radius:6px}
+
+/* topo */
+.topbar{position:sticky;top:0;z-index:50;background:var(--brand);color:#fff;padding-top:env(safe-area-inset-top,0px)}
+.topin{max-width:62rem;margin:0 auto;min-height:4.8rem;padding-top:.75rem!important;padding-bottom:.75rem!important;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.35rem 1rem;padding:0 max(1rem,env(safe-area-inset-right)) 0 max(1rem,env(safe-area-inset-left))}
+.brand{display:inline-flex;align-items:center;gap:.55rem;white-space:nowrap;font-weight:600;font-size:1.4rem;letter-spacing:-.02em;color:#fff;text-decoration:none}
+.brand i{font-style:normal;font-weight:400}
+.topbar a:focus-visible{outline-color:#fff}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.tsel{display:flex;align-items:center;gap:.6rem;flex:1 1 22rem;max-width:40rem}
+.tsel .sel{flex:1}
+.tsel .sel select{appearance:none;-webkit-appearance:none;width:100%;min-height:3.2rem;padding:.5rem 2.6rem .5rem 1.2rem;border:0;border-radius:999px;background:#fff;color:#123F73;font-weight:600;font-size:1.02rem;cursor:pointer}
+.tsel .sel::after{color:#123F73;right:.85rem}
+.tclr{flex:none;width:3.2rem;height:3.2rem;border-radius:50%;border:2px solid rgba(255,255,255,.8);background:transparent;color:#fff;font-weight:600;font-size:1rem;cursor:pointer}
+.tclr:disabled{opacity:.35;cursor:default}
+.topbar :focus-visible{outline-color:#fff}
+@media (max-width:559px){.topin{padding-top:.6rem!important;padding-bottom:.75rem!important;row-gap:.6rem}.tsel{flex-basis:100%;max-width:none}}
+.xlead{margin:0;color:var(--muted)}
+
+/* abertura */
+header{padding:1.6rem 0 .4rem}
+h1{font-size:clamp(2rem,7vw,2.6rem);letter-spacing:-.02em}
+.sub{font-size:1.1rem;color:var(--muted);font-weight:600;margin:.35rem 0 0}
+.lead{font-size:1.1rem;margin:.8rem 0 0;max-width:38rem}
+.notice{margin:1.4rem 0 0;padding:.9rem 1rem;border:1px solid var(--line);border-radius:16px;background:var(--card);font-size:.95rem}
+.notice h2{margin:0}
+.ntog{display:flex;width:100%;justify-content:space-between;align-items:center;gap:.6rem;padding:.2rem 0;border:0;background:transparent;color:var(--ink);font-weight:600;font-size:1.2rem;text-align:left;cursor:pointer;min-height:2.75rem}
+.ntog .ch{flex:none;display:inline-flex;align-items:center;justify-content:center;width:2rem;height:2rem;border:1.5px solid var(--line);border-radius:50%;font-size:.85rem;transition:transform .2s}
+.ntog[aria-expanded="true"] .ch{transform:rotate(180deg)}
+@media (prefers-reduced-motion:reduce){.ntog .ch{transition:none}}
+#notice-body{padding-top:.3rem}
+.notice p{margin:0 0 .45rem;color:var(--muted)}
+.notice p:last-child{margin:0}
+.notice a{color:var(--ink);font-weight:600}
+.gl h3[id]{scroll-margin-top:9rem}
+
+/* pergunta rápida */
+.hook{margin:2.2rem 0 0;padding:1rem;border-radius:16px;background:#1E7A4C;color:#fff}
+.hook h2{margin:0}
+.htog{display:flex;width:100%;justify-content:space-between;align-items:center;gap:.6rem;padding:0;border:0;background:transparent;color:rgba(255,255,255,.9);font-size:.8rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;text-align:left;cursor:pointer;min-height:2.6rem}
+.htog .cnt{margin-left:.6rem}
+.htog .ch{flex:none;display:inline-flex;align-items:center;justify-content:center;width:2rem;height:2rem;border:1.5px solid rgba(255,255,255,.6);border-radius:50%;font-size:.85rem;letter-spacing:0;transition:transform .2s;color:#fff}
+.htog[aria-expanded="true"] .ch{transform:rotate(180deg)}
+@media (prefers-reduced-motion:reduce){.htog .ch{transition:none}}
+.must{margin:.8rem 0 0;padding:.6rem .75rem;border-radius:10px;background:rgba(255,255,255,.14);font-weight:600}
+.seeb{display:inline-flex;align-items:center;min-height:2.75rem;padding:.45rem .85rem;border:2px solid #fff;border-radius:10px;background:transparent;color:#fff!important;text-decoration:none;font-weight:400}
+.next2{margin-left:auto;font-weight:400;background:transparent;color:#fff;border:2px solid #fff;border-radius:10px;padding:.45rem .85rem;min-height:2.75rem;cursor:pointer}
+.hook .cnt{letter-spacing:0;text-transform:none;font-weight:400}
+.hook .q{font-size:1.15rem;font-weight:600;margin:.5rem 0 .9rem}
+.opts{display:flex;flex-wrap:wrap;gap:.5rem}
+.opt{border:2px solid #fff;color:#fff;background:transparent;border-radius:10px;padding:.45rem .85rem;min-height:2.75rem;cursor:pointer}
+.opt:disabled{cursor:default;opacity:.6}
+.opt.right{background:#fff;color:#0F4D2F;opacity:1}
+.opt.wrong{text-decoration:line-through;opacity:.8}
+.hook .ans p{margin:.8rem 0 0}
+.hk-act{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.6rem 1rem;margin-top:2.4rem}
+.next{font-weight:600;background:#fff;color:#0F4D2F;border:0;border-radius:999px;padding:.55rem 1.1rem;min-height:2.75rem;cursor:pointer}
+.hook a{color:#fff;font-weight:600;text-decoration-color:#fff}
+.hook :focus-visible{outline-color:#fff}
+
+/* explorar */
+.explore{margin-top:1.6rem}
+.explore h2{font-size:1.45rem}
+.xbox{border:1px solid var(--line);border-radius:16px;background:var(--card);padding:1rem}
+.xbox h2{margin-bottom:.8rem}
+.howwrap{margin-top:.9rem;padding-top:.6rem;border-top:1px solid var(--line)}
+.howtog{display:flex;width:100%;justify-content:space-between;align-items:center;gap:.6rem;padding:.2rem 0;border:0;background:transparent;color:var(--ink);font-weight:600;font-size:1rem;text-align:left;cursor:pointer;min-height:2.6rem}
+.howtog .ch{flex:none;display:inline-flex;align-items:center;justify-content:center;width:1.8rem;height:1.8rem;border:1.5px solid var(--line);border-radius:50%;font-size:.8rem;transition:transform .2s}
+.howtog[aria-expanded="true"] .ch{transform:rotate(180deg)}
+@media (prefers-reduced-motion:reduce){.howtog .ch{transition:none}}
+.how[hidden]{display:none}
+.how{list-style:none;margin:.4rem 0 .2rem;padding:0;display:grid;gap:.4rem}
+.how li{display:flex;gap:.6rem;align-items:flex-start}
+.how b.n{flex:none;display:inline-flex;align-items:center;justify-content:center;width:1.6rem;height:1.6rem;border-radius:50%;background:var(--ink);color:var(--bg);font-size:.85rem}
+.filters{display:grid;grid-template-columns:1fr;gap:.7rem}
+@media (min-width:560px){.filters{grid-template-columns:1fr 1.4fr}}
+.filters label{display:block;font-size:.8rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:.25rem}
+.sel{position:relative}
+.clr{grid-column:1/-1;display:flex;justify-content:flex-end}
+.btn:disabled{opacity:.45;cursor:default}
+.sel select{appearance:none;-webkit-appearance:none;width:100%;min-height:3rem;padding:.55rem 2.4rem .55rem .85rem;border:2px solid var(--ink);border-radius:10px;background:var(--card);color:var(--ink);font-size:1.02rem;font-weight:600;cursor:pointer}
+.sel::after{content:"▾";position:absolute;right:.9rem;top:50%;transform:translateY(-50%);pointer-events:none;font-size:1rem}
+.empty{margin-top:1rem;padding:1rem;border:2px dashed var(--line);border-radius:16px;color:var(--muted)}
+.empty p{margin:0 0 .5rem}
+.empty p:last-child{margin:0}
+.legkey{display:flex;flex-wrap:wrap;gap:.55rem 1.2rem;font-size:.9rem;margin:0 0 .4rem;padding:.7rem .8rem;border-radius:10px;background:var(--bg)}
+.legkey span{display:inline-flex;align-items:center;gap:.4rem}
+.legkey i{display:inline-block;width:1.3rem;height:0;border-top:3px solid var(--ink)}
+.legkey i.c{border-top-color:var(--ctrl)}
+.legkey i.d{border-top-style:dashed}
+.legkey i.h{width:1rem;height:.9rem;border:1px solid var(--line);background:repeating-linear-gradient(45deg,var(--line) 0 2px,transparent 2px 5px)}
+.legkey i.g{width:.8rem;height:.8rem;border:0;border-radius:3px;background:var(--good)}
+.legkey i.b{width:.8rem;height:.8rem;border:0;border-radius:3px;background:var(--bad)}
+
+/* tema */
+.theme{margin-top:1rem;border:1px solid var(--line);border-radius:16px;padding:1rem;background:var(--card)}
+.tk{font-size:.75rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:.2rem 0 .7rem;display:flex;align-items:center;gap:.35rem}
+.tk i{width:.5rem;height:.5rem;border-radius:50%;display:inline-block}
+.theme h3{font-size:clamp(1.6rem,6vw,2rem);letter-spacing:-.01em}
+.what{color:var(--muted);margin:.7rem 0 1.1rem;max-width:40rem}
+.chart{margin-top:1.2rem}
+.theme{scroll-margin-top:1rem}
+.chart{position:relative}
+.tip{position:absolute;z-index:5;pointer-events:none;background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:10px;padding:.45rem .65rem;box-shadow:0 4px 14px rgba(0,0,0,.18);font-size:.88rem;line-height:1.35;display:flex;flex-direction:column;gap:.1rem;min-width:8rem}
+.tip[hidden]{display:none}
+.tip .ty{font-size:1rem}
+.tip .tb{margin-top:.2rem;align-self:flex-start;border-radius:6px;padding:.05rem .45rem;color:#10202e;font-weight:600;font-size:.8rem}
+.hint{font-size:.85rem;color:var(--muted);margin:.5rem 0 0}
+
+.imgov{position:fixed;inset:0;z-index:100;background:rgba(0,0,0,.75);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.8rem;padding:1rem}
+.imgov img{max-width:100%;max-height:78vh;border-radius:10px;background:#fff}
+.imgov p{color:#fff;margin:0;text-align:center}
+.imgov button{background:#fff;color:#15202B}
+.theme h4{font-size:1.05rem;margin:1.1rem 0 .3rem}
+.story p{margin:0 0 .55rem;max-width:40rem}
+.story ul{margin:0;padding-left:1.2rem;max-width:40rem}
+.story li{margin:0 0 .5rem;padding-left:.2rem}
+.story li::marker{color:var(--muted)}
+.care{font-size:.92rem;color:var(--muted);border-left:3px solid var(--line);padding:.1rem 0 .1rem .75rem;margin:.8rem 0 .4rem}
+.src{font-size:.82rem;color:var(--muted);margin:.4rem 0 0}
+.act{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.8rem}
+.btn{font-weight:600;font-size:.92rem;color:var(--ink);background:transparent;border:1px solid var(--line);border-radius:999px;padding:.35rem .9rem;min-height:2.5rem;cursor:pointer;display:inline-flex;align-items:center;gap:.35rem;text-align:left}
+.shtxt{width:100%;margin-top:.6rem;font:inherit;font-size:.9rem;padding:.5rem;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink)}
+.nav2{display:flex;justify-content:space-between;gap:.5rem;margin-top:1rem}
+
+/* blocos de baixo */
+.block{margin-top:1.6rem}
+.block h2{font-size:1.45rem;margin-bottom:.5rem}
+.apbox{border:1px solid var(--line);border-radius:16px;background:var(--card);padding:1rem}
+.soon{padding:1rem;border:2px dashed var(--line);border-radius:12px;color:var(--muted)}
+.glbox{border:1px solid var(--line);border-radius:16px;background:var(--card);padding:1rem}
+.gltog{display:flex;width:100%;justify-content:space-between;align-items:center;gap:.6rem;padding:.2rem 0;border:0;background:transparent;color:var(--ink);font-weight:600;font-size:1.45rem;text-align:left;cursor:pointer;min-height:2.75rem}
+.gltog .ch{flex:none;display:inline-flex;align-items:center;justify-content:center;width:2rem;height:2rem;border:1.5px solid var(--line);border-radius:50%;font-size:.85rem;transition:transform .2s}
+.gltog[aria-expanded="true"] .ch{transform:rotate(180deg)}
+@media (prefers-reduced-motion:reduce){.gltog .ch{transition:none}}
+.glsub{margin:.1rem 0 0;color:var(--muted);font-size:.95rem}
+.block.gl h2{margin-bottom:0}
+.gl h3{font-size:1.05rem;margin:1.2rem 0 .2rem}
+.gl dl{margin:0;max-width:40rem}
+.gl dt{font-weight:600;margin-top:.7rem}
+.gl dd{margin:.1rem 0 0}
+.ctry{list-style:none;padding:0;margin:.4rem 0 .2rem;display:flex;flex-wrap:wrap;gap:.35rem}
+.ctry li{border:1px solid var(--ink);border-radius:999px;padding:.1rem .65rem;font-size:.92rem}
+.small{font-size:.92rem;color:var(--muted)}
+.small p{margin:0 0 .5rem}
+.totop{position:fixed;right:max(1rem,env(safe-area-inset-right));bottom:max(1rem,env(safe-area-inset-bottom));z-index:40;width:2.9rem;height:2.9rem;border-radius:50%;background:var(--brand);color:#fff;display:flex;align-items:center;justify-content:center;font-size:1.3rem;font-weight:600;text-decoration:none;box-shadow:0 2px 10px rgba(0,0,0,.25)}
+.totop[hidden]{display:none}
+
+/* tipografia */
+h1,h2,h3,h4,.brand,.ty,.hook .q,.gltog,.ntog,.howtog,.htog>span:first-child{font-family:"Bricolage Grotesque","Public Sans",system-ui,sans-serif}
+h1,.theme h3{font-weight:800}
+h2,h3,h4,.brand,.hook .q,.gltog,.ntog,.howtog{font-weight:600}
+.brand b{font-weight:800}
+b,strong{font-weight:600}
+.tip .ty{font-weight:800}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div class="topin">
+    <a class="brand" href="#topo" aria-label="Brasil em Dados, voltar ao topo"><svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="13" width="5" height="9" rx="1.2" fill="#fff"/><rect x="9.5" y="7" width="5" height="15" rx="1.2" fill="#fff"/><rect x="17" y="2" width="5" height="20" rx="1.2" fill="#fff"/></svg><span><b>Brasil</b> <i>em</i> <b>Dados</b></span></a>
+    <div class="tsel">
+      <label for="f-tema" class="sr">Escolha um tema</label>
+      <div class="sel"><select id="f-tema"></select></div>
+      <button type="button" class="tclr" id="f-clear" aria-label="Limpar a escolha de tema" disabled>✕</button>
+    </div>
+  </div>
+</div>
+<main>
+  <header id="topo">
+    <h1>E a Economia?</h1>
+    <p class="lead">Mais de 20 anos de dados oficiais, governo por governo. Quando existe dado de outros países, o gráfico traz também o meio de um grupo de <a href="#gl-paises" class="gl-link">12 países emergentes</a>, como controle.</p>
+    <p class="xlead" style="margin-top:.6rem"><a href="../">Veja também: Flávio e os Parças, o que fizeram no poder os líderes com quem Flávio diz querer se alinhar →</a></p>
+    <aside class="notice" aria-labelledby="h-aviso">
+      <h2 id="h-aviso"><button type="button" class="ntog" aria-expanded="false" aria-controls="notice-body"><span><span aria-hidden="true">ⓘ</span> Sobre os dados</span><span class="ch" aria-hidden="true">▾</span></button></h2>
+      <div id="notice-body" hidden>
+      <p>Todos os números vêm de fontes oficiais: FMI, IBGE, Banco Central, INPE, ANP, DIEESE, Ministério do Trabalho e Sebrae. Cada tema mostra a sua fonte.</p>
+      <p>Os gráficos mostram o que aconteceu em cada ano, não a causa. As faixas marcam quem governava, mas decisões têm efeito atrasado. Valores em reais estão corrigidos pela inflação. Anos sem dado aparecem listrados, e estimativas, tracejadas.</p>
+      <p><a href="#gl-metodo" class="gl-link">Veja o método completo no Glossário</a></p>
+      </div>
+    </aside>
+    <section class="hook" id="hook" aria-label="Pergunta rápida"></section>
+  </header>
+
+  <section class="explore" id="temas" aria-labelledby="h-temas">
+    <div class="xbox">
+      <h2 id="h-temas">Explore por tema</h2>
+      <p class="xlead">Escolha um tema no menu do topo da página. Ele fica sempre à mão, mesmo quando você desce a página.</p>
+      <div class="howwrap">
+        <button type="button" class="howtog" aria-expanded="false" aria-controls="how"><span>Como usar</span><span class="ch" aria-hidden="true">▾</span></button>
+        <ol class="how" id="how" hidden>
+          <li><b class="n">1</b><span>Toque em <b>Escolha um tema</b>, na barra azul do topo.</span></li>
+          <li><b class="n">2</b><span>Os temas estão separados por área: Economia, Trabalho e renda, Custo de vida, Contas do governo, Vida real e Ambiente. Para recomeçar, toque no <b>✕</b>.</span></li>
+          <li><b class="n">3</b><span>Veja a curva desde 2003. As faixas mostram quem governava. <b style="color:var(--good)">Azul</b> marca o melhor momento e <b style="color:var(--bad)">laranja</b>, o pior.</span></li>
+        </ol>
+      </div>
+    </div>
+    <div id="view" aria-live="polite"></div>
+  </section>
+
+  <section class="block" id="aprofundar" aria-labelledby="h-aprof">
+    <div class="apbox">
+      <h2 id="h-aprof">Para se aprofundar</h2>
+      <div class="soon">Em breve: conteúdos para ir além dos gráficos.</div>
+    </div>
+  </section>
+
+  <section class="block gl" id="glossario" aria-labelledby="h-gl">
+    <div class="glbox">
+    <h2 id="h-gl"><button type="button" class="gltog" aria-expanded="false" aria-controls="gl-body"><span>Glossário</span><span class="ch" aria-hidden="true">▾</span></button></h2>
+    <p class="glsub">Termos, como ler os gráficos, os 12 países de controle e o método.</p>
+    <div id="gl-body" hidden>
+    <h3>Como ler os gráficos</h3>
+    <dl>
+      <dt>Faixas</dt><dd>Cada faixa cinza é um governo: Lula (2003 a 2010), Dilma (2011 a agosto de 2016), Temer (até 2018), Bolsonaro (2019 a 2022) e Lula (desde 2023).</dd>
+      <dt>Linha grossa</dt><dd>O Brasil.</dd>
+      <dt>Linha cinza</dt><dd>Os 12 países de controle. Mostra o valor do meio do grupo (a mediana): metade dos países ficou acima e metade abaixo. Assim um país em crise não distorce a conta.</dd>
+      <dt>Destaques</dt><dd>Azul marca o melhor momento do Brasil no período. Laranja marca o pior. Cinza aparece quando não dá para dizer o que é melhor.</dd>
+      <dt>Área listrada</dt><dd>Anos sem dado comparável.</dd>
+      <dt>Linha tracejada no fim</dt><dd>Estimativa, ainda não é dado fechado.</dd>
+    </dl>
+    <h3 id="gl-paises">Os 12 países de controle</h3>
+    <dl>
+      <dt>Por que eles</dt><dd>São países emergentes, como o Brasil, e passaram pelos mesmos choques mundiais: crise de 2008, pandemia, guerra na Ucrânia e alta de juros. Se algo atingiu todos, aparece neles também.</dd>
+      <dt>América Latina (7)</dt><dd><ul class="ctry"><li>México</li><li>Chile</li><li>Colômbia</li><li>Peru</li><li>Paraguai</li><li>Uruguai</li><li>Argentina</li></ul></dd>
+      <dt>Outros emergentes (5)</dt><dd><ul class="ctry"><li>Índia</li><li>Indonésia</li><li>África do Sul</li><li>Turquia</li><li>Polônia</li></ul></dd>
+    </dl>
+    <h3>Economia</h3>
+    <dl>
+      <dt>PIB</dt><dd>Tudo o que o país produz em um ano, já descontada a inflação.</dd>
+      <dt>PIB por habitante</dt><dd>O PIB dividido pela população. Mostra a renda média de cada pessoa.</dd>
+      <dt>Índice 2003 = 100</dt><dd>O valor de 2003 vale 100. Um valor de 140 é 40% acima de 2003.</dd>
+      <dt>Investimento</dt><dd>Gasto de governo e empresas em máquinas, obras e construção, em % do PIB.</dd>
+      <dt>Selic</dt><dd>A taxa básica de juros, decidida pelo Banco Central.</dd>
+    </dl>
+    <h3>Contas do governo</h3>
+    <dl>
+      <dt>Dívida do governo</dt><dd>Tudo o que União, estados e municípios devem, em % do PIB.</dd>
+      <dt>Déficit sem juros</dt><dd>Quanto o governo gasta além do que arrecada, sem contar os juros. Também chamado de resultado primário. Abaixo de zero é sobra.</dd>
+      <dt>Déficit com juros</dt><dd>O déficit sem juros mais os juros da dívida. Também chamado de resultado nominal. Mostra quanto o governo precisa se endividar.</dd>
+    </dl>
+    <h3>Preços</h3>
+    <dl>
+      <dt>IPCA</dt><dd>A inflação oficial, calculada pelo IBGE.</dd>
+      <dt>Comida</dt><dd>O grupo Alimentação e bebidas do IPCA.</dd>
+      <dt>Em preços de hoje</dt><dd>O valor antigo corrigido pela inflação, para comparar com o de agora.</dd>
+    </dl>
+    <h3>Trabalho e vida real</h3>
+    <dl>
+      <dt>Desemprego</dt><dd>Parte das pessoas que procuram trabalho e não acham.</dd>
+      <dt>Caged</dt><dd>Cadastro oficial de contratações e demissões com carteira. O saldo é contratações menos demissões.</dd>
+      <dt>Pequenos negócios</dt><dd>MEI, microempresas e empresas de pequeno porte.</dd>
+      <dt>Pobreza e pobreza extrema</dt><dd>Renda abaixo de US$ 6,85 por dia (pobreza) ou de US$ 2,15 por dia (extrema). Linhas do Banco Mundial.</dd>
+      <dt>Fome</dt><dd>O nível mais grave de insegurança alimentar: faltou comida a ponto de passar fome.</dd>
+      <dt>Mapa da Fome</dt><dd>Lista da ONU (FAO) dos países com mais de 2,5% da população sem comida suficiente.</dd>
+    </dl>
+    <h3 id="gl-metodo">Método</h3>
+    <div class="small">
+      <p>Os dados internacionais vêm do FMI (World Economic Outlook, abril/2026). Os do Brasil vêm de IBGE, Banco Central, DIEESE, ANP, INPE, Ministério do Trabalho, Sebrae e Rede PENSSAN. Cada tema mostra a sua fonte.</p>
+      <p>A página mostra o que aconteceu, não a causa. Decisões têm efeito atrasado, e parte do que um governo entrega vem do anterior.</p>
+    </div>
+    </div>
+    </div>
+  </section>
+</main>
+<a href="#topo" class="totop" id="totop" aria-label="Voltar ao topo" hidden>↑</a>
+
+<script>
+const fmt=(v,d=1,sg=false)=>{ if(v==null||isNaN(v)) return '–'; const r=Math.round(v*Math.pow(10,d))/Math.pow(10,d);
+  let s=Math.abs(r).toLocaleString('pt-BR',{minimumFractionDigits:d,maximumFractionDigits:d}); return (r<0?'−':(sg&&r>0?'+':''))+s; };
+const LINK='https://destrava-conversas.github.io/eoflavio/economia/';
+const Y0=2003, Y1=2025, YRS=Array.from({length:Y1-Y0+1},(_,i)=>Y0+i);
+const GOVS=[['Lula',2002.5,2010.5],['Dilma',2010.5,2016.6],['Temer',2016.6,2018.5],['Bolsonaro',2018.5,2022.5],['Lula',2022.5,2025.5]];
+const pad=(start,arr)=>{ const o=Array(YRS.length).fill(null); arr.forEach((v,i)=>{o[start-Y0+i]=v;}); return o; };
+
+const AREAS=[['eco','Economia'],['trab','Trabalho e renda'],['custo','Custo de vida'],['gov','Contas do governo'],['vida','Vida real'],['amb','Ambiente']];
+const T=[
+ {id:'pib',more:[[2020,'bad','−3,3% em 2020','pandemia']],a:'eco',t:'Crescimento do PIB',u:'% ao ano',dec:1,sg:true,better:'high',src:'FMI, World Economic Outlook, abril/2026.',
+  what:'Quanto a economia cresceu ou encolheu em cada ano, já descontada a inflação.',
+  br:[1.14,5.76,3.2,3.96,6.07,5.09,-0.13,7.53,3.97,1.92,3.0,0.5,-3.55,-3.28,1.32,1.78,1.22,-3.28,4.76,3.02,3.24,3.42,2.29],
+  ctrl:[4.24,5.06,5.76,6.13,6.44,3.92,0.42,7.09,5.63,3.73,4.89,3.58,2.96,2.56,2.67,3.34,1.11,-6.16,8.31,4.93,0.82,3.18,3.51],
+  hi:'maior alta do período',lo:'recessão',
+  story:['Duas quedas marcam a série: a recessão de 2015 e 2016, com dois anos seguidos de queda acima de 3%, e a pandemia de 2020.',
+   'Na maior parte dos anos, o Brasil cresceu menos que o grupo de 12 países. As exceções mais claras foram 2020, quando o Brasil caiu menos (−3,3% contra −6,2%), e 2023 (+3,2% contra +0,8%).',
+   'De 2021 a 2025 o Brasil cresceu todos os anos, em média 3,3%. Em 2025 foram 2,3%, contra 3,5% do grupo.'],
+  care:'A linha cinza é o país do meio entre os 12 em cada ano, não a média deles.'},
+ {id:'pibhab',more:[[2013,'good','135 em 2013','pico antes da recessão']],a:'eco',t:'PIB por habitante',u:'índice, 2003 = 100',dec:0,better:'high',src:'FMI, World Economic Outlook, abril/2026.',
+  what:'A renda média por pessoa, já descontada a inflação. O valor de 2003 vale 100.',
+  br:[100,104.55,106.71,109.75,115.22,119.91,118.62,126.51,130.6,132.09,134.99,134.6,128.81,123.69,124.51,125.92,126.62,121.73,126.96,130.32,134.01,138.02,140.66],
+  ctrl:[100,104.48,109.16,115.85,122.21,126.36,125.38,133.06,140.59,144.33,146.0,151.34,156.25,161.24,168.46,171.57,171.17,163.16,170.62,174.3,178.93,185.52,192.15],
+  loY:2016,hi:'maior do período',lo:'fundo da recessão',
+  story:['Em 2025 a renda média por pessoa estava 41% acima de 2003. No grupo de 12 países, estava 92% acima.',
+   'A recessão de 2015 e 2016 tirou cerca de 8% da renda por pessoa. O Brasil só voltou ao nível de 2013 em 2024.',
+   'A distância para o grupo cresceu sobretudo depois de 2014.'],
+  care:'O índice do grupo é o país do meio em cada ano, com todos começando em 100 em 2003.'},
+ {id:'inflacao',more:[[2022,'bad','9,3% em 2022','alta no mundo todo']],a:'eco',t:'Inflação',u:'% ao ano, média do ano',dec:1,better:'low',src:'FMI, World Economic Outlook, abril/2026. IPCA: IBGE.',
+  what:'Quanto os preços subiram, na média de cada ano.',
+  br:[14.71,6.6,6.87,4.18,3.64,5.68,4.89,5.04,6.64,5.4,6.2,6.33,9.03,8.74,3.45,3.67,3.73,3.21,8.3,9.28,4.59,4.37,5.02],
+  ctrl:[6.34,4.36,4.34,5.52,6.12,8.65,5.05,4.44,5.16,4.04,4.78,5.48,4.59,4.08,4.06,3.68,3.58,3.34,4.94,9.44,6.09,4.53,3.97],
+  hi:'depois da crise de 2002',lo:'menor do período',
+  story:['Os picos vieram em 2003, depois da crise de 2002, em 2015 e 2016 e em 2021 e 2022.',
+   'Em 2022 a alta foi mundial: o grupo de 12 países teve 9,4%, quase o mesmo que o Brasil.',
+   'Em 2025 a inflação média do Brasil foi 5,0%, acima do grupo (4,0%). Pelo IPCA de dezembro a dezembro, a medida oficial, foi 4,3%.'],
+  care:'Para comparar com outros países, o gráfico usa a inflação média do ano (FMI). O IPCA oficial mede de dezembro a dezembro e dá números um pouco diferentes.'},
+ {id:'invest',a:'eco',t:'Investimento',u:'% do PIB',dec:1,better:'high',src:'FMI, World Economic Outlook, abril/2026.',
+  what:'Quanto o país gasta em máquinas, obras e construção, como parte de tudo o que produz.',
+  br:[16.86,17.91,17.2,17.82,19.82,21.62,18.8,21.8,21.83,21.42,21.69,20.55,17.41,14.97,14.63,15.1,15.52,16.12,19.52,18.09,15.76,16.98,16.84],
+  ctrl:[20.25,20.58,21.21,22.07,22.71,24.44,21.44,23.58,24.12,23.18,22.48,23.33,23.76,22.96,21.46,22.27,21.53,19.83,21.89,22.41,19.79,21.37,21.34],
+  hi:'maior do período',lo:'fundo da recessão',
+  story:['O investimento subiu até perto de 22% do PIB entre 2008 e 2013 e despencou na recessão, até 14,6% em 2017.',
+   'Desde então fica entre 15% e 20%. Em 2025 foi 16,8%.',
+   'O grupo de 12 países investe mais em todos os anos da série, quase sempre acima de 20%.'],
+  care:''},
+ {id:'selic',a:'eco',t:'Juros (Selic)',u:'% ao ano, no fim de cada ano',dec:2,better:'neutral',src:'Banco Central, meta Selic em vigor no fim do ano.',
+  what:'A taxa básica de juros da economia. Quem decide é o Banco Central.',
+  br:[16.5,17.75,18.0,13.25,11.25,13.75,8.75,10.75,11.0,7.25,10.0,11.75,14.25,13.75,7.0,6.5,4.5,2.0,9.25,13.75,11.75,12.25,15.0],
+  hi:'maior do período',lo:'menor da história',
+  story:['A Selic passou de 17% nos primeiros anos da série e chegou a 18% em 2005. Caiu até 7,25% em 2012.',
+   'Voltou a 14,25% em 2015, caiu até a mínima de 2% em 2020 e subiu até 13,75% em 2022 para segurar a inflação.',
+   'Caiu em 2023 e no começo de 2024, voltou a subir no fim de 2024 e chegou a 15% em 2025.'],
+  care:'O Banco Central tem autonomia desde 2021. Por isso a página não marca a Selic como melhor ou pior: juros altos seguram a inflação, mas encarecem o crédito.'},
+ {id:'desemp',more:[[2014,'good','6,6% em 2014','antes da recessão']],a:'trab',t:'Desemprego',u:'% da força de trabalho, no fim de cada ano',dec:1,better:'low',src:'IBGE, PNAD Contínua, 4º trimestre. Controle: FMI, média do ano.',
+  what:'Parte das pessoas que procuram trabalho e não acham.',
+  br:pad(2012,[6.9,6.2,6.6,9.1,12.1,11.9,11.7,11.1,14.2,11.1,7.9,7.4,6.2,5.1]),
+  ctrl:[9.93,10.02,11.24,10.18,8.9,7.92,8.51,7.9,7.3,6.8,6.51,6.62,6.53,6.75,6.96,7.87,7.35,10.56,8.81,7.29,6.45,6.8,6.65],
+  gapNote:'pesquisa antiga, não comparável',hi:'pandemia',lo:'menor da série',
+  story:['O desemprego quase dobrou de 2014 a 2016, de 6,6% para 12,1% no fim do ano, e ficou acima de 11% até 2019.',
+   'Na pandemia chegou a 14,2%. Desde 2022 cai todo ano e terminou 2025 em 5,1%, o menor da série, que começa em 2012.',
+   'Nos 12 países, o desemprego ficou perto de 7% na maior parte do período, com alta em 2020.'],
+  care:'Antes de 2012 o IBGE usava outra pesquisa, só em 6 regiões metropolitanas, que não dá para comparar. A linha do Brasil é o fim de cada ano; a dos 12 países é a média do ano.'},
+ {id:'renda',a:'trab',t:'Renda do trabalho',u:'R$ por mês, em preços de hoje, no fim de cada ano',dec:0,better:'high',pre:'R$ ',src:'IBGE, PNAD Contínua, tabela 5436, 4º trimestre.',
+  what:'Quanto as pessoas ganham no trabalho principal, já descontada a inflação.',
+  br:pad(2012,[3084,3191,3251,3149,3162,3191,3235,3240,null,null,3214,3316,3449,3625]),
+  gapNote:'sem dado',hi:'recorde da série',lo:'menor do período',
+  story:['A renda do trabalho subiu até 2014, caiu na recessão e ficou perto de R$ 3.200 até 2019.',
+   'Em 2020 e 2021 a tabela usada não traz o dado.',
+   'De 2022 a 2025 a renda subiu 13% e bateu o recorde da série: R$ 3.625 por mês.'],
+  care:'A série começa em 2012. Os valores estão corrigidos pela inflação até o último dado do IBGE.'},
+ {id:'minimo',a:'trab',t:'Salário mínimo',u:'R$, em preços de janeiro de 2025',dec:0,better:'high',pre:'R$ ',src:'DIEESE, ganho real de cada reajuste (reajuste menos o INPC).',
+  what:'O valor do salário mínimo de cada ano, corrigido pela inflação para comparar com o de hoje.',
+  br:[797,807,873,987,1038,1079,1142,1211,1215,1307,1342,1357,1391,1396,1394,1391,1407,1407,1407,1408,1413,1479,1518],
+  hi:'maior do período',lo:'menor do período',
+  story:['De 2003 a 2015 o salário mínimo ganhou poder de compra quase todo ano: subiu 75% acima da inflação.',
+   'De 2016 a 2023 ficou praticamente parado, só com a reposição da inflação.',
+   'Voltou a ter ganho real em 2024 e 2025, com a regra de valorização retomada em 2023. Em 2025 era R$ 1.518.'],
+  care:'O cálculo encadeia o ganho real de cada reajuste, medido pelo DIEESE, e usa R$ 1.518 (2025) como referência.'},
+ {id:'vagas',a:'trab',t:'Vagas com carteira',u:'mil vagas criadas no ano (saldo)',dec:0,better:'high',src:'Novo Caged, Ministério do Trabalho.',
+  what:'Contratações menos demissões com carteira assinada, em cada ano.',
+  br:pad(2020,[-189.4,2782.3,2014.9,1455.3,1677.6,1279.5]),zero:true,
+  gapNote:'antes de 2020 o Caged era outro',hi:'rebote pós-pandemia',lo:'pandemia',
+  story:['Em 2020, na pandemia, o país perdeu 189 mil vagas com carteira. Em 2021 veio o rebote, com 2,8 milhões.',
+   'De 2022 a 2025 o saldo ficou entre 1,3 e 2,0 milhões de vagas por ano. O saldo de 2025 foi o menor desde 2020.'],
+  care:'O Novo Caged começa em 2020. A série antiga usava outro método e não dá para comparar.'},
+ {id:'negocios',a:'trab',t:'Pequenos negócios abertos',u:'milhões por ano',dec:1,better:'high',src:'Sebrae, com dados da Receita Federal. Recuperação judicial: Serasa Experian.',
+  what:'Quantos MEI, microempresas e empresas de pequeno porte foram abertos em cada ano.',
+  br:pad(2020,[3.2,3.9,3.7,3.7,4.1,4.9]),
+  gapNote:'sem dado nesta página',hi:'recorde',lo:'menor do período',
+  story:['A abertura de pequenos negócios cresceu quase todo ano, de 3,2 milhões em 2020 para 4,9 milhões em 2025, o recorde.',
+   'Abrir não quer dizer sobreviver: as empresas em recuperação judicial também bateram recorde em 2025, com 2.466 (Serasa).'],
+  care:'A série desta página começa em 2020.'},
+ {id:'comida',a:'custo',t:'Comida',u:'% no ano',dec:1,sg:true,better:'low',src:'IBGE, IPCA de dezembro a dezembro.',
+  what:'Quanto subiu o preço de alimentos e bebidas em cada ano. A linha tracejada é a inflação geral.',
+  br:pad(2006,[1.23,10.79,11.11,3.18,10.39,7.18,9.86,8.48,8.03,12.03,8.62,-1.87,4.04,6.37,14.09,7.94,11.64,1.03,7.69,2.95]),
+  br2:[9.30,7.60,5.69,3.14,4.46,5.90,4.31,5.91,6.50,5.84,5.91,6.41,10.67,6.29,2.95,3.75,4.31,4.52,10.06,5.79,4.62,4.83,4.26],br2n:'Inflação geral',
+  gapNote:'sem dado',hi:'maior alta do período',lo:'comida mais barata',
+  story:['Em vários anos a comida subiu bem mais que a inflação geral, como em 2007 e 2008, 2010, 2012 e 2013, 2020 e 2022.',
+   'Os anos de comida mais barata foram 2017 (−1,9%) e 2023 (+1,0%).',
+   'Em 2025 a comida subiu 3,0%, menos que a inflação geral (4,3%).'],
+  care:'Câmbio, safra e preços mundiais pesam muito no preço da comida.'},
+ {id:'gasolina',a:'custo',t:'Gasolina',u:'R$ por litro, em preços de dezembro de 2025',dec:2,better:'low',pre:'R$ ',src:'ANP, preço médio nos postos na virada de cada ano, corrigido pelo IPCA.',
+  what:'O preço médio do litro nos postos, corrigido pela inflação para comparar com o de hoje.',
+  br:pad(2018,[6.29,6.34,6.08,8.07,5.67,6.10,6.40,6.22]),
+  gapNote:'série ainda não incluída',hi:'alta do petróleo e do dólar',lo:'corte de impostos',
+  story:['Em preços de hoje, a gasolina custava cerca de R$ 6,30 em 2018 e 2019. Disparou em 2021, até passar de R$ 8.',
+   'Caiu no fim de 2022 com corte de impostos, aprovado meses antes da eleição. Os impostos federais voltaram em 2023.',
+   'Desde então o preço ficou entre R$ 6,10 e R$ 6,40.'],
+  care:'O valor de 2021 é a média de dezembro. Nos outros anos, é a última semana do ano.'},
+ {id:'divida',a:'gov',t:'Dívida do governo',u:'% do PIB',dec:0,better:'low',estFrom:2025,src:'FMI, World Economic Outlook, abril/2026. 2025 é estimativa.',
+  what:'Tudo o que União, estados e municípios devem, como parte do PIB.',
+  br:[71.51,68.03,66.97,64.6,63.02,61.42,64.7,62.43,60.63,61.61,59.59,61.62,71.73,77.42,82.75,84.78,87.12,96.01,88.93,83.94,84.0,87.03,93.33],
+  ctrl:[47.81,45.88,41.49,35.91,36.33,34.7,38.53,37.56,35.28,35.69,38.97,43.29,47.78,48.52,49.02,49.89,48.09,57.52,54.85,51.3,51.14,57.11,59.34],
+  hi:'pandemia',lo:'menor do período',
+  story:['A dívida caiu de 72% para 60% do PIB entre 2003 e 2013.',
+   'Subiu forte na recessão de 2015 e 2016 e na pandemia, quando chegou a 96%. Caiu para 84% em 2022, com a ajuda da inflação alta, e voltou a subir: 93% em 2025, pela estimativa do FMI.',
+   'Nos 12 países a dívida também subiu, mas de um nível bem mais baixo: 59% em 2025.'],
+  care:'O FMI conta a dívida de um jeito um pouco diferente do Banco Central, por isso os números não batem exatamente com os divulgados no Brasil.'},
+ {id:'defp',a:'gov',t:'Déficit sem juros',u:'% do PIB. Abaixo de zero é sobra',dec:1,sg:true,better:'low',zero:true,estFrom:2025,src:'FMI, World Economic Outlook, abril/2026 (resultado primário com o sinal invertido). 2025 é estimativa.',
+  what:'Quanto o governo gasta além do que arrecada, sem contar os juros da dívida.',
+  br:[-3.55,-4.05,-3.87,-1.51,-2.88,-3.21,-0.91,-1.58,-2.74,-2.22,-1.52,0.9,0.85,2.01,1.62,0.87,0.08,7.54,-1.98,-1.31,2.17,0.22,0.39],
+  ctrl:[-1.1,-2.02,-2.32,-2.94,-2.2,-1.91,0.93,0.43,-0.29,0.41,0.84,0.85,1.27,0.65,0.61,0.59,0.84,5.09,1.81,0.42,1.61,1.5,0.85],
+  hi:'pandemia',lo:'maior sobra',
+  story:['De 2003 a 2013 o governo teve sobra antes dos juros, de 1,5% a 4% do PIB. De 2014 em diante ficou quase sempre no vermelho.',
+   'O pior ano foi 2020, na pandemia, com déficit de 7,5%. Em 2021 e 2022 houve sobra, com receita alta puxada pela inflação e pelas commodities.',
+   'Em 2023 o déficit voltou (2,2%) e ficou perto de zero em 2024 e 2025.'],
+  care:''},
+ {id:'defn',a:'gov',t:'Déficit com juros',u:'% do PIB',dec:1,better:'low',estFrom:2025,src:'FMI, World Economic Outlook, abril/2026 (resultado nominal com o sinal invertido). 2025 é estimativa.',
+  what:'O déficit sem juros mais os juros da dívida. Mostra quanto o governo precisa se endividar.',
+  br:[5.4,2.96,3.36,4.87,2.66,2.39,4.23,3.55,2.74,2.35,3.42,6.28,9.28,7.99,7.97,6.99,4.86,11.64,2.63,3.96,7.71,6.17,8.07],
+  ctrl:[1.91,1.04,0.19,-0.12,0.49,0.22,3.3,2.19,1.35,1.98,1.84,2.2,2.66,2.61,2.5,2.04,2.72,6.97,4.04,3.01,4.05,4.02,3.14],
+  hi:'pandemia',lo:'menor do período',
+  story:['Com os juros, o governo fecha no vermelho em todos os anos da série. O déficit foi menor de 2007 a 2013, entre 2,4% e 4,2% do PIB.',
+   'Passou de 9% em 2015 e chegou a 11,6% em 2020. Caiu para 2,6% em 2021 e voltou a subir: 8,1% em 2025, pela estimativa do FMI.',
+   'O Brasil paga mais juros que os 12 países. O déficit deles ficou perto ou abaixo de 4% em quase todos os anos, menos em 2020.'],
+  care:''},
+ {id:'pobreza',a:'vida',t:'Pobreza',u:'% da população',dec:1,better:'low',src:'IBGE, Síntese de Indicadores Sociais 2025. A renda inclui benefícios sociais.',
+  what:'Parte da população com renda abaixo de US$ 6,85 por dia. A linha tracejada é a pobreza extrema (abaixo de US$ 2,15 por dia).',
+  br:pad(2012,[34.7,32.5,30.9,31.7,33.7,33.7,33.4,32.6,31.1,36.8,31.6,27.3,23.1]),
+  br2:pad(2012,[6.6,5.8,5.2,5.6,6.7,7.3,7.4,7.4,6.1,9.0,5.9,4.4,3.5]),br2n:'Pobreza extrema',y1:2024,
+  gapNote:'série começa em 2012',hi:'maior da série',lo:'menor da série',
+  story:['A pobreza ficou entre 31% e 34% de 2013 a 2020. Subiu para 36,8% em 2021 e caiu para 23,1% em 2024, o menor nível da série.',
+   'A pobreza extrema foi de 6,6% em 2012 a 9,0% em 2021 e caiu para 3,5% em 2024.',
+   'Sem os programas sociais, a pobreza extrema de 2024 seria 10,0%, e não 3,5% (IBGE).'],
+  care:'O dado de 2025 ainda não saiu.'},
+ {id:'fome',a:'vida',t:'Fome',u:'% dos lares com fome (IBGE)',dec:1,better:'low',src:'IBGE (PNAD e POF), Rede PENSSAN e FAO.',sparse:true,
+  what:'Lares em que faltou comida a ponto de passar fome. As bolinhas vazias são de outra pesquisa, que mede pessoas.',
+  br:pad(2013,[3.2,null,null,null,null,4.6,null,null,null,null,4.1,3.2]),
+  br2:pad(2020,[9.0,null,15.5]),br2n:'Rede PENSSAN (pessoas, outro método)',br2pts:true,
+  events:[[2013,'Sai do Mapa da Fome'],[2021,'Volta ao Mapa'],[2024,'Sai de novo']],
+  hi:'POF 2017-18',lo:'menor medido',
+  story:['O Brasil saiu do Mapa da Fome da ONU no relatório de 2014, com dados de 2011 a 2013. Voltou no de 2022 (2019 a 2021) e saiu de novo no de 2025 (2022 a 2024).',
+   'Pelo IBGE, os lares com fome passaram de 3,2% em 2013 para 4,6% em 2017-18 e caíram para 3,2% em 2024.',
+   'Entre 2018 e 2023 o IBGE não mediu. A Rede PENSSAN, com outro método, viu a fome subir de 9,0% para 15,5% das pessoas entre 2020 e 2022.'],
+  care:'As duas pesquisas medem coisas diferentes (lares e pessoas) e não se comparam diretamente.'},
+ {id:'desmat',more:[[2021,'bad','13,0 mil em 2021','maior desde 2006']],a:'amb',t:'Desmatamento na Amazônia',u:'mil km² por ano, na Amazônia Legal',dec:1,better:'low',src:'INPE, PRODES, taxas consolidadas.',
+  what:'Área de floresta derrubada em cada ano. O ano PRODES vai de agosto do ano anterior a julho do ano indicado.',
+  br:[25.396,27.772,19.014,14.286,11.651,12.911,7.464,7.0,6.418,4.571,5.891,5.012,6.207,7.893,6.947,7.536,10.129,10.851,13.038,11.594,9.064,6.518,5.731],
+  hi:'maior do período',lo:'menor da série',
+  story:['O desmatamento caiu 84% de 2004 a 2012 e voltou a subir a partir de 2013.',
+   'Chegou a 13 mil km² em 2021, o maior desde 2006.',
+   'Em 2025 foram 5,7 mil km², 56% menos que em 2021.'],
+  care:'Como o ano PRODES vai de agosto a julho, o valor de 2019 ainda inclui meses do governo Temer, e o de 2023, meses do governo Bolsonaro.'}
+];
+
+/* ---------- gráfico ---------- */
+function draw(c,wrap,stat){
+  const W=Math.max(290,Math.round(wrap.clientWidth||340)), H=Math.round(Math.min(380,Math.max(270,W*0.64)));
+  const m={t:58,r:16,b:28,l:40}, iw=W-m.l-m.r, ih=H-m.t-m.b;
+  const yEnd=c.y1||Y1, X0=Y0-0.5, X1=yEnd+0.5, xs=y=>m.l+(y-X0)/(X1-X0)*iw;
+  const idx=y=>y-Y0, B=c.br, all=[...B,...(c.br2||[]),...(c.ctrl||[])].filter(v=>v!=null);
+  const pts=B.map((v,i)=>[Y0+i,v]).filter(p=>p[1]!=null&&p[0]<=yEnd);
+  let pMax=pts.reduce((a,b)=>b[1]>=a[1]?b:a), pMin=pts.reduce((a,b)=>b[1]<=a[1]?b:a);
+  if(c.hiY) pMax=[c.hiY,B[idx(c.hiY)]]; if(c.loY) pMin=[c.loY,B[idx(c.loY)]];
+  const colHi=c.better==='high'?'var(--good)':c.better==='low'?'var(--bad)':'var(--tie)';
+  const colLo=c.better==='high'?'var(--bad)':c.better==='low'?'var(--good)':'var(--tie)';
+  let lo=Math.min(...all), hi=Math.max(...all); if(c.zero||lo>0&&lo<(hi-lo)*0.6) lo=Math.min(lo,0);
+  const span=hi-lo||1; hi+=span*(stat?0.30:0.10); lo-=span*(stat?0.22:0.06);
+  const dmin=Math.min(...all);
+  const vis=hi-(dmin>=0?Math.max(lo,0):lo); let stp=[0.5,1,2,3,5,10,20,25,50,100,200,250,500,1000].find(q=>vis/q<=6)||1000;
+  lo=Math.floor(lo/stp)*stp; hi=Math.ceil(hi/stp)*stp;
+  const ys=v=>m.t+ih*(1-(v-lo)/(hi-lo));
+  let s='<svg viewBox="0 0 '+W+' '+H+'" width="100%" role="img" aria-label="'+c.t+', de '+Y0+' a '+yEnd+'" style="display:block;overflow:visible">';
+  s+='<defs><pattern id="hz" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="6" style="stroke:var(--line)" stroke-width="2"/></pattern></defs>';
+  GOVS.forEach((g,gi)=>{ const a=Math.max(g[1],X0), b=Math.min(g[2],X1); if(b<=a) return; const xa=xs(a), xb=xs(b), w=xb-xa;
+    s+='<rect x="'+xa+'" y="'+(m.t-36)+'" width="'+w+'" height="'+(ih+36)+'" style="fill:'+(gi%2?'var(--bandl)':'var(--bandb)')+'"/>';
+    let fz=11.5, lb=g[0]; const tw=()=>lb.length*fz*0.62; if(tw()>w-4) fz=Math.max(9,fz*(w-4)/tw()); if(tw()>w-2) lb=g[0].slice(0,3)+'.';
+    s+='<text x="'+((xa+xb)/2)+'" y="'+(m.t-22)+'" text-anchor="middle" font-size="'+fz+'" font-weight="700" style="fill:var(--muted)">'+lb+'</text>';
+    if(gi>0) s+='<line x1="'+xa+'" x2="'+xa+'" y1="'+(m.t-36)+'" y2="'+(m.t+ih)+'" style="stroke:var(--card)" stroke-width="2"/>'; });
+  if(!c.sparse){ let i=0; while(i<=idx(yEnd)){ if(B[i]==null){ let j=i; while(j+1<=idx(yEnd)&&B[j+1]==null) j++;
+      const xa=xs(Y0+i-0.5), xb=xs(Y0+j+0.5); s+='<rect x="'+xa+'" y="'+m.t+'" width="'+(xb-xa)+'" height="'+ih+'" style="fill:url(#hz)"/>';
+      if(xb-xa>70){ s+='<text x="'+((xa+xb)/2)+'" y="'+(m.t+ih/2)+'" text-anchor="middle" font-size="11.5" font-weight="700" style="fill:var(--muted);paint-order:stroke;stroke:var(--card);stroke-width:4px">'+(i===0?(c.gapNote||'sem dado'):'sem dado')+'</text>'; }
+      i=j+1; } else i++; } }
+  for(let v=lo; v<=hi+1e-9; v+=stp){ if(dmin>=0&&v<0) continue; const y=ys(v);
+    s+='<line x1="'+m.l+'" x2="'+(W-m.r)+'" y1="'+y+'" y2="'+y+'" style="stroke:var(--line)" stroke-width="'+(Math.abs(v)<1e-9?1.8:1)+'"/>';
+    s+='<text x="'+(m.l-6)+'" y="'+(y+4)+'" text-anchor="end" font-size="11" style="fill:var(--muted)">'+fmt(v,stp<1?1:0)+'</text>'; }
+  const xstep=W<460?4:2;
+  for(let y=Y0;y<=yEnd;y++){ const show=(y===yEnd)||((y-Y0)%xstep===0&&yEnd-y>=(xstep>2?3:2)); if(show) s+='<text x="'+xs(y)+'" y="'+(H-8)+'" text-anchor="middle" font-size="11" style="fill:var(--muted)">'+y+'</text>'; }
+  const seg=(a,col,w,dash,estFrom)=>{ let o='', d='', pen=false;
+    for(let i=0;i<=idx(yEnd);i++){ const v=a[i]; if(v==null){pen=false;continue;} const y=Y0+i; if(estFrom&&y>=estFrom) break;
+      d+=(pen?'L':'M')+xs(y).toFixed(1)+' '+ys(v).toFixed(1); pen=true; }
+    o+='<path d="'+d+'" fill="none" style="stroke:'+col+'" stroke-width="'+w+'" stroke-linejoin="round" stroke-linecap="round"'+(dash?' stroke-dasharray="'+dash+'"':'')+'/>';
+    if(estFrom){ for(let y=estFrom;y<=yEnd;y++){ const a0=a[idx(y-1)], a1=a[idx(y)]; if(a0!=null&&a1!=null) o+='<path d="M'+xs(y-1)+' '+ys(a0)+'L'+xs(y)+' '+ys(a1)+'" fill="none" style="stroke:'+col+'" stroke-width="'+w+'" stroke-dasharray="3 5" stroke-linecap="round"/>'; } }
+    return o; };
+  if(c.ctrl) s+=seg(c.ctrl,'var(--ctrl)',2.2,null,c.estFrom);
+  if(c.br2&&!c.br2pts) s+=seg(c.br2,'var(--ink)',2,'6 5',null);
+  if(!c.sparse) s+=seg(B,'var(--ink)',3,null,c.estFrom);
+  const r=W<460?2.8:3.3;
+  B.forEach((v,i)=>{ if(v!=null&&Y0+i<=yEnd) s+='<circle cx="'+xs(Y0+i)+'" cy="'+ys(v)+'" r="'+(c.sparse?5:r)+'" style="fill:var(--ink)"/>'; });
+  if(c.br2&&c.br2pts) c.br2.forEach((v,i)=>{ if(v!=null) s+='<circle cx="'+xs(Y0+i)+'" cy="'+ys(v)+'" r="5" style="fill:var(--card);stroke:var(--ink)" stroke-width="2"/>'+(stat?'<text x="'+xs(Y0+i)+'" y="'+(ys(v)-10)+'" text-anchor="middle" font-size="11.5" font-weight="700" style="fill:var(--muted);paint-order:stroke;stroke:var(--card);stroke-width:3px">'+fmt(v,1)+'%</text>':''); });
+  const lastIdx=a=>{ for(let i=idx(yEnd);i>=0;i--) if(a[i]!=null) return i; return -1; };
+  const L=lastIdx(B), lv=B[L], ly=Y0+L;
+  if(c.ctrl){ const li=lastIdx(c.ctrl); s+='<text x="'+(W-m.r)+'" y="'+(ys(c.ctrl[li])+(c.ctrl[li]>lv?-9:17))+'" text-anchor="end" font-size="11" font-weight="700" style="fill:var(--ctrl);paint-order:stroke;stroke:var(--card);stroke-width:3px">12 países</text>'; }
+  if(c.br2&&!c.br2pts){ const li=lastIdx(c.br2); s+='<text x="'+(W-m.r)+'" y="'+(ys(c.br2[li])+17)+'" text-anchor="end" font-size="11" font-weight="700" style="fill:var(--muted);paint-order:stroke;stroke:var(--card);stroke-width:3px">'+c.br2n+'</text>'; }
+  (c.events||[]).forEach(([y,t],k)=>{ const x=xs(y), yy=m.t+12+(k%2)*15;
+    s+='<line x1="'+x+'" x2="'+x+'" y1="'+(yy+4)+'" y2="'+(m.t+ih)+'" style="stroke:var(--muted)" stroke-width="1" stroke-dasharray="2 3"/>';
+    s+='<text x="'+Math.min(W-m.r,Math.max(m.l,x))+'" y="'+yy+'" text-anchor="'+(x>W*0.75?'end':x<W*0.25?'start':'middle')+'" font-size="11" font-weight="700" style="fill:var(--muted);paint-order:stroke;stroke:var(--card);stroke-width:3px">'+t+'</text>'; });
+  const boxes=[];
+  const hit=(r)=>boxes.some(q=>!(r.x+r.w<q.x||q.x+q.w<r.x||r.y+r.h<q.y||q.y+q.h<r.y));
+  const callout=(p,col,sub,up)=>{ const x=xs(p[0]), y=ys(p[1]), tt=(c.pre||'')+fmt(p[1],c.dec,c.sg)+' em '+p[0];
+    const tw=Math.max(tt.length*7.3,sub.length*6.1)+16, th=36, cx=v=>Math.max(m.l-6,Math.min(W-m.r-tw+6,v)), cy=v=>Math.max(m.t-2,Math.min(m.t+ih-th,v));
+    const cand=[[cx(x-tw/2),up?y-th-14:y+14],[cx(x-tw/2),up?y+14:y-th-14],[cx(x-tw-14),cy(y-th/2)],[cx(x+14),cy(y-th/2)],[cx(x-tw/2),up?y-th-60:y+60]];
+    let pick=null; for(const [bx,by] of cand){ const r={x:bx,y:by,w:tw,h:th}; if(by<m.t-2||by+th>m.t+ih+4) continue; if(!hit(r)){ pick=r; break; } }
+    if(!pick){ const [bx,by]=cand[0]; pick={x:bx,y:cy(by),w:tw,h:th}; }
+    boxes.push(pick); const bx=pick.x, by=pick.y;
+    const ax=Math.max(bx+8,Math.min(bx+tw-8,x)), ay=by>y?by:(by+th<y?by+th:y);
+    let o='<line x1="'+x+'" y1="'+y+'" x2="'+ax+'" y2="'+ay+'" style="stroke:'+col+'" stroke-width="1.5"/>';
+    o+='<rect x="'+bx+'" y="'+by+'" width="'+tw+'" height="'+th+'" rx="7" style="fill:'+col+'"/>';
+    o+='<text x="'+(bx+8)+'" y="'+(by+16)+'" font-size="13" font-weight="700" style="fill:#10202e">'+tt+'</text>';
+    o+='<text x="'+(bx+8)+'" y="'+(by+29)+'" font-size="10.5" style="fill:#10202e">'+sub+'</text>';
+    o+='<circle cx="'+x+'" cy="'+y+'" r="6.5" style="fill:'+col+';stroke:var(--card)" stroke-width="2.5"/>'; return o; };
+  if(stat){
+  if(ly!==pMax[0]&&ly!==pMin[0]&&!(c.br2&&!c.br2pts)) s+='<text x="'+Math.min(W-m.r-2,xs(ly)+2)+'" y="'+(ys(lv)-10)+'" text-anchor="end" font-size="12" font-weight="700" style="fill:var(--ink);paint-order:stroke;stroke:var(--card);stroke-width:3px">'+(c.pre||'')+fmt(lv,c.dec,c.sg)+'</text>';
+  s+=callout(pMin,colLo,c.lo,false);
+  s+=callout(pMax,colHi,c.hi,true);
+  (c.more||[]).forEach(([y,k,t])=>{ const i=idx(y), v=B[i], x=xs(y), yy=ys(v), col='var(--'+k+')';
+    const up=(B[i-1]==null||v>=B[i-1])&&(B[i+1]==null||v>=B[i+1]); const tw=t.length*7, tx=Math.max(m.l+tw/2,Math.min(W-m.r-tw/2,x));
+    let ty=up?yy-12:yy+20; const r={x:tx-tw/2,y:ty-12,w:tw,h:15}; if(hit(r)) ty=up?yy+20:yy-12; boxes.push({x:tx-tw/2,y:ty-12,w:tw,h:15});
+    s+='<circle cx="'+x+'" cy="'+yy+'" r="5.5" style="fill:'+col+';stroke:var(--card)" stroke-width="2.5"/>';
+    s+='<text x="'+tx+'" y="'+ty+'" text-anchor="middle" font-size="12.5" font-weight="700" style="fill:'+col+';paint-order:stroke;stroke:var(--card);stroke-width:4px">'+t+'</text>'; });
+    wrap.innerHTML=s+'</svg>'; return;
+  }
+  // interativo: destaques só como bolinhas; legenda aparece ao tocar/passar o mouse
+  const HL={}; HL[pMax[0]]={col:colHi,sub:c.hi}; HL[pMin[0]]={col:colLo,sub:c.lo};
+  (c.more||[]).forEach(([y,k,t,sb])=>{ HL[y]={col:'var(--'+k+')',sub:sb||''}; });
+  Object.keys(HL).forEach(y=>{ const v=B[idx(+y)]; if(v==null) return; s+='<circle cx="'+xs(+y)+'" cy="'+ys(v)+'" r="7" style="fill:'+HL[y].col+';stroke:var(--card)" stroke-width="2.5" pointer-events="none"/>'; });
+  s+='<circle class="selr" r="9" cx="-50" cy="-50" style="fill:none;stroke:var(--ink)" stroke-width="2" pointer-events="none"/>';
+  const P=[]; B.forEach((v,i)=>{ if(v!=null&&Y0+i<=yEnd) P.push(Y0+i); });
+  P.forEach(y=>{ s+='<circle class="hit" data-y="'+y+'" cx="'+xs(y)+'" cy="'+ys(B[idx(y)])+'" r="'+Math.max(10,Math.min(16,iw/(yEnd-Y0+1)/2))+'" style="fill:transparent;cursor:pointer"/>'; });
+  if(c.br2&&c.br2pts) c.br2.forEach((v,i)=>{ if(v!=null) s+='<circle class="hit" data-y2="'+(Y0+i)+'" cx="'+xs(Y0+i)+'" cy="'+ys(v)+'" r="12" style="fill:transparent;cursor:pointer"/>'; });
+  wrap.innerHTML=s+'</svg><div class="tip" role="status" aria-live="polite" hidden></div><p class="hint">Toque ou passe o mouse nas bolinhas para ver os valores. <b style="color:var(--good)">Azul</b> e <b style="color:var(--bad)">laranja</b> marcam os destaques.</p>';
+  const svg=wrap.querySelector('svg'), tip=wrap.querySelector('.tip'), selc=svg.querySelector('.selr');
+  wrap.tabIndex=0; wrap.setAttribute('aria-label','Gráfico de '+c.t+'. Use as setas para ver os anos.');
+  let curY=null;
+  const val=(a,y)=>{ if(!a) return null; const v=a[idx(y)]; return v==null?null:v; };
+  const showY=y=>{ curY=y; const v=B[idx(y)], sc=svg.getBoundingClientRect().width/W, x=xs(y)*sc, yy=ys(v)*sc, h=HL[y];
+    selc.setAttribute('cx',xs(y)); selc.setAttribute('cy',ys(v));
+    let t='<b class="ty">'+y+'</b><span class="tv">Brasil: <b>'+(c.pre||'')+fmt(v,c.dec,c.sg)+'</b></span>';
+    const v2=val(c.br2,y); if(v2!=null) t+='<span class="tv">'+c.br2n+': <b>'+(c.pre||'')+fmt(v2,c.dec,c.sg)+'</b></span>';
+    const vc=val(c.ctrl,y); if(vc!=null) t+='<span class="tv">12 países: <b>'+fmt(vc,c.dec,c.sg)+'</b></span>';
+    if(c.estFrom&&y>=c.estFrom) t+='<span class="tv">Estimativa</span>';
+    if(h&&h.sub) t+='<span class="tb" style="background:'+h.col+'">'+h.sub+'</span>';
+    tip.innerHTML=t; tip.hidden=false;
+    const tw=tip.offsetWidth, th=tip.offsetHeight, ww=wrap.clientWidth;
+    let left=Math.max(0,Math.min(ww-tw,x-tw/2)), top=yy-th-14; if(top<0) top=yy+16;
+    tip.style.left=left+'px'; tip.style.top=top+'px'; };
+  const showY2=y=>{ curY='p'+y; const v=c.br2[idx(y)], sc=svg.getBoundingClientRect().width/W, x=xs(y)*sc, yy=ys(v)*sc;
+    selc.setAttribute('cx',xs(y)); selc.setAttribute('cy',ys(v));
+    tip.innerHTML='<b class="ty">'+y+'</b><span class="tv">'+c.br2n+': <b>'+fmt(v,c.dec)+'%</b></span>'; tip.hidden=false;
+    const tw=tip.offsetWidth, th=tip.offsetHeight, ww=wrap.clientWidth; tip.style.left=Math.max(0,Math.min(ww-tw,x-tw/2))+'px'; let top=yy-th-14; if(top<0) top=yy+16; tip.style.top=top+'px'; };
+  const hide=()=>{ curY=null; tip.hidden=true; selc.setAttribute('cx',-50); };
+  svg.addEventListener('pointerover',e=>{ const h=e.target.closest('.hit'); if(h&&e.pointerType==='mouse'){ if(h.dataset.y2) showY2(+h.dataset.y2); else showY(+h.dataset.y); } });
+  svg.addEventListener('pointerout',e=>{ const h=e.target.closest('.hit'); if(h&&e.pointerType==='mouse') hide(); });
+  svg.addEventListener('click',e=>{ const h=e.target.closest('.hit'); if(h){ if(h.dataset.y2) showY2(+h.dataset.y2); else showY(+h.dataset.y); } else hide(); });
+  wrap.onkeydown=(e=>{ if(e.key!=='ArrowRight'&&e.key!=='ArrowLeft'&&e.key!=='Escape') return; e.preventDefault();
+    if(e.key==='Escape'){ hide(); return; } let k=curY==null?(e.key==='ArrowRight'?-1:P.length):P.indexOf(curY); k+=e.key==='ArrowRight'?1:-1; k=Math.max(0,Math.min(P.length-1,k)); showY(P[k]); });
+}
+
+/* ---------- filtros e tela do tema ---------- */
+const fA={value:''}, fT=document.getElementById('f-tema'), view=document.getElementById('view');
+function fillThemes(keep){ const a=fA.value, list=T.filter(t=>!a||t.a===a);
+  let h='<option value="">Escolha um tema</option>';
+  if(a) h+=list.map(t=>'<option value="'+t.id+'">'+t.t+'</option>').join('');
+  else h+=AREAS.map(ar=>'<optgroup label="'+ar[1]+'">'+T.filter(t=>t.a===ar[0]).map(t=>'<option value="'+t.id+'">'+t.t+'</option>').join('')+'</optgroup>').join('');
+  fT.innerHTML=h; if(keep&&list.some(t=>t.id===keep)) fT.value=keep; }
+function empty(){ cur=null; view.innerHTML='<div class="empty"><p><b>Nenhum tema escolhido ainda.</b></p><p>São '+T.length+' temas em '+AREAS.length+' áreas. Escolha um no menu do topo, na barra azul.</p><p>Dica: comece por Pobreza, Desemprego ou Desmatamento.</p></div>'; }
+let cur=null;
+function show(id){
+  const c=T.find(t=>t.id===id); if(!c){ empty(); return; } cur=c;
+  const area=AREAS.find(a=>a[0]===c.a)[1], list=T.filter(t=>!fA.value||t.a===fA.value), k=list.findIndex(t=>t.id===id);
+  const prev=list[(k-1+list.length)%list.length], next=list[(k+1)%list.length];
+  let leg='<span><i></i>Brasil</span>';
+  if(c.br2&&!c.br2pts) leg+='<span><i class="d"></i>'+c.br2n+'</span>';
+  if(c.br2&&c.br2pts) leg+='<span>○ '+c.br2n+'</span>';
+  if(c.ctrl) leg+='<span><i class="c"></i>12 países (meio do grupo)</span>';
+  if(!c.sparse&&c.br.some((v,i)=>v==null&&Y0+i<=(c.y1||Y1))) leg+='<span><i class="h"></i>Sem dado</span>';
+  if(c.estFrom) leg+='<span><i class="d"></i>Estimativa</span>';
+  if(c.better!=='neutral') leg+='<span><i class="g"></i>Melhor momento</span><span><i class="b"></i>Pior momento</span>';
+  view.innerHTML='<article class="theme" id="t-'+c.id+'"><p class="tk"><i style="background:var(--good)"></i><i style="background:var(--bad)"></i>'+area+'</p>'
+   +'<h3>'+c.t+'</h3><p class="what">'+c.what+' <span style="white-space:nowrap">('+c.u+')</span></p>'
+   +'<div class="legkey">'+leg+'</div><div class="chart"></div>'
+   +'<h4>O que aconteceu</h4><div class="story">'+(c.story.length>1?'<ul>'+c.story.map(p=>'<li>'+p+'</li>').join('')+'</ul>':'<p>'+c.story[0]+'</p>')+'</div>'
+   +(c.care?'<p class="care">'+c.care+'</p>':'')+'<p class="src">Fonte: '+c.src+'</p>'
+   +'<div class="act"><button type="button" class="btn" id="sh"><span>Enviar</span><span aria-hidden="true">↗</span></button><button type="button" class="btn" id="img"><span>Baixar imagem</span><span aria-hidden="true">↓</span></button></div>'
+   +'<div class="nav2"><button type="button" class="btn" data-go="'+prev.id+'">← '+prev.t+'</button><button type="button" class="btn" data-go="'+next.id+'">'+next.t+' →</button></div></article>';
+  draw(c,view.querySelector('.chart'));
+}
+(function(){ const b=document.querySelector('.ntog'), l=document.getElementById('notice-body');
+  b.addEventListener('click',()=>{ const o=b.getAttribute('aria-expanded')==='true'; b.setAttribute('aria-expanded',o?'false':'true'); l.hidden=o; }); })();
+(function(){ const b=document.querySelector('.howtog'), l=document.getElementById('how');
+  b.addEventListener('click',()=>{ const o=b.getAttribute('aria-expanded')==='true'; b.setAttribute('aria-expanded',o?'false':'true'); l.hidden=o; }); })();
+const fC=document.getElementById('f-clear');
+const syncClear=()=>{ fC.disabled=!fA.value&&!fT.value; };
+const toCard=()=>{ const el=view.querySelector('.theme'); if(!el) return; const tb=document.querySelector('.topbar').offsetHeight; window.scrollTo({top:el.getBoundingClientRect().top+window.scrollY-tb-12}); };
+fT.addEventListener('change',()=>{ show(fT.value); syncClear(); if(fT.value) requestAnimationFrame(toCard); });
+fC.addEventListener('click',()=>{ fillThemes(); empty(); syncClear(); fT.focus(); });
+new MutationObserver(syncClear).observe(view,{childList:true});
+view.addEventListener('click',e=>{
+  const g=e.target.closest('[data-go]'); if(g){ fT.value=g.dataset.go; show(g.dataset.go); requestAnimationFrame(toCard); return; }
+  const bi=e.target.closest('#img'); if(bi&&cur){ saveImage(bi); return; }
+  const b=e.target.closest('#sh'); if(!b||!cur) return;
+  shareTheme(b);
+});
+const shText=c=>c.t+' ('+c.u+')\n'+c.story.join(' ')+'\nFonte: '+c.src+'\nVeja o gráfico: '+LINK;
+const flash=(b,m)=>{const sp=b.querySelector('span'),o=sp.dataset.o||sp.textContent;sp.dataset.o=o;sp.textContent=m;setTimeout(()=>sp.textContent=o,2400);};
+async function makePNG(c){
+  const tmp=document.createElement('div'); tmp.style.cssText='position:absolute;left:-9999px;top:0;width:620px'; document.body.appendChild(tmp); draw(c,tmp,true);
+  const svg=tmp.querySelector('svg'); tmp.remove(); if(!svg) throw new Error('sem gráfico');
+  const cs=getComputedStyle(document.documentElement), vb=svg.viewBox.baseVal;
+  let str=new XMLSerializer().serializeToString(svg).replace(/var\(--([a-z0-9-]+)\)/g,(m,n)=>cs.getPropertyValue('--'+n).trim()||'#888');
+  str=str.replace(/ width="100%"/,'').replace('<svg ','<svg '+(str.includes('xmlns=')?'':'xmlns="http://www.w3.org/2000/svg" ')+'font-family="Public Sans, Arial, Helvetica, sans-serif" width="'+vb.width+'" height="'+vb.height+'" ');
+  const im=new Image(); im.src='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(str); await im.decode();
+  const bg=cs.getPropertyValue('--card').trim(), ink=cs.getPropertyValue('--ink').trim(), muted=cs.getPropertyValue('--muted').trim();
+  const Wc=1080, P=60, cw=Wc-2*P, ch=Math.round(cw*vb.height/vb.width), F='"Public Sans", Arial, Helvetica, sans-serif', FT='"Bricolage Grotesque", Arial, Helvetica, sans-serif';
+  try{ await Promise.all(['800 58px "Bricolage Grotesque"','600 20px "Public Sans"','400 28px "Public Sans"'].map(f=>document.fonts.load(f))); }catch(e){}
+  const cv=document.createElement('canvas'), x=cv.getContext('2d');
+  const wrap=(t,font,max)=>{ x.font=font; const out=[]; let line=''; t.split(' ').forEach(w=>{ const tryl=line?line+' '+w:w; if(x.measureText(tryl).width>max&&line){out.push(line);line=w;} else line=tryl; }); if(line) out.push(line); return out; };
+  const area=AREAS.find(a=>a[0]===c.a)[1].toUpperCase();
+  const tl=wrap(c.t,'800 58px '+FT,cw), ul=wrap(c.what+' ('+c.u+')','400 26px '+F,cw), sl=wrap(c.story.join(' '),'400 28px '+F,cw), fl=wrap('Fonte: '+c.src,'400 20px '+F,cw);
+  const H=P+30+tl.length*66+10+ul.length*36+24+ch+30+sl.length*40+16+fl.length*28+30+70;
+  cv.width=Wc; cv.height=H; x.fillStyle=bg; x.fillRect(0,0,Wc,H);
+  let y=P; x.fillStyle=muted; x.font='600 20px '+F; x.fillText(area,P,y+20); y+=30;
+  x.fillStyle=ink; x.font='800 58px '+FT; tl.forEach(l=>{ y+=58; x.fillText(l,P,y); y+=8; }); y+=10;
+  x.fillStyle=muted; x.font='400 26px '+F; ul.forEach(l=>{ y+=28; x.fillText(l,P,y); y+=8; }); y+=24;
+  x.drawImage(im,P,y,cw,ch); y+=ch+30;
+  x.fillStyle=ink; x.font='400 28px '+F; sl.forEach(l=>{ y+=30; x.fillText(l,P,y); y+=10; }); y+=16;
+  x.fillStyle=muted; x.font='400 20px '+F; fl.forEach(l=>{ y+=21; x.fillText(l,P,y); y+=7; });
+  x.fillStyle='#1B5FA8'; x.fillRect(0,H-70,Wc,70); x.fillStyle='#fff'; x.font='800 28px '+FT; x.fillText('Brasil em Dados',P,H-25);
+  x.font='400 20px '+F; const lk='destrava-conversas.github.io/eoflavio/economia'; x.fillText(lk,Wc-P-x.measureText(lk).width,H-27);
+  return await new Promise((res,rej)=>cv.toBlob(bl=>bl?res(bl):rej(new Error('png')),'image/png'));
+}
+const fname=c=>'brasil-em-dados-'+c.id+'.png';
+function showOverlay(blob){
+  const u=URL.createObjectURL(blob), ov=document.createElement('div'); ov.className='imgov'; ov.setAttribute('role','dialog'); ov.setAttribute('aria-label','Imagem do gráfico');
+  ov.innerHTML='<img alt="Imagem do gráfico"><p>Toque e segure a imagem para salvar ou compartilhar.</p><button type="button" class="btn">Fechar</button>';
+  ov.querySelector('img').src=u; document.body.appendChild(ov);
+  const close=()=>{ ov.remove(); URL.revokeObjectURL(u); }; ov.querySelector('button').addEventListener('click',close); ov.addEventListener('click',e=>{ if(e.target===ov) close(); }); ov.querySelector('button').focus();
+}
+async function saveImage(b){
+  let blob; try{ blob=await makePNG(cur); }catch(err){ flash(b,'Não deu para gerar'); return; }
+  let dl=null; try{ if(window.claude&&window.claude.use) dl=await window.claude.use('downloads'); }catch(err){}
+  if(dl){ try{ await dl.save({filename:fname(cur),data:blob}); flash(b,'Imagem salva'); return; }catch(err){ if(err&&err.code==='declined') return; } }
+  showOverlay(blob);
+}
+async function shareTheme(b){
+  const t=shText(cur);
+  try{ const blob=await makePNG(cur), file=new File([blob],fname(cur),{type:'image/png'});
+    if(navigator.share&&navigator.canShare&&navigator.canShare({files:[file]})){ await navigator.share({files:[file],text:t}); return; } }
+  catch(err){ if(err&&err.name==='AbortError') return; }
+  const box=()=>{ let ta=view.querySelector('.shtxt'); if(!ta){ta=document.createElement('textarea');ta.className='shtxt';ta.rows=6;ta.readOnly=true;ta.setAttribute('aria-label','Texto para copiar');b.parentNode.after(ta);} ta.value=t; ta.focus(); ta.select(); };
+  const copy=()=>{ if(navigator.clipboard&&navigator.clipboard.writeText) navigator.clipboard.writeText(t).then(()=>flash(b,'Texto copiado. Use Baixar imagem para a figura')).catch(box); else box(); };
+  if(navigator.share) navigator.share({text:t}).catch(err=>{ if(!err||err.name!=='AbortError') copy(); }); else copy();
+}
+let rz; window.addEventListener('resize',()=>{ cancelAnimationFrame(rz); rz=requestAnimationFrame(()=>{ if(cur) draw(cur,view.querySelector('.chart')); }); });
+
+/* ---------- pergunta rápida ---------- */
+const POOL=[
+ {q:'Em qual governo a pobreza caiu mais?',o:['Bolsonaro','Lula','Igual'],c:1,a:'Foi no Lula. De 2022 a 2024 a pobreza caiu de 31,6% para 23,1%. De 2019 a 2022, de 32,6% para 31,6%.',go:'pobreza'},
+ {q:'Em 2020, o PIB do Brasil caiu mais ou menos que o dos 12 países de controle?',o:['Mais','Menos','Igual'],c:1,a:'Menos: −3,3% contra −6,2% do país do meio do grupo. Em 2021 foi o contrário: o Brasil subiu 4,8%, e o grupo, 8,3%.',go:'pib'},
+ {q:'De 2023 a 2025, a inflação do Brasil ficou acima ou abaixo da dos 12 países?',o:['Acima','Abaixo','Igual'],c:1,a:'Abaixo, por pouco: 4,7% ao ano contra 4,9%, na média do período. Mas em 2025 o Brasil ficou acima: 5,0% contra 4,0%.',go:'inflacao'},
+ {q:'Em qual governo o desemprego caiu mais que nos outros países?',o:['Bolsonaro','Lula','Nos dois'],c:2,a:'Nos dois. Pelo FMI, o desemprego caiu 3,1 pontos de 2018 a 2022 e 3,2 pontos de 2022 a 2025, mais que nos 12 países. O Brasil partia de um nível alto.',go:'desemp'},
+ {q:'De 2022 a 2025, a dívida do governo subiu mais no Brasil que nos outros países?',o:['Bem mais','Parecido','Menos'],c:0,a:'Bem mais: 9,4 pontos do PIB, contra 0,2 no país do meio do grupo. E o nível já era alto: cerca de 93% do PIB contra 59%. O dado de 2025 ainda é estimativa do FMI.',go:'divida'},
+ {q:'De dezembro de 2022 a dezembro de 2025, o preço mundial da comida caiu. E no Brasil?',o:['Caiu também','Subiu, mas menos que a inflação geral','Subiu mais que a inflação geral'],c:1,a:'Subiu menos que a inflação geral: 12,0% contra 14,3%. No mundo, em dólar, caiu 12,0% (FAO). Câmbio, safra e custos locais explicam a diferença.',go:'comida'},
+ {q:'Em que ano o desmatamento na Amazônia foi o maior desde 2006?',o:['2012','2021','2025'],c:1,a:'Em 2021: 13,0 mil km². Em 2012 foi o menor da série (4,6 mil) e em 2025, 5,7 mil, 56% menos que em 2021.',go:'desmat'},
+ {q:'Em preços de hoje, a gasolina estava mais barata no fim de 2022 ou no fim de 2025?',o:['Fim de 2022','Fim de 2025','Igual'],c:0,a:'No fim de 2022: R$ 5,67 o litro, contra R$ 6,22 no fim de 2025. A queda de 2022 veio de corte de impostos aprovado meses antes da eleição. Em 2021 o litro tinha passado de R$ 8.',go:'gasolina'},
+ {q:'De 2016 a 2023, o salário mínimo ganhou poder de compra?',o:['Sim, bastante','Quase nada','Perdeu bastante'],c:1,a:'Quase nada: em preços de hoje, foi de R$ 1.396 para R$ 1.413. O reajuste só repôs a inflação. Antes, de 2003 a 2015, tinha subido 75% acima da inflação.',go:'minimo'},
+ {q:'Desde 2003, em quantos anos o Brasil investiu mais que o país do meio dos 12 de controle?',o:['Nenhum','Cerca de metade','Quase todos'],c:0,a:'Nenhum. Em todos os anos o Brasil investiu menos que o grupo. O mais perto foi entre 2008 e 2013, quando chegou a cerca de 22% do PIB.',go:'invest'}
+];
+(function hook(){
+  const root=document.getElementById('hook'); let k=0;
+  root.innerHTML='<h2><button type="button" class="htog" aria-expanded="true" aria-controls="hook-body"><span>Pergunta rápida <span class="cnt"></span></span><span class="ch" aria-hidden="true">▾</span></button></h2><div id="hook-body"></div>';
+  const el=root.querySelector('#hook-body'), ht=root.querySelector('.htog');
+  ht.addEventListener('click',()=>{ const o=ht.getAttribute('aria-expanded')==='true'; ht.setAttribute('aria-expanded',o?'false':'true'); el.hidden=o; });
+  const shuf=prev=>{ const o=POOL.map((_,i)=>i); for(let i=o.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[o[i],o[j]]=[o[j],o[i]];} if(prev!=null&&o[0]===prev){[o[0],o[1]]=[o[1],o[0]];} return o; };
+  let order=shuf(null);
+  const render=()=>{ const Q=POOL[order[k]];
+    root.querySelector('.cnt').textContent=(k+1)+' de '+POOL.length;
+    el.innerHTML='<p class="q">'+Q.q+'</p><div class="opts">'+Q.o.map((o,i)=>'<button type="button" class="opt" data-i="'+i+'">'+o+'</button>').join('')+'</div><div class="ans" aria-live="polite"></div>'; };
+  el.addEventListener('click',e=>{
+    if(e.target.closest('.next2')){ k++; if(k>=POOL.length){ order=shuf(order[POOL.length-1]); k=0; } render(); const b=el.querySelector('.opt'); if(b) b.focus(); return; }
+    const see=e.target.closest('[data-see]'); if(see){ e.preventDefault(); fA.value=''; fillThemes(); fT.value=see.dataset.see; show(see.dataset.see); requestAnimationFrame(toCard); return; }
+    const b=e.target.closest('.opt'); if(!b||b.disabled) return; const Q=POOL[order[k]], ok=+b.dataset.i===Q.c;
+    el.querySelectorAll('.opt').forEach(x=>{x.disabled=true; if(+x.dataset.i===Q.c) x.classList.add('right'); else if(x===b) x.classList.add('wrong');});
+    el.querySelector('.ans').innerHTML='<p><b>'+(ok?'Isso!':'Não foi.')+'</b> '+Q.a+'</p><p class="must">A resposta é só um pedaço. A história completa está no gráfico: veja a curva desde 2003 e o que aconteceu antes e depois.</p><div class="hk-act"><a href="#temas" class="seeb" data-see="'+Q.go+'">Ver o gráfico ↓</a><button type="button" class="next2">Outra pergunta →</button></div>';
+  });
+  render();
+})();
+
+/* ---------- voltar ao topo ---------- */
+(function(){ const t=document.getElementById('totop'); const f=()=>{ t.hidden=window.scrollY<window.innerHeight*1.2; }; window.addEventListener('scroll',f,{passive:true}); f(); })();
+
+fillThemes(); empty();
+(function(){ const b=document.querySelector('.gltog'), body=document.getElementById('gl-body');
+  const set=o=>{ b.setAttribute('aria-expanded',o?'true':'false'); body.hidden=!o; };
+  b.addEventListener('click',()=>set(b.getAttribute('aria-expanded')!=='true'));
+  if(['#glossario','#gl-paises','#gl-metodo'].includes(location.hash)) set(true);
+  document.addEventListener('click',e=>{ const a=e.target.closest('a.gl-link'); if(!a) return; e.preventDefault(); set(true);
+    const t=document.querySelector(a.getAttribute('href')); if(t) requestAnimationFrame(()=>t.scrollIntoView({block:'start'})); }); })();
+</script>
+</body>
+</html>
