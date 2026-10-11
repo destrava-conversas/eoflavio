@@ -13,7 +13,7 @@ Painel cívico com fontes sobre o que fizeram no poder os líderes com quem Flá
 ## Estrutura
 
 - `index.html`: o painel inteiro (HTML, CSS e dados em um único arquivo).
-- `og-e-o-flavio.png`: imagem de pré-visualização para redes sociais.
+- `og-parcas.jpg` e `economia/og-economia.jpg`: imagens de pré-visualização para redes sociais.
 - `economia/index.html`: a página E a Economia?, com dados oficiais governo por governo.
 
 ## Licença
