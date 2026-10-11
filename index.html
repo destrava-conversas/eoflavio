@@ -1330,6 +1330,9 @@ body.in-px .pickbar{display:none!important}
 .topbar{background:#0F2440;border-bottom-color:#081628}
 .parcas-link{text-decoration-color:#4A9BE8;text-decoration-thickness:3px}
 .parcas-link:hover{text-decoration-color:#7DB8F0}
+a.rabisco{color:inherit;text-decoration:none;cursor:pointer}
+a.rabisco:hover .rabisco-svg path{stroke:#86EFAC}
+a.rabisco:focus-visible{outline:3px solid #fff;outline-offset:4px;border-radius:4px}
 </style>
 </head>
 <body>
@@ -1380,7 +1383,7 @@ body.in-px .pickbar{display:none!important}
     <h1 class="sr-only">Flávio e os Parças</h1>
     <div class="hero-copy">
     <p class="hero-kicker">Destrave conversas importantes</p>
-    <p class="lede lede-hero">Qual <span class="rabisco">pauta<svg class="rabisco-svg" viewBox="0 0 120 22" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path d="M4 9 C 28 5, 60 4, 116 7" /><path d="M10 16 C 40 11, 76 11, 112 14" /></svg></span> importa para você? Este painel mostra o que foi feito dela em governos com <a class="parcas-link" href="#parcas">parças do Flávio</a>.</p>
+    <p class="lede lede-hero">Qual <a class="rabisco" href="#result" id="hero-pauta">pauta<svg class="rabisco-svg" viewBox="0 0 120 22" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path d="M4 9 C 28 5, 60 4, 116 7" /><path d="M10 16 C 40 11, 76 11, 112 14" /></svg></a> importa para você? Este painel mostra o que foi feito dela em governos com <a class="parcas-link" href="#parcas">parças do Flávio</a>.</p>
     </div>
 
     </div>
@@ -2584,7 +2587,7 @@ LK_R.push(["pl", "educacao", "A reforma de 2017 extinguiu ", [["Polen-Analysen",
       var t=$(state.picked ? 'resumo' : 'result'); if(t && t.scrollIntoView) t.scrollIntoView({behavior: reduce ? 'auto' : 'smooth', block:'start'});
       if(typeof setBlk==='function' && state.picked){ setBlk('acoes', true); setBlk('rank', true); setBlk('ctx', true); }
     }
-    var pbs=$('pb-sel'); var pbGo=function(){ var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches; $('result').scrollIntoView({behavior: reduce?'auto':'smooth', block:'start'}); setTimeout(function(){ tf.focus({preventScroll:true}); }, reduce?0:450); }; if($('pb-go')) $('pb-go').addEventListener('click', pbGo); if(pbs) pbs.addEventListener('click', function(){ var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches; $('result').scrollIntoView({behavior: reduce?'auto':'smooth', block:'start'}); setTimeout(function(){ tf.focus({preventScroll:true}); }, reduce?0:450); });
+    var pbs=$('pb-sel'); var pbGo=function(){ var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches; $('result').scrollIntoView({behavior: reduce?'auto':'smooth', block:'start'}); setTimeout(function(){ tf.focus({preventScroll:true}); }, reduce?0:450); }; if($('pb-go')) $('pb-go').addEventListener('click', pbGo); if($('hero-pauta')) $('hero-pauta').addEventListener('click', function(e){ e.preventDefault(); pbGo(); }); if(pbs) pbs.addEventListener('click', function(){ var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches; $('result').scrollIntoView({behavior: reduce?'auto':'smooth', block:'start'}); setTimeout(function(){ tf.focus({preventScroll:true}); }, reduce?0:450); });
     [].slice.call(document.querySelectorAll('.reset-pauta')).forEach(function(b){ b.addEventListener('click', function(){ state.c='all'; state.g='all'; state.picked=false; render(); afterTop(); tf.focus({preventScroll:true}); }); });
     tp.addEventListener('change', function(){ state.c=tp.value; state.picked=true; render(); afterTop(); });
     tf.addEventListener('change', function(){ state.g=tf.value; state.picked=true; render(); afterTop(); });
