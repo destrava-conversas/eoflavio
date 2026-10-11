@@ -195,43 +195,72 @@ h2,h3,h4,.brand,.hook .q,.gltog,.ntog,.howtog{font-weight:600}
 .brand b{font-weight:800}
 b,strong{font-weight:600}
 .tip .ty{font-weight:800}
+
+/* menu e filtro no bloco */
+html{scroll-padding-top:5.5rem}
+.topin{min-height:4rem;flex-wrap:nowrap;position:relative}
+@media (max-width:559px){.topin{padding-top:.6rem!important;padding-bottom:.6rem!important}}
+.burger{flex:none;width:2.9rem;height:2.9rem;border:2px solid rgba(255,255,255,.8);border-radius:50%;background:transparent;display:inline-flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;cursor:pointer}
+.burger span{display:block;width:1.15rem;height:2px;background:#fff;border-radius:2px;transition:transform .2s,opacity .2s}
+.burger[aria-expanded="true"] span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+.burger[aria-expanded="true"] span:nth-child(2){opacity:0}
+.burger[aria-expanded="true"] span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+@media (prefers-reduced-motion:reduce){.burger span{transition:none}}
+.menu{position:absolute;top:calc(100% + 6px);right:max(1rem,env(safe-area-inset-right));z-index:60;min-width:15rem;max-width:calc(100vw - 2rem);background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,.2);padding:.4rem;display:flex;flex-direction:column}
+.menu[hidden]{display:none}
+.menu a{display:block;padding:.65rem .85rem;border-radius:9px;text-decoration:none;color:var(--ink);font-weight:500}
+.menu a:hover{background:var(--soft)}
+.menu a:focus-visible{outline:3px solid var(--good);outline-offset:-3px}
+.menu .mext{font-weight:600;color:var(--brand)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .menu .mext{color:var(--good)}}
+:root[data-theme="dark"] .menu .mext{color:var(--good)}
+.menu .msep{height:1px;background:var(--line);margin:.3rem .5rem}
+.xbox .tsel{max-width:none;flex:none;margin:0}
+.xbox .tsel .sel select{background:var(--card);color:var(--ink);border:2px solid var(--ink);min-height:3.2rem}
+.xbox .tsel .sel::after{color:var(--ink)}
+.xbox .tclr{border-color:var(--ink);color:var(--ink)}
+.xbox .tclr:focus-visible{outline-color:var(--good)}
+#sobre .notice{margin:0;padding:1rem;font-size:1rem}
+#sobre .ntog{font-size:1.45rem}
+.hook{margin-top:1.4rem}
+.gl h3[id]{scroll-margin-top:5.5rem}
 </style>
 </head>
 <body>
 <div class="topbar">
   <div class="topin">
     <a class="brand" href="#topo" aria-label="Brasil em Dados, voltar ao topo"><svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="13" width="5" height="9" rx="1.2" fill="#fff"/><rect x="9.5" y="7" width="5" height="15" rx="1.2" fill="#fff"/><rect x="17" y="2" width="5" height="20" rx="1.2" fill="#fff"/></svg><span><b>Brasil</b> <i>em</i> <b>Dados</b></span></a>
-    <div class="tsel">
-      <label for="f-tema" class="sr">Escolha um tema</label>
-      <div class="sel"><select id="f-tema"></select></div>
-      <button type="button" class="tclr" id="f-clear" aria-label="Limpar a escolha de tema" disabled>✕</button>
-    </div>
+    <button type="button" class="burger" id="burger" aria-expanded="false" aria-controls="menu" aria-label="Abrir menu"><span></span><span></span><span></span></button>
+    <nav class="menu" id="menu" aria-label="Menu" hidden>
+      <a class="mext" href="../">Flávio e os Parças <span aria-hidden="true">→</span></a>
+      <span class="msep" role="separator" aria-hidden="true"></span>
+      <a href="#hook">Pergunta rápida</a>
+      <a href="#temas">Explore por tema</a>
+      <a href="#aprofundar">Para se aprofundar</a>
+      <a href="#sobre">Sobre os dados</a>
+      <a href="#glossario">Glossário</a>
+    </nav>
   </div>
 </div>
 <main>
   <header id="topo">
     <h1>E a Economia?</h1>
     <p class="lead">Mais de 20 anos de dados oficiais, governo por governo. Quando existe dado de outros países, o gráfico traz também o meio de um grupo de <a href="#gl-paises" class="gl-link">12 países emergentes</a>, como controle.</p>
-    <p class="xlead" style="margin-top:.6rem"><a href="../">Veja também: Flávio e os Parças, o que fizeram no poder os líderes com quem Flávio diz querer se alinhar →</a></p>
-    <aside class="notice" aria-labelledby="h-aviso">
-      <h2 id="h-aviso"><button type="button" class="ntog" aria-expanded="false" aria-controls="notice-body"><span><span aria-hidden="true">ⓘ</span> Sobre os dados</span><span class="ch" aria-hidden="true">▾</span></button></h2>
-      <div id="notice-body" hidden>
-      <p>Todos os números vêm de fontes oficiais: FMI, IBGE, Banco Central, INPE, ANP, DIEESE, Ministério do Trabalho e Sebrae. Cada tema mostra a sua fonte.</p>
-      <p>Os gráficos mostram o que aconteceu em cada ano, não a causa. As faixas marcam quem governava, mas decisões têm efeito atrasado. Valores em reais estão corrigidos pela inflação. Anos sem dado aparecem listrados, e estimativas, tracejadas.</p>
-      <p><a href="#gl-metodo" class="gl-link">Veja o método completo no Glossário</a></p>
-      </div>
-    </aside>
     <section class="hook" id="hook" aria-label="Pergunta rápida"></section>
   </header>
 
   <section class="explore" id="temas" aria-labelledby="h-temas">
     <div class="xbox">
       <h2 id="h-temas">Explore por tema</h2>
-      <p class="xlead">Escolha um tema no menu do topo da página. Ele fica sempre à mão, mesmo quando você desce a página.</p>
+      <div class="tsel">
+        <label for="f-tema" class="sr">Escolha um tema</label>
+        <div class="sel"><select id="f-tema"></select></div>
+        <button type="button" class="tclr" id="f-clear" aria-label="Limpar a escolha de tema" disabled>✕</button>
+      </div>
       <div class="howwrap">
         <button type="button" class="howtog" aria-expanded="false" aria-controls="how"><span>Como usar</span><span class="ch" aria-hidden="true">▾</span></button>
         <ol class="how" id="how" hidden>
-          <li><b class="n">1</b><span>Toque em <b>Escolha um tema</b>, na barra azul do topo.</span></li>
+          <li><b class="n">1</b><span>Toque em <b>Escolha um tema</b>, logo acima.</span></li>
           <li><b class="n">2</b><span>Os temas estão separados por área: Economia, Trabalho e renda, Custo de vida, Contas do governo, Vida real e Ambiente. Para recomeçar, toque no <b>✕</b>.</span></li>
           <li><b class="n">3</b><span>Veja a curva desde 2003. As faixas mostram quem governava. <b style="color:var(--good)">Azul</b> marca o melhor momento e <b style="color:var(--bad)">laranja</b>, o pior.</span></li>
         </ol>
@@ -245,6 +274,17 @@ b,strong{font-weight:600}
       <h2 id="h-aprof">Para se aprofundar</h2>
       <div class="soon">Em breve: conteúdos para ir além dos gráficos.</div>
     </div>
+  </section>
+
+  <section class="block" id="sobre" aria-label="Sobre os dados">
+    <aside class="notice" aria-labelledby="h-aviso">
+      <h2 id="h-aviso"><button type="button" class="ntog" aria-expanded="false" aria-controls="notice-body"><span><span aria-hidden="true">ⓘ</span> Sobre os dados</span><span class="ch" aria-hidden="true">▾</span></button></h2>
+      <div id="notice-body" hidden>
+      <p>Todos os números vêm de fontes oficiais: FMI, IBGE, Banco Central, INPE, ANP, DIEESE, Ministério do Trabalho e Sebrae. Cada tema mostra a sua fonte.</p>
+      <p>Os gráficos mostram o que aconteceu em cada ano, não a causa. As faixas marcam quem governava, mas decisões têm efeito atrasado. Valores em reais estão corrigidos pela inflação. Anos sem dado aparecem listrados, e estimativas, tracejadas.</p>
+      <p><a href="#gl-metodo" class="gl-link">Veja o método completo no Glossário</a></p>
+      </div>
+    </aside>
   </section>
 
   <section class="block gl" id="glossario" aria-labelledby="h-gl">
@@ -593,7 +633,7 @@ function fillThemes(keep){ const a=fA.value, list=T.filter(t=>!a||t.a===a);
   if(a) h+=list.map(t=>'<option value="'+t.id+'">'+t.t+'</option>').join('');
   else h+=AREAS.map(ar=>'<optgroup label="'+ar[1]+'">'+T.filter(t=>t.a===ar[0]).map(t=>'<option value="'+t.id+'">'+t.t+'</option>').join('')+'</optgroup>').join('');
   fT.innerHTML=h; if(keep&&list.some(t=>t.id===keep)) fT.value=keep; }
-function empty(){ cur=null; view.innerHTML='<div class="empty"><p><b>Nenhum tema escolhido ainda.</b></p><p>São '+T.length+' temas em '+AREAS.length+' áreas. Escolha um no menu do topo, na barra azul.</p><p>Dica: comece por Pobreza, Desemprego ou Desmatamento.</p></div>'; }
+function empty(){ cur=null; view.innerHTML='<div class="empty"><p><b>Nenhum tema escolhido ainda.</b></p><p>São '+T.length+' temas em '+AREAS.length+' áreas. Escolha um no menu acima.</p><p>Dica: comece por Pobreza, Desemprego ou Desmatamento.</p></div>'; }
 let cur=null;
 function show(id){
   const c=T.find(t=>t.id===id); if(!c){ empty(); return; } cur=c;
@@ -720,6 +760,12 @@ const POOL=[
 (function(){ const t=document.getElementById('totop'); const f=()=>{ t.hidden=window.scrollY<window.innerHeight*1.2; }; window.addEventListener('scroll',f,{passive:true}); f(); })();
 
 fillThemes(); empty();
+(function(){ const b=document.getElementById('burger'), m=document.getElementById('menu');
+  const set=o=>{ b.setAttribute('aria-expanded',o?'true':'false'); b.setAttribute('aria-label',o?'Fechar menu':'Abrir menu'); m.hidden=!o; };
+  b.addEventListener('click',e=>{ e.stopPropagation(); set(m.hidden); });
+  m.addEventListener('click',e=>{ const a=e.target.closest('a'); if(!a) return; if(a.getAttribute('href')==='#sobre'){ const t=document.querySelector('.ntog'); if(t&&t.getAttribute('aria-expanded')!=='true') t.click(); } set(false); });
+  document.addEventListener('click',e=>{ if(!m.hidden&&!m.contains(e.target)) set(false); });
+  document.addEventListener('keydown',e=>{ if(e.key==='Escape'&&!m.hidden){ set(false); b.focus(); } }); })();
 (function(){ const b=document.querySelector('.gltog'), body=document.getElementById('gl-body');
   const set=o=>{ b.setAttribute('aria-expanded',o?'true':'false'); body.hidden=!o; };
   b.addEventListener('click',()=>set(b.getAttribute('aria-expanded')!=='true'));
