@@ -224,6 +224,18 @@ html{scroll-padding-top:5.5rem}
 #sobre .ntog{font-size:1.45rem}
 .hook{margin-top:1.4rem}
 .gl h3[id]{scroll-margin-top:5.5rem}
+
+/* filtro no padrão verde do painel Flávio e os Parças */
+:root{--fil:#16A34A;--fil-ink:#15803D}
+:root[data-theme="dark"]{--fil:#4ADE80;--fil-ink:#4ADE80}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--fil:#4ADE80;--fil-ink:#4ADE80}}
+.xbox{border-left:6px solid var(--fil);border-color:color-mix(in srgb,var(--fil) 35%,var(--line));border-left-color:var(--fil);background:color-mix(in srgb,var(--fil) 6%,var(--card))}
+.xbox h2{color:var(--fil-ink)}
+.xbox .tsel .sel select{border-radius:12px;background:var(--card);min-height:3.5rem;font-size:1.1rem}
+.xbox .tsel .sel select:focus-visible{outline:3px solid var(--fil);outline-offset:2px}
+.xbox .tclr{width:3.5rem;height:3.5rem;background:var(--card)}
+.xbox .howwrap{border-top-color:color-mix(in srgb,var(--fil) 30%,var(--line))}
+.xbox .howtog:focus-visible{outline-color:var(--fil)}
 </style>
 </head>
 <body>
