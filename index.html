@@ -1354,6 +1354,8 @@ a.rabisco:focus-visible{outline:3px solid #fff;outline-offset:4px;border-radius:
 .crit-det .crit{margin:4px 0 4px}
 .res-nav{flex-wrap:wrap;margin:30px 0 4px}
 .copy-hint{margin:0 0 18px;font-size:14px;line-height:1.5;color:var(--muted)}
+.sec-nav{margin:26px 0 0;padding-top:18px;border-top:1px solid var(--line)}
+.res-btn.is-cur{background:var(--ink);color:var(--surface);cursor:default}
 </style>
 </head>
 <body>
@@ -1503,6 +1505,7 @@ a.rabisco:focus-visible{outline:3px solid #fff;outline-offset:4px;border-radius:
           </div>
         </div>
       </div>
+      <nav class="res-btns res-nav sec-nav" aria-label="Ir para outra parte do resultado"><a class="res-btn" href="#acoes">Ações</a><span class="res-btn is-cur" aria-current="true">Compare</span><a class="res-btn" href="#rank">Ranking</a></nav>
     </div>
 
 
@@ -1514,6 +1517,7 @@ a.rabisco:focus-visible{outline:3px solid #fff;outline-offset:4px;border-radius:
       <div id="rank-rows"></div>
       <div class="img-row"><button type="button" class="imgbtn" id="rank-img">Copiar ranking como imagem</button><span class="img-msg" id="rank-img-msg" role="status" aria-live="polite"></span></div>
       <p class="method">Ordenado pelas ações contra documentadas, sem peso por gravidade. Uma ação pode valer para mais de uma pauta, então a soma passa do total. Pautas com mais fontes somam mais ações: é um retrato do que foi documentado, não uma medida de gravidade. Toque numa linha para ver as ações.</p>
+      <nav class="res-btns res-nav sec-nav" aria-label="Ir para outra parte do resultado"><a class="res-btn" href="#acoes">Ações</a><a class="res-btn" href="#comparacao">Compare</a><span class="res-btn is-cur" aria-current="true">Ranking</span></nav>
     </div>
 
 
