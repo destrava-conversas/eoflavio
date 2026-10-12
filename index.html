@@ -1512,6 +1512,9 @@ a.c-go[aria-disabled="true"] .l{text-decoration:none}
 .pd-tbl tbody tr:last-child th,.pd-tbl tbody tr:last-child td{color:var(--muted)}
 .pd-who.wide{grid-column:1/-1}
 .pd-who.wide ul{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:12px 22px}
+.res-btn.pd-go{border-color:var(--contra);color:var(--contra-ink)}
+.res-btn.pd-go:hover{background:var(--contra);color:#fff}
+.res-btn.pd-go[hidden]{display:none}
 </style>
 </head>
 <body>
@@ -1602,7 +1605,7 @@ a.c-go[aria-disabled="true"] .l{text-decoration:none}
       </div>
       <p class="sum" id="sel-sum" hidden></p>
       <details class="crit-det" id="crit-det"><summary>Como classificamos</summary><p class="crit" id="sel-crit"></p></details>
-      <div class="res-btns res-nav"><a class="res-btn" href="#acoes" id="go-acoes">Ações</a><a class="res-btn" href="#comparacao" id="go-cmp">Compare</a><a class="res-btn" href="#rank" id="go-rank">Ranking</a></div>
+      <div class="res-btns res-nav"><a class="res-btn" href="#acoes" id="go-acoes">Ações</a><a class="res-btn" href="#comparacao" id="go-cmp">Compare</a><a class="res-btn" href="#rank" id="go-rank">Ranking</a><a class="res-btn pd-go" href="#pandemia" hidden>Especial Pandemia</a></div>
       <p class="verdict" id="verdict" hidden></p>
 
 
@@ -1686,7 +1689,7 @@ a.c-go[aria-disabled="true"] .l{text-decoration:none}
           </div>
         </div>
       </div>
-      <nav class="res-btns res-nav sec-nav" aria-label="Ir para outra parte do resultado"><a class="res-btn" href="#acoes">Ações</a><span class="res-btn is-cur" aria-current="true">Compare</span><a class="res-btn" href="#rank">Ranking</a></nav>
+      <nav class="res-btns res-nav sec-nav" aria-label="Ir para outra parte do resultado"><a class="res-btn" href="#acoes">Ações</a><span class="res-btn is-cur" aria-current="true">Compare</span><a class="res-btn" href="#rank">Ranking</a><a class="res-btn pd-go" href="#pandemia" hidden>Especial Pandemia</a></nav>
     </div>
 
 
@@ -1698,7 +1701,7 @@ a.c-go[aria-disabled="true"] .l{text-decoration:none}
       <div id="rank-rows"></div>
       <div class="img-row"><button type="button" class="imgbtn" id="rank-img">Copiar ranking como imagem</button><span class="img-msg" id="rank-img-msg" role="status" aria-live="polite"></span></div>
       <p class="method">Ordenado pelas ações contra documentadas, sem peso por gravidade. Uma ação pode valer para mais de uma pauta, então a soma passa do total. Pautas com mais fontes somam mais ações: é um retrato do que foi documentado, não uma medida de gravidade. Toque numa linha para ver as ações.</p>
-      <nav class="res-btns res-nav sec-nav" aria-label="Ir para outra parte do resultado"><a class="res-btn" href="#acoes">Ações</a><a class="res-btn" href="#comparacao">Compare</a><span class="res-btn is-cur" aria-current="true">Ranking</span></nav>
+      <nav class="res-btns res-nav sec-nav" aria-label="Ir para outra parte do resultado"><a class="res-btn" href="#acoes">Ações</a><a class="res-btn" href="#comparacao">Compare</a><span class="res-btn is-cur" aria-current="true">Ranking</span><a class="res-btn pd-go" href="#pandemia" hidden>Especial Pandemia</a></nav>
     </div>
 
 
@@ -3652,7 +3655,7 @@ LK_R.push(["pl", "educacao", "A reforma de 2017 extinguiu ", [["Polen-Analysen",
   function render(){
     syncSelects();
     renderResult();
-    var pdc=$('pandemia'); if(pdc) pdc.hidden = !(state.picked && state.g==='saude');
+    var pdc=$('pandemia'); if(pdc) pdc.hidden = !(state.picked && state.g==='saude'); [].slice.call(document.querySelectorAll('.pd-go')).forEach(function(a){ a.hidden = pdc ? pdc.hidden : true; });
     renderMatrix();
     teasers();
     var rs = $('result'); if(rs) rs.classList.toggle('nopick', !state.picked);
