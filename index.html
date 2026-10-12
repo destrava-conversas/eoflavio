@@ -1534,6 +1534,8 @@ a.c-go[aria-disabled="true"] .l{text-decoration:none}
 .pd-stat .pd-src a{color:var(--pro-ink)}
 .pd-lives-note{margin-top:10px}
 .sum-img-row{margin:22px 0 2px}
+.legend .legend-head .lg-teaser{order:3;flex:1 1 100%;margin:-2px 0 0}
+@media(max-width:600px){.legend .legend-head .lg-teaser{order:2;margin:0}.legend .legend-head .toggle{order:3}}
 </style>
 </head>
 <body>
@@ -1764,6 +1766,7 @@ a.c-go[aria-disabled="true"] .l{text-decoration:none}
 
     <div class="legend-head">
       <h2 id="h-legenda">Como ler este painel</h2>
+      <p class="blk-teaser lg-teaser">Como escolher pauta e parça, para que serve o painel, como ler os números e o que eles não dizem.</p>
       <button type="button" class="toggle" id="legend-toggle" aria-expanded="false" aria-controls="legend-body">Abrir legenda</button>
     </div>
   <div class="lg-panel" id="legend-panel" hidden>
@@ -1821,6 +1824,7 @@ a.c-go[aria-disabled="true"] .l{text-decoration:none}
   <aside class="legend parcas closed" id="parcas" aria-labelledby="h-parcas">
     <div class="legend-head">
       <h2 id="h-parcas">Quem são os parças</h2>
+      <p class="blk-teaser lg-teaser">Bolsonaro, Trump, Milei, Bukele, Kast, Orbán e o PiS: a ligação de cada um com Flávio e o que têm em comum.</p>
       <button type="button" class="toggle" id="parcas-toggle" aria-expanded="false" aria-controls="parcas-body">Abrir parças</button>
     </div>
   <div class="lg-panel" id="parcas-panel" hidden>
