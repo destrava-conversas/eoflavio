@@ -1570,7 +1570,7 @@ a.c-go[aria-disabled="true"] .l{text-decoration:none}
       <a href="#noticias">Sinais</a>
       <a href="#visao-geral">Visão geral</a>
       <a href="#democracia">Respeito às regras</a>
-      <a href="#informacoes">Períodos e fontes</a>
+      <a href="#informacoes">Privacidade e fontes</a>
     </nav>
     <a class="sinais-btn" href="#noticias" aria-label="Ir para Sinais"><span class="dot" aria-hidden="true"></span>Sinais</a>
     <a class="totop" id="totop" href="#topo" data-top aria-label="Voltar ao topo" hidden><span class="ic" aria-hidden="true">↑</span><span class="tt">Voltar ao topo</span></a>
@@ -1603,7 +1603,7 @@ a.c-go[aria-disabled="true"] .l{text-decoration:none}
         <label class="tf-f tf-sub"><span class="tf-l">2. Parça <span class="tf-opt">(opcional)</span></span><select id="top-pais" aria-label="Parça (opcional)"></select></label>
         <button type="button" class="reset-pauta tf-reset" id="top-clear" disabled aria-label="Reiniciar pauta: limpar os filtros e voltar ao início" title="Limpar os filtros"><span aria-hidden="true">↺</span><span class="rp-t">Reiniciar<span class="rp-long"> pauta</span></span></button>
       </div>
-      <p class="upd">Atualizado em 10 de outubro de 2026</p>
+      <p class="upd">Atualizado em 12 de outubro de 2026</p>
     </div>
 
     <div class="res-card" id="resumo">
@@ -1768,14 +1768,6 @@ a.c-go[aria-disabled="true"] .l{text-decoration:none}
     </div>
   <div class="lg-panel" id="legend-panel" hidden>
 <div class="lg" id="legend-body">
-      <div class="lg-note" role="note">
-        <svg class="lg-i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#i-shield"/></svg>
-        <p><b>Sem vínculo com partidos ou campanhas.</b> Esta publicação resulta apenas da preocupação de um eleitor brasileiro com a ascensão de projetos radicais de poder.</p>
-      </div>
-      <div class="lg-note ai" role="note">
-        <svg class="lg-i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#i-spark"/></svg>
-        <p><b>Autoria e uso de IA.</b> Autoria: Eleitor Brasileiro Preocupado. O painel foi feito com o Claude, assistente de IA da Anthropic, que pesquisou fontes públicas, resumiu e classificou as ações de cada governo e escreveu o código da página. As escolhas editoriais, como quais líderes e pautas entram e os critérios de classificação, são do autor. A IA pode errar: confira os links das fontes.</p>
-      </div>
       <ol class="lg-steps" aria-label="Como usar o painel em três passos">
         <li><span class="lg-n">1</span><svg class="lg-i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#i-pointer"/></svg><span>Escolha um <b>parça</b> e uma <b>pauta</b> em “O que eles fizeram”.</span></li>
         <li><span class="lg-n">2</span><svg class="lg-i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#i-list"/></svg><span>Veja as ações <b>contra</b> e <b>a favor</b>, com fonte.</span></li>
@@ -1791,11 +1783,11 @@ a.c-go[aria-disabled="true"] .l{text-decoration:none}
         <section class="lg-card">
           <div class="lg-hd"><span class="ic"><svg class="lg-i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#i-shield"/></svg></span><h3>Fontes e semáforo</h3></div>
           <ul>
-            <li>Fontes públicas, consultadas até <b>10 de outubro de 2026</b>.</li>
+            <li>Fontes públicas, consultadas até <b>12 de outubro de 2026</b>.</li>
             <li><span class="tl g"></span><b>Verde:</b> muito confiável (dados oficiais, organismos internacionais, pesquisa acadêmica, agências).</li>
             <li><span class="tl y"></span><b>Amarelo:</b> confiável (demais veículos e organizações; linha declarada e fontes parciais vêm identificadas).</li>
             <li><b>Alegado:</b> vem só do governo ou de críticos, sem checagem independente.</li>
-            <li>Lista completa em <a href="#informacoes">Informações</a>.</li>
+            <li>Lista completa em <a href="#informacoes">Privacidade e fontes</a>.</li>
           </ul>
         </section>
         <section class="lg-card">
@@ -1933,16 +1925,17 @@ a.c-go[aria-disabled="true"] .l{text-decoration:none}
   </section>
 
   <section id="informacoes" aria-labelledby="h-info">
-    <h2 id="h-info">Períodos e fontes</h2>
-    <h3 class="info-h">Períodos</h3>
-    <p>Períodos cobertos: Jair Bolsonaro (Brasil, 2019 a 2022), Milei (Argentina, até setembro de 2026), Bukele (El Salvador, desde 2019), Kast (Chile, desde março de 2026), Trump (Estados Unidos, 2017 a 2021 e desde 2025, até junho de 2026), Orbán (Hungria, até abril de 2026) e o PiS (Polônia, 2015 a 2023). A comparação usa o Brasil de 2023 a 2025.</p>
-    <h3 class="info-h">Fontes</h3>
-    <p class="method">Cada fonte mostra o que é, para que a usei e onde aparece. Semáforo: <span class="tl g"></span><b>verde</b>, muito confiável (dados e documentos oficiais, organismos internacionais, pesquisa acadêmica, agências e emissoras públicas, poucos veículos de referência); <span class="tl y"></span><b>amarelo</b>, confiável (os demais). Governo, partido e veículo de linha declarada estão indicados. Nas ações, o nome em azul abre a matéria; “(buscar)” abre uma busca no Google, em inglês para países estrangeiros e em português para o Brasil, quando o endereço exato da matéria não foi localizado.</p>
-    <div class="src-body" id="src-body"></div>
-    <h3 class="info-h">Licença</h3>
-    <p>O conteúdo deste painel está sob a licença <a href="https://creativecommons.org/licenses/by/4.0/deed.pt-br" target="_blank" rel="noopener noreferrer">Creative Commons Atribuição 4.0 (CC BY 4.0)</a>: pode ser copiado, adaptado e compartilhado, inclusive para fins comerciais, desde que cite o painel “Flávio e os Parças” e o link <a href="https://destrava-conversas.github.io/eoflavio/">destrava-conversas.github.io/eoflavio</a>, e indique se houve mudanças. O código está em <a href="https://github.com/destrava-conversas/eoflavio" target="_blank" rel="noopener noreferrer">github.com/destrava-conversas/eoflavio</a>.</p>
+    <h2 id="h-info">Privacidade e fontes</h2>
     <h3 class="info-h">Privacidade</h3>
     <p>Este site conta visitas de forma anônima, com o <a href="https://www.goatcounter.com/" target="_blank" rel="noopener noreferrer">GoatCounter</a>: sem cookies e sem coletar dados pessoais.</p>
+    <h3 class="info-h">Licença</h3>
+    <p>O conteúdo deste painel está sob a licença <a href="https://creativecommons.org/licenses/by/4.0/deed.pt-br" target="_blank" rel="noopener noreferrer">Creative Commons Atribuição 4.0 (CC BY 4.0)</a>: pode ser copiado, adaptado e compartilhado, inclusive para fins comerciais, desde que cite o painel “Flávio e os Parças” e o link <a href="https://destrava-conversas.github.io/eoflavio/">destrava-conversas.github.io/eoflavio</a>, e indique se houve mudanças. O código está em <a href="https://github.com/destrava-conversas/eoflavio" target="_blank" rel="noopener noreferrer">github.com/destrava-conversas/eoflavio</a>.</p>
+    <h3 class="info-h">Autoria e uso de IA</h3>
+    <p>Autoria: Eleitor Brasileiro Preocupado. O painel foi feito com o Claude, assistente de IA da Anthropic, que pesquisou fontes públicas, resumiu e classificou as ações de cada governo e escreveu o código da página. As escolhas editoriais, como quais líderes e pautas entram e os critérios de classificação, são do autor. A IA pode errar: confira os links das fontes.</p>
+    <h3 class="info-h">Períodos e fontes</h3>
+    <p>Períodos cobertos: Jair Bolsonaro (Brasil, 2019 a 2022), Milei (Argentina, até setembro de 2026), Bukele (El Salvador, desde 2019), Kast (Chile, desde março de 2026), Trump (Estados Unidos, 2017 a 2021 e desde 2025, até junho de 2026), Orbán (Hungria, até abril de 2026) e o PiS (Polônia, 2015 a 2023). A comparação usa o Brasil de 2023 a 2025.</p>
+    <p class="method">Cada fonte mostra o que é, para que a usei e onde aparece. Semáforo: <span class="tl g"></span><b>verde</b>, muito confiável (dados e documentos oficiais, organismos internacionais, pesquisa acadêmica, agências e emissoras públicas, poucos veículos de referência); <span class="tl y"></span><b>amarelo</b>, confiável (os demais). Governo, partido e veículo de linha declarada estão indicados. Nas ações, o nome em azul abre a matéria; “(buscar)” abre uma busca no Google, em inglês para países estrangeiros e em português para o Brasil, quando o endereço exato da matéria não foi localizado.</p>
+    <div class="src-body" id="src-body"></div>
   </section>
   <footer class="foot-note">
     <div class="lg-note foot" role="note">
@@ -3492,7 +3485,7 @@ LK_R.push(["pl", "educacao", "A reforma de 2017 extinguiu ", [["Polen-Analysen",
     if((tz=$('tz-ctx'))) tz.textContent = nctx ? nctx + (nctx===1?' item':' itens') + ' com resultados medidos, como indicadores e estatísticas. Não entram no placar.' : 'Sem itens de contexto nesta seleção.';
     if((tz=$('tz-visao-geral'))) tz.textContent = 'Todos os parças cruzados com todas as pautas, numa tabela. Toque numa célula para filtrar.';
     var top = [].slice.call(document.querySelectorAll('#crank-rows .rrow')).slice(0,2).map(function(b){ return b.querySelector('.nm').firstChild.textContent; });
-    if((tz=$('tz-informacoes'))) tz.textContent = 'Período coberto de cada governo e '+(window.__srcTotal ? 'as '+window.__srcTotal+' fontes usadas' : 'as fontes usadas')+', com o semáforo de confiabilidade.';
+    if((tz=$('tz-informacoes'))) tz.textContent = (function(){ var u=((document.querySelector('.upd')||{}).textContent||'').trim(); return (u ? u+'. ' : '') + 'Privacidade, licença, autoria e uso de IA, período coberto de cada governo e '+(window.__srcTotal ? 'as '+window.__srcTotal+' fontes usadas' : 'as fontes usadas')+', com o semáforo de confiabilidade.'; })();
     if((tz=$('tz-democracia'))) tz.textContent = top.length ? 'Intervenções em limites constitucionais ao poder. Lideram: ' + top.join(' e ') + '.' : '';
   }
 
