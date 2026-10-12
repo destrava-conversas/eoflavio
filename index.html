@@ -1515,6 +1515,13 @@ a.c-go[aria-disabled="true"] .l{text-decoration:none}
 .res-btn.pd-go{border-color:var(--contra);color:var(--contra-ink)}
 .res-btn.pd-go:hover{background:var(--contra);color:#fff}
 .res-btn.pd-go[hidden]{display:none}
+:root{--pand:#C62828;--pand-ink:#B71C1C}
+:root[data-theme="dark"]{--pand:#EF5350;--pand-ink:#FF8A80}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--pand:#EF5350;--pand-ink:#FF8A80}}
+.pand-card{border-left-color:var(--pand);border-color:color-mix(in srgb,var(--pand) 35%,var(--line));border-left-color:var(--pand);background:color-mix(in srgb,var(--pand) 5%,var(--surface))}
+.pand-card .pd-kick,.pand-card h2{color:var(--pand-ink)}
+.res-btn.pd-go{border-color:var(--pand);color:var(--pand-ink)}
+.res-btn.pd-go:hover{background:var(--pand);color:#fff}
 </style>
 </head>
 <body>
