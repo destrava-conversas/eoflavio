@@ -1533,6 +1533,7 @@ a.c-go[aria-disabled="true"] .l{text-decoration:none}
 .pd-stat .pd-src{font-size:12.5px;color:var(--muted)}
 .pd-stat .pd-src a{color:var(--pro-ink)}
 .pd-lives-note{margin-top:10px}
+.sum-img-row{margin:22px 0 2px}
 </style>
 </head>
 <body>
@@ -1621,6 +1622,7 @@ a.c-go[aria-disabled="true"] .l{text-decoration:none}
         </div>
         <div class="ends"><span class="a">Ações contra</span><span class="b">Ações a favor</span></div>
       </div>
+      <div class="img-row sum-img-row"><button type="button" class="imgbtn" id="sum-img">Copiar resumo como imagem</button><span class="img-msg" id="sum-img-msg" role="status" aria-live="polite"></span></div>
       <p class="sum" id="sel-sum" hidden></p>
       <details class="crit-det" id="crit-det"><summary>Como classificamos</summary><p class="crit" id="sel-crit"></p></details>
       <div class="res-btns res-nav"><a class="res-btn" href="#acoes" id="go-acoes">Ações</a><a class="res-btn" href="#comparacao" id="go-cmp">Compare</a><a class="res-btn" href="#rank" id="go-rank">Ranking</a><a class="res-btn pd-go" href="#pandemia" hidden>Especial Pandemia</a></div>
@@ -3909,10 +3911,107 @@ LK_R.push(["pl", "educacao", "A reforma de 2017 extinguiu ", [["Polen-Analysen",
     g.lineTo(x+w,y+h-r.br); g.quadraticCurveTo(x+w,y+h,x+w-r.br,y+h); g.lineTo(x+r.bl,y+h);
     g.quadraticCurveTo(x,y+h,x,y+h-r.bl); g.lineTo(x,y+r.tl); g.quadraticCurveTo(x,y,x+r.tl,y); g.closePath();
   }
-  (function(){
-    var bt=$('rank-img'), msg=$('rank-img-msg'); if(!bt) return;
+  function wrapText(g, text, maxW){
+    var words = String(text).split(/\s+/), lines = [], cur = '';
+    words.forEach(function(w){
+      var t = cur ? cur+' '+w : w;
+      if(g.measureText(t).width > maxW && cur){ lines.push(cur); cur = w; } else cur = t;
+    });
+    if(cur) lines.push(cur);
+    return lines;
+  }
+  function sumCanvas(){
+    var W=1080, H=1350, P=72;
+    var c=document.createElement('canvas'); c.width=W; c.height=H;
+    var g=c.getContext('2d');
+    var SANS="'Public Sans', 'Segoe UI', Arial, sans-serif", HEAD="'Bricolage Grotesque','Public Sans','Segoe UI',Arial,sans-serif";
+    var INK='#1A2430', MUT='#4A5663', LINE='#D3DAE1', CON='#C2570C', CONI='#A64A08', PRO='#0B6B8F';
+    var t = tally(state.c, state.g);
+    var cc=null; ALLC.forEach(function(x){ if(x.k===state.c) cc=x; });
+    var pauta = state.g==='all' ? 'Todas as pautas' : gname(state.g);
+    var who = !cc ? 'Parças do Flávio: soma dos sete líderes' : (cc.ctrl ? 'Governo Lula, 2023 a 2025 (régua de comparação)' : (cc.sub || (cc.p+' sob '+cc.n+', '+cc.s)));
+    /* fundo e barra */
+    g.fillStyle='#EEF1F4'; g.fillRect(0,0,W,H);
+    g.fillStyle='#0F2440'; g.fillRect(0,0,W,120);
+    g.fillStyle='#fff'; g.textBaseline='middle'; g.font='800 46px '+HEAD; g.fillText('Flávio e os Parças', P, 62);
+    var upd = ((document.querySelector('.upd')||{}).textContent || '').trim();
+    if(upd){ g.textAlign='right'; g.font='500 21px '+SANS; g.fillStyle='#B9C6D6'; g.fillText(upd, W-P, 64); g.textAlign='left'; }
+    /* cartão */
+    var cx=40, cy=160, cw=W-80, ch=H-cy-150;
+    g.fillStyle='#FFFFFF'; roundRect(g,cx,cy,cw,ch,28); g.fill();
+    g.strokeStyle=LINE; g.lineWidth=2; g.stroke();
+    var x=cx+56, maxW=cw-112;
+    g.textBaseline='alphabetic';
+    /* medir */
+    var fs=70; g.font='800 '+fs+'px '+HEAD; while(g.measureText(pauta).width>maxW && fs>38){ fs--; g.font='800 '+fs+'px '+HEAD; }
+    g.font='500 28px '+SANS; var whoL = wrapText(g, who, maxW).slice(0,2);
+    var hA = 22 + 18 + fs + whoL.length*42;
+    var hB = 118 + 50, hC = 32;
+    var tc = state.c!=='br' ? tally('br', state.g) : null;
+    var hD = tc ? 76 : 0;
+    var crit = ($('sel-crit') && !$('sel-crit').hidden) ? $('sel-crit').textContent : '';
+    var cfs=24, lines=[], hE=0;
+    function measureE(){ g.font='400 '+cfs+'px '+SANS; lines = crit ? wrapText(g, crit, maxW) : []; hE = crit ? 34 + lines.length*cfs*1.48 : 0; }
+    measureE();
+    var gaps = [64, 44, tc?72:0, crit?72:0], inner = ch-120;
+    function total(){ return hA+hB+hC+hD+hE+gaps.reduce(function(a,b){return a+b;},0); }
+    while(total()>inner && cfs>17){ cfs--; measureE(); }
+    var extra = Math.max(0, inner-total()), ng = gaps.filter(function(v){return v>0;}).length;
+    var add = Math.min(70, extra/ng); gaps = gaps.map(function(v){ return v>0 ? v+add : 0; });
+    var y = cy + 60 + Math.max(0, inner-total())/2;
+    /* A: título */
+    y+=22; g.fillStyle=MUT; g.font='700 21px '+SANS; g.fillText('O QUE ELES FIZERAM', x, y);
+    y+=18+fs; g.font='800 '+fs+'px '+HEAD; g.fillStyle=INK; g.fillText(pauta, x, y);
+    g.font='500 28px '+SANS; g.fillStyle=MUT; whoL.forEach(function(l){ y+=42; g.fillText(l, x, y); });
+    /* B: números */
+    y+=gaps[0]+118; var half=maxW/2;
+    g.font='800 124px '+HEAD; g.fillStyle=CONI; g.fillText(String(t.contra), x, y);
+    g.fillStyle=PRO; g.fillText(String(t.pro), x+half, y);
+    g.font='600 30px '+SANS; g.fillStyle=CONI; g.fillText(t.contra===1?'ação contra':'ações contra', x, y+50);
+    g.fillStyle=PRO; g.fillText(t.pro===1?'ação a favor':'ações a favor', x+half, y+50);
+    y+=50;
+    /* C: termômetro */
+    y+=gaps[1]; var bh=32, mid=x+maxW/2;
+    g.fillStyle='#E6EBF0'; roundRect(g,x,y,maxW,bh,bh/2); g.fill();
+    function sw(v){ return (t.total && v>0) ? Math.max(0.04, v/t.total) * (maxW/2) : 0; }
+    var wl=sw(t.contra), wr=sw(t.pro);
+    if(wl){ g.fillStyle=CON; roundRect(g,mid-wl,y,wl,bh,{tl:bh/2,bl:bh/2,tr:0,br:0}); g.fill(); }
+    if(wr){ g.fillStyle=PRO; roundRect(g,mid,y,wr,bh,{tl:0,bl:0,tr:bh/2,br:bh/2}); g.fill(); }
+    g.fillStyle=INK; g.fillRect(mid-2,y-8,4,bh+16);
+    y+=bh;
+    /* D: régua Lula */
+    if(tc){
+      y+=gaps[2];
+      g.fillStyle=LINE; g.fillRect(x,y-gaps[2]/2,maxW,2);
+      g.font='700 24px '+SANS; g.fillStyle=INK; g.fillText('Régua de comparação: governo Lula (2023 a 2025)', x, y+20);
+      g.font='500 24px '+SANS; g.fillStyle=MUT;
+      var rl = tc.total ? (tc.contra+(tc.contra===1?' ação contra':' ações contra')+' e '+tc.pro+(tc.pro===1?' ação a favor':' ações a favor')+', pelos mesmos critérios.') : 'Sem ações documentadas nesta pauta.';
+      g.fillText(rl, x, y+58);
+      y+=hD;
+    }
+    /* E: critério */
+    if(crit){
+      y+=gaps[3];
+      g.fillStyle=LINE; g.fillRect(x,y-gaps[3]/2,maxW,2);
+      g.font='700 24px '+SANS; g.fillStyle=INK; g.fillText('Como classificamos', x, y+20);
+      g.font='400 '+cfs+'px '+SANS; g.fillStyle=MUT;
+      lines.forEach(function(l,ix){ g.fillText(l, x, y+20+34+ix*cfs*1.48); });
+    }
+    /* rodapé */
+    var fy=cy+ch+50, fx=P-32, fw=W-2*fx;
+    var note='Cada ação vale 1, sem peso por gravidade. Sem ação listada não quer dizer que não exista.';
+    var nfs=21; g.font='500 '+nfs+'px '+SANS; while(g.measureText(note).width>fw && nfs>16){ nfs--; g.font='500 '+nfs+'px '+SANS; }
+    g.fillStyle=MUT; g.fillText(note, fx, fy);
+    g.font='500 24px '+SANS; var lead='Fontes de cada ação em '; g.fillText(lead, fx, fy+46);
+    var lw=g.measureText(lead).width; g.fillStyle='#0F2440'; g.font='700 24px '+SANS; g.fillText(PANEL_URL.replace('https://','').replace(/\/$/,''), fx+lw, fy+46);
+    return c;
+  }
+  function imgShare(btId, msgId, makeCanvas, fname, title){
+    var bt=$(btId), msg=$(msgId); if(!bt) return;
+    var mobile = window.matchMedia && window.matchMedia('(pointer:coarse)').matches;
+    var canShareFiles = !!(navigator.canShare && window.File);
+    if(mobile && canShareFiles) bt.textContent = bt.textContent.replace(/^Copiar/, 'Compartilhar');
     function say(t){ msg.textContent=t; clearTimeout(say.t); say.t=setTimeout(function(){ msg.textContent=''; }, 4000); }
-    function fname(){ return 'ranking-parcas-do-flavio'+(state.c==='all'?'':'-'+state.c)+'.png'; }
     var dlp = (window.claude && window.claude.use) ? window.claude.use('downloads') : Promise.resolve(null);
     function download(blob){
       Promise.resolve(dlp).then(function(dl){
@@ -3924,12 +4023,11 @@ LK_R.push(["pl", "educacao", "A reforma de 2017 extinguiu ", [["Polen-Analysen",
     }
     bt.addEventListener('click', function(){
       var go=function(){
-        rankCanvas().toBlob(function(blob){
+        makeCanvas().toBlob(function(blob){
           if(!blob){ say('Não foi possível gerar a imagem.'); return; }
           var file; try{ file=new File([blob], fname(), {type:'image/png'}); }catch(e){}
-          var mobile = window.matchMedia && window.matchMedia('(pointer:coarse)').matches;
           if(mobile && file && navigator.canShare && navigator.canShare({files:[file]})){
-            navigator.share({files:[file], title:'Ranking das pautas', text:'Flávio e os Parças: '+PANEL_URL}).then(function(){ say('Imagem compartilhada.'); }).catch(function(err){ if(err && err.name==='AbortError') return; download(blob); });
+            navigator.share({files:[file], title:title(), text:'Flávio e os Parças: '+PANEL_URL}).then(function(){ say('Imagem compartilhada.'); }).catch(function(err){ if(err && err.name==='AbortError') return; download(blob); });
             return;
           }
           if(navigator.clipboard && window.ClipboardItem && window.isSecureContext){
@@ -3939,7 +4037,10 @@ LK_R.push(["pl", "educacao", "A reforma de 2017 extinguiu ", [["Polen-Analysen",
       };
       if(document.fonts && document.fonts.ready) document.fonts.ready.then(go); else go();
     });
-  })();
+  }
+  window.__sumCanvas = sumCanvas;
+  imgShare('rank-img','rank-img-msg', rankCanvas, function(){ return 'ranking-parcas-do-flavio'+(state.c==='all'?'':'-'+state.c)+'.png'; }, function(){ return 'Ranking das pautas'; });
+  imgShare('sum-img','sum-img-msg', sumCanvas, function(){ return 'resumo-'+(state.g==='all'?'todas-as-pautas':state.g)+(state.c==='all'?'':'-'+state.c)+'.png'; }, function(){ return 'Resumo: '+(state.g==='all'?'Todas as pautas':gname(state.g)); });
 
   (function(){
     var tt=document.getElementById('totop'); if(!tt) return;
