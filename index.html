@@ -1365,6 +1365,50 @@ a.c-go[aria-disabled="true"]{cursor:default}
 a.c-go[aria-disabled="true"] .l{text-decoration:none}
 #col-contra,#col-pro{scroll-margin-top:136px}
 @media(max-width:600px){#col-contra,#col-pro{scroll-margin-top:124px}}
+
+.pand-card{margin-top:28px;background:var(--surface);border:1px solid var(--line);border-left:6px solid var(--ink);border-radius:14px;padding:26px 28px;scroll-margin-top:136px}
+.pand-card[hidden]{display:none}
+.pd-kick{margin:0 0 4px;font-size:13px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.pand-card h2{margin:0 0 10px;font-size:28px}
+.pd-intro{margin:0 0 6px;color:var(--ink);line-height:1.55}
+.pd-intro a,.pd-src a,.pd-srcs a,.pd-care a{color:var(--pro-ink);text-underline-offset:2px}
+.pd-h{margin:26px 0 4px;font-size:19px;font-weight:800}
+.pd-sub{margin:0 0 10px;font-size:14.5px;color:var(--muted)}
+.pd-key{display:flex;gap:16px;font-size:13.5px;color:var(--muted);margin:0 0 10px}
+.pd-key i{display:inline-block;width:14px;height:10px;border-radius:3px;margin-right:6px;vertical-align:middle}
+.pd-key i.a,.pd-bar.a i{background:color-mix(in srgb,var(--ink) 45%,transparent)}
+.pd-key i.b,.pd-bar.b i{background:var(--ink)}
+.pd-row{display:grid;grid-template-columns:minmax(120px,190px) 1fr;gap:4px 16px;align-items:center;padding:8px 0;border-top:1px solid var(--line)}
+.pd-row.ref .pd-lab b{color:var(--muted)}
+.pd-row.ref .pd-bar.a i{background:color-mix(in srgb,var(--muted) 40%,transparent)}
+.pd-row.ref .pd-bar.b i{background:var(--muted)}
+.pd-lab b{display:block;font-size:15px}
+.pd-lab span{font-size:13px;color:var(--muted)}
+.pd-bars{display:grid;gap:4px}
+.pd-bar{position:relative;display:flex;align-items:center;gap:8px;min-height:18px}
+.pd-bar i{display:block;height:14px;border-radius:4px;min-width:2px}
+.pd-bar .pd-v{font-size:13px;font-weight:700;white-space:nowrap}
+.pd-bar.na .pd-v{font-weight:500;color:var(--muted);font-style:italic}
+.pd-note{grid-column:1/-1;margin:2px 0 0;font-size:13px;color:var(--muted)}
+.pd-evs{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:14px}
+.pd-who{border:1px solid var(--line);border-radius:12px;padding:14px 16px;background:var(--ground)}
+.pd-who h4{margin:0 0 8px;font-size:16px}
+.pd-who ul{margin:0;padding:0;list-style:none;display:grid;gap:12px}
+.pd-ev p{margin:4px 0 0;font-size:14.5px;line-height:1.5}
+.pd-ev .pd-src{font-size:12.5px;color:var(--muted)}
+.pd-tag{display:inline-block;font-size:11.5px;font-weight:800;text-transform:uppercase;letter-spacing:.04em;padding:1px 8px;border-radius:999px;margin-right:8px}
+.pd-ev.contra .pd-tag{background:var(--contra);color:#fff}
+.pd-ev.favor .pd-tag{background:var(--pro);color:#fff}
+.pd-ev.dado .pd-tag{background:var(--line);color:var(--ink)}
+.pd-d{font-size:12.5px;font-weight:700;color:var(--muted)}
+.pd-care{margin-top:20px;border-top:1px solid var(--line);padding-top:10px}
+.pd-care summary{cursor:pointer;font-weight:700;min-height:36px;display:flex;align-items:center}
+.pd-care p{margin:6px 0;font-size:14.5px;line-height:1.55;color:var(--muted)}
+.pd-srcs{margin:12px 0 0;font-size:12.5px;color:var(--muted)}
+@media(max-width:600px){.pand-card{padding:20px 16px}.pand-card h2{font-size:24px}.pd-row{grid-template-columns:1fr}}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .pd-ev .pd-tag{color:#11181F}}
+:root[data-theme="dark"] .pd-ev .pd-tag{color:#11181F}
+:root[data-theme="dark"] .pd-ev.dado .pd-tag,.pd-ev.dado .pd-tag{color:var(--ink)}
 </style>
 </head>
 <body>
@@ -1476,6 +1520,28 @@ a.c-go[aria-disabled="true"] .l{text-decoration:none}
       <p class="method">Cada ação vale 1, sem peso por gravidade. Sem ação listada quer dizer que ela não apareceu nas fontes consultadas, não que não exista. “Alegado” marca o que vem só do governo ou de críticos, sem checagem independente. Semáforo das fontes: <span class="tl g"></span><b>verde</b>, muito confiável (dados oficiais, organismos internacionais, pesquisa acadêmica, agências e emissoras públicas); <span class="tl y"></span><b>amarelo</b>, confiável (demais veículos e organizações, inclusive os de linha declarada e as fontes parciais, sempre identificadas).</p>
       </div>
     </div>
+
+    <section class="pand-card" id="pandemia" hidden aria-labelledby="h-pand">
+      <p class="pd-kick">Recorte de Saúde</p>
+      <h2 id="h-pand">Pandemia: o teste de estresse</h2>
+      <p class="pd-intro">De 2020 a 2022, cinco dos sete parças governaram durante a covid-19: Jair Bolsonaro, Trump (só em 2020), Orbán, o PiS e Bukele. Milei, Kast e o governo Lula 3 começaram depois da fase aguda, por isso a comparação aqui é com 11 países emergentes, o mesmo grupo de <a href="economia/">E a Economia?</a>, sem a Polônia.</p>
+      <h3 class="pd-h">Mortes em excesso por 100 mil habitantes</h3>
+      <p class="pd-sub">Quantas pessoas morreram a mais do que o esperado, por qualquer causa. Conta também as mortes por covid que não foram registradas.</p>
+      <div class="pd-key"><span><i class="a"></i>Em 2020</span><span><i class="b"></i>De 2020 a 2022</span></div>
+      <div class="pd-chart"><div class="pd-row "><div class="pd-lab"><b>Jair Bolsonaro</b><span>Brasil</span></div><div class="pd-bars"><div class="pd-bar a"><i style="width:16.7%"></i><span class="pd-v">87</span></div><div class="pd-bar b"><i style="width:72.9%"></i><span class="pd-v">379</span></div></div></div><div class="pd-row "><div class="pd-lab"><b>Trump</b><span>EUA</span></div><div class="pd-bars"><div class="pd-bar a"><i style="width:27.9%"></i><span class="pd-v">145</span></div><div class="pd-bar b na"><span class="pd-v">governo seguinte</span></div></div><p class="pd-note">Trump governou até janeiro de 2021; de 2021 em diante o governo era de Biden.</p></div><div class="pd-row "><div class="pd-lab"><b>Orbán</b><span>Hungria</span></div><div class="pd-bars"><div class="pd-bar a"><i style="width:26.5%"></i><span class="pd-v">138</span></div><div class="pd-bar b"><i style="width:98.1%"></i><span class="pd-v">510</span></div></div></div><div class="pd-row "><div class="pd-lab"><b>PiS</b><span>Polônia</span></div><div class="pd-bars"><div class="pd-bar a"><i style="width:32.5%"></i><span class="pd-v">169</span></div><div class="pd-bar b"><i style="width:95.4%"></i><span class="pd-v">496</span></div></div></div><div class="pd-row "><div class="pd-lab"><b>Bukele</b><span>El Salvador</span></div><div class="pd-bars"><div class="pd-bar a"><i style="width:23.3%"></i><span class="pd-v">121</span></div><div class="pd-bar b"><i style="width:70.6%"></i><span class="pd-v">367</span></div></div><p class="pd-note">Estimativa incerta: de 194 a 503 por 100 mil em 2020 a 2022. As mortes oficiais por covid foram só 67 por 100 mil.</p></div><div class="pd-row ref"><div class="pd-lab"><b>Mediana</b><span>11 emergentes</span></div><div class="pd-bars"><div class="pd-bar a"><i style="width:15.0%"></i><span class="pd-v">78</span></div><div class="pd-bar b"><i style="width:71.5%"></i><span class="pd-v">372</span></div></div></div></div>
+      <h3 class="pd-h">Vacinação: pessoas com a 1ª dose</h3>
+      <p class="pd-sub">% da população com pelo menos uma dose.</p>
+      <div class="pd-key"><span><i class="a"></i>Em 30/6/2021</span><span><i class="b"></i>Em 31/12/2021</span></div>
+      <div class="pd-chart"><div class="pd-row "><div class="pd-lab"><b>Jair Bolsonaro</b><span>Brasil · início em 17/1/2021</span></div><div class="pd-bars"><div class="pd-bar a"><i style="width:35.0%"></i><span class="pd-v">35%</span></div><div class="pd-bar b"><i style="width:77.0%"></i><span class="pd-v">77%</span></div></div></div><div class="pd-row "><div class="pd-lab"><b>Trump</b><span>EUA · início em 14/12/2020</span></div><div class="pd-bars"><div class="pd-bar a"><i style="width:55.0%"></i><span class="pd-v">55%</span></div><div class="pd-bar b"><i style="width:74.0%"></i><span class="pd-v">74%</span></div></div><p class="pd-note">A vacinação começou no fim do governo Trump; a maior parte ocorreu já com Biden.</p></div><div class="pd-row "><div class="pd-lab"><b>Orbán</b><span>Hungria · início em 18/1/2021</span></div><div class="pd-bars"><div class="pd-bar a"><i style="width:55.0%"></i><span class="pd-v">55%</span></div><div class="pd-bar b"><i style="width:63.0%"></i><span class="pd-v">63%</span></div></div></div><div class="pd-row "><div class="pd-lab"><b>PiS</b><span>Polônia · início em 28/12/2020</span></div><div class="pd-bars"><div class="pd-bar a"><i style="width:42.0%"></i><span class="pd-v">42%</span></div><div class="pd-bar b"><i style="width:54.0%"></i><span class="pd-v">54%</span></div></div></div><div class="pd-row "><div class="pd-lab"><b>Bukele</b><span>El Salvador · início em 17/2/2021</span></div><div class="pd-bars"><div class="pd-bar a"><i style="width:25.0%"></i><span class="pd-v">25%</span></div><div class="pd-bar b"><i style="width:71.0%"></i><span class="pd-v">71%</span></div></div></div><div class="pd-row ref"><div class="pd-lab"><b>Mediana</b><span>11 emergentes</span></div><div class="pd-bars"><div class="pd-bar a"><i style="width:22.0%"></i><span class="pd-v">22%</span></div><div class="pd-bar b"><i style="width:67.0%"></i><span class="pd-v">67%</span></div></div></div></div>
+      <h3 class="pd-h">Decisões que marcaram</h3>
+      <div class="pd-evs"><div class="pd-who"><h4>Jair Bolsonaro</h4><ul><li class="pd-ev contra"><span class="pd-tag">contra</span><span class="pd-d">mar. 2020</span><p>Em pronunciamento em rede nacional, chama a covid de “gripezinha” e critica o fechamento de escolas.</p><p class="pd-src">Fonte: <a href="https://www.em.com.br/app/noticia/politica/2021/03/24/interna_politica,1250005/ha-um-ano-bolsonaro-chamava-covid-de-gripezinha-em-rede-nacional-relembre.shtml" target="_blank" rel="noopener noreferrer">Estado de Minas</a></p></li><li class="pd-ev favor"><span class="pd-tag">a favor</span><span class="pd-d">abr. 2020</span><p>Auxílio Emergencial de R$ 600, depois prorrogado.</p><p class="pd-src">Fonte: <a href="https://congressoemfoco.com.br/economia/governo-anuncia-duas-novas-parcelas-de-r-600-do-auxilio-emergencial" target="_blank" rel="noopener noreferrer">Congresso em Foco</a></p></li><li class="pd-ev contra"><span class="pd-tag">contra</span><span class="pd-d">2020</span><p>Ofertas de vacinas que somavam 130 milhões de doses ficaram sem resposta, segundo a CPI da Covid.</p><p class="pd-src">Fonte: <a href="https://sbtnews.sbt.com.br/noticia/congresso/169619-cpi-sobre-fala-de-bolsonaro-inflexao-vem-com-atraso-fatal-e-doloroso" target="_blank" rel="noopener noreferrer">SBT News</a></p></li><li class="pd-ev contra"><span class="pd-tag">contra</span><span class="pd-d">jan. 2021</span><p>Falta de oxigênio em Manaus; no mesmo período, o Ministério da Saúde lança um aplicativo que indicava cloroquina.</p><p class="pd-src">Fonte: <a href="https://www.poder360.com.br/brasil/mayra-pinheiro-contradiz-pazuello-sobre-crise-de-oxigenio-em-manaus/" target="_blank" rel="noopener noreferrer">Poder360</a>; <a href="https://rollingstone.com.br/?p=118322" target="_blank" rel="noopener noreferrer">Rolling Stone</a></p></li></ul></div><div class="pd-who"><h4>Trump</h4><ul><li class="pd-ev favor"><span class="pd-tag">a favor</span><span class="pd-d">mai. 2020</span><p>Operation Warp Speed financia o desenvolvimento e a compra antecipada de vacinas, aprovadas em tempo recorde.</p><p class="pd-src">Fonte: <a href="https://www.axios.com/coronavirus-vaccine-timeline-trump-administration-f164ea82-d72d-474b-a90d-938f10d842c3.html" target="_blank" rel="noopener noreferrer">Axios</a></p></li><li class="pd-ev contra"><span class="pd-tag">contra</span><span class="pd-d">jun. 2020</span><p>A FDA revoga o uso emergencial da hidroxicloroquina, promovida pelo presidente, por falta de eficácia.</p><p class="pd-src">Fonte: <a href="https://www.hawaiipublicradio.org/national-international/2020-06-15/us-revokes-emergency-use-of-drugs-touted-by-trump-vs-virus" target="_blank" rel="noopener noreferrer">AP (via HPR)</a></p></li><li class="pd-ev contra"><span class="pd-tag">contra</span><span class="pd-d">jul. 2020</span><p>Notifica a ONU da saída dos EUA da OMS, em plena pandemia.</p><p class="pd-src">Fonte: <a href="https://whyy.org/articles/us-notifies-un-of-withdrawal-from-world-health-organization/" target="_blank" rel="noopener noreferrer">Associated Press</a></p></li></ul></div><div class="pd-who"><h4>Orbán</h4><ul><li class="pd-ev contra"><span class="pd-tag">contra</span><span class="pd-d">mar. 2020</span><p>Lei de emergência permite governar por decreto, sem prazo para acabar.</p><p class="pd-src">Fonte: <a href="https://www.aljazeera.com/news/2020/03/hungary-pm-orban-sweeping-powers-tackle-coronavirus-200330135806981.html" target="_blank" rel="noopener noreferrer">Al Jazeera</a></p></li><li class="pd-ev favor"><span class="pd-tag">a favor</span><span class="pd-d">fev. 2021</span><p>Primeiro país da União Europeia a usar as vacinas Sputnik V e Sinopharm, o que acelerou a vacinação.</p><p class="pd-src">Fonte: <a href="https://www.euronews.com/2021/02/24/hungary-becomes-first-eu-nation-to-use-china-s-sinopharm-vaccine-against-covid-19" target="_blank" rel="noopener noreferrer">Euronews</a></p></li></ul></div><div class="pd-who"><h4>PiS</h4><ul><li class="pd-ev contra"><span class="pd-tag">contra</span><span class="pd-d">mai. 2020</span><p>Tenta fazer a eleição presidencial só pelo correio em plena pandemia; o plano é abandonado e custa 70 milhões de zlotys.</p><p class="pd-src">Fonte: <a href="https://notesfrompoland.com/2020/05/27/70-million-zloty-bill-for-polands-abandoned-presidential-election" target="_blank" rel="noopener noreferrer">Notes from Poland</a></p></li><li class="pd-ev dado"><span class="pd-tag">dado</span><span class="pd-d">2021</span><p>Com vacinação baixa, a quarta onda leva a Polônia ao maior número de mortes em um ano desde a Segunda Guerra.</p><p class="pd-src">Fonte: <a href="https://notesfrompoland.com/2022/01/18/poland-suffered-29-excess-death-rate-in-2021-with-more-deaths-than-any-year-since-wwii/" target="_blank" rel="noopener noreferrer">Notes from Poland</a></p></li></ul></div><div class="pd-who"><h4>Bukele</h4><ul><li class="pd-ev contra"><span class="pd-tag">contra</span><span class="pd-d">mar.–abr. 2020</span><p>Quarentena com milhares de pessoas detidas em centros de contenção; o governo desobedece decisões da Suprema Corte.</p><p class="pd-src">Fonte: <a href="https://www.hrw.org/news/2020/04/17/el-salvador-president-defies-supreme-court" target="_blank" rel="noopener noreferrer">Human Rights Watch</a></p></li><li class="pd-ev dado"><span class="pd-tag">dado</span><span class="pd-d">2020–2022</span><p>As mortes oficiais por covid ficaram cerca de cinco vezes abaixo do excesso de mortes estimado.</p><p class="pd-src">Fonte: <a href="https://github.com/TheEconomist/covid-19-the-economist-global-excess-deaths-model" target="_blank" rel="noopener noreferrer">The Economist</a></p></li></ul></div></div>
+      <details class="pd-care"><summary>Como ler este recorte</summary>
+        <p>O excesso de mortes não mede só o governo. Idade da população, desigualdade, doenças pré-existentes, força do sistema de saúde e a chegada das variantes também pesam. Os números mostram o resultado, não provam a causa.</p>
+        <p>No Brasil, o excesso de mortes ficou perto da mediana dos emergentes, e a vacinação, que começou depois, passou a mediana no segundo semestre de 2021, apoiada pelo SUS e pelo Programa Nacional de Imunizações.</p>
+        <p>Dados: modelo de mortes em excesso da The Economist e vacinação compilada pelo Our World in Data. Os números de 2020 e de 2022 são os acumulados até o fim de cada ano.</p>
+      </details>
+      <p class="pd-srcs">Fontes dos gráficos: <a href="https://github.com/TheEconomist/covid-19-the-economist-global-excess-deaths-model" target="_blank" rel="noopener noreferrer">The Economist, modelo de mortes em excesso</a>; <a href="https://github.com/owid/covid-19-data/tree/master/public/data/vaccinations" target="_blank" rel="noopener noreferrer">Our World in Data, vacinação</a>.</p>
+    </section>
 
     <div class="cmp-card" id="comparacao">
       <div class="split vs" id="vs" hidden>
@@ -3480,6 +3546,7 @@ LK_R.push(["pl", "educacao", "A reforma de 2017 extinguiu ", [["Polen-Analysen",
   function render(){
     syncSelects();
     renderResult();
+    var pdc=$('pandemia'); if(pdc) pdc.hidden = !(state.picked && state.g==='saude');
     renderMatrix();
     teasers();
     var rs = $('result'); if(rs) rs.classList.toggle('nopick', !state.picked);
