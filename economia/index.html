@@ -298,7 +298,8 @@ html{scroll-padding-top:5.5rem}
       <div id="notice-body" hidden>
       <p>Todos os números vêm de fontes oficiais: FMI, IBGE, Banco Central, INPE, ANP, DIEESE, Ministério do Trabalho e Sebrae. Cada tema mostra a sua fonte.</p>
       <p>Os gráficos mostram o que aconteceu em cada ano, não a causa. As faixas marcam quem governava, mas decisões têm efeito atrasado. Valores em reais estão corrigidos pela inflação. Anos sem dado aparecem listrados, e estimativas, tracejadas.</p>
-      <p><a href="#gl-metodo" class="gl-link">Veja o método completo no Glossário</a></p>
+      <p>Este site conta visitas de forma anônima, com o <a href="https://www.goatcounter.com/" target="_blank" rel="noopener noreferrer">GoatCounter</a>: sem cookies e sem coletar dados pessoais.</p>
+<p><a href="#gl-metodo" class="gl-link">Veja o método completo no Glossário</a></p>
       </div>
     </aside>
   </section>
@@ -780,5 +781,6 @@ fillThemes(); empty();
   document.addEventListener('click',e=>{ const a=e.target.closest('a.gl-link'); if(!a) return; e.preventDefault(); set(true);
     const t=document.querySelector(a.getAttribute('href')); if(t) requestAnimationFrame(()=>t.scrollIntoView({block:'start'})); }); })();
 </script>
+<script data-goatcounter="https://destrava-conversas.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </body>
 </html>
