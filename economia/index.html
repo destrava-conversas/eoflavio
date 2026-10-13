@@ -247,12 +247,18 @@ html{scroll-padding-top:5.5rem}
 .xbox .howtog:focus-visible{outline-color:var(--fil)}
 .menu .mext{color:#1B5FA8}
 .src a{color:inherit;text-underline-offset:2px}
+.part-btn{margin-left:auto;display:inline-flex;align-items:center;gap:7px;padding:.45rem .95rem;border-radius:999px;border:1.5px solid rgba(255,255,255,.75);color:#fff;text-decoration:none;font-weight:700;font-size:.9rem;white-space:nowrap}
+.part-btn:hover{background:rgba(255,255,255,.18);border-color:#fff}
+.part-btn:focus-visible{outline:3px solid #fff;outline-offset:2px}
+.part-btn + .burger{margin-left:.6rem}
+@media (max-width:420px){.part-btn{padding:0;width:2.6rem;height:2.6rem;justify-content:center}.part-btn .pt{display:none}}
 </style>
 </head>
 <body>
 <div class="topbar">
   <div class="topin">
     <a class="brand" href="#topo" aria-label="Brasil em Dados, voltar ao topo"><svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="13" width="5" height="9" rx="1.2" fill="#fff"/><rect x="9.5" y="7" width="5" height="15" rx="1.2" fill="#fff"/><rect x="17" y="2" width="5" height="20" rx="1.2" fill="#fff"/></svg><span><b>Brasil</b> <i>em</i> <b>Dados</b></span></a>
+    <a class="part-btn" href="https://tally.so/r/eq1lDO" target="_blank" rel="noopener" data-participe aria-label="Participe: receber atualizações, reportar um erro ou destacar um acerto" title="Receber atualizações, reportar um erro ou destacar um acerto"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20.5l1.5-4.8A8 8 0 1 1 21 12z"/></svg><span class="pt">Participe</span></a>
     <button type="button" class="burger" id="burger" aria-expanded="false" aria-controls="menu" aria-label="Abrir menu"><span></span><span></span><span></span></button>
     <nav class="menu" id="menu" aria-label="Menu" hidden>
       <a class="mext" href="../">Flávio e os Parças <span aria-hidden="true">→</span></a>
@@ -261,6 +267,7 @@ html{scroll-padding-top:5.5rem}
       <a href="#temas">Explore por tema</a>
       <a href="#sobre">Sobre os dados</a>
       <a href="#glossario">Glossário</a>
+      <a href="https://tally.so/r/eq1lDO" target="_blank" rel="noopener" data-participe>Participe</a>
     </nav>
   </div>
 </div>
@@ -299,6 +306,7 @@ html{scroll-padding-top:5.5rem}
       <p>Todos os números vêm de fontes oficiais: FMI, IBGE, Banco Central, INPE, ANP, DIEESE, Ministério do Trabalho e Sebrae. Cada tema mostra a sua fonte.</p>
       <p>Os gráficos mostram o que aconteceu em cada ano, não a causa. As faixas marcam quem governava, mas decisões têm efeito atrasado. Valores em reais estão corrigidos pela inflação. Anos sem dado aparecem listrados, e estimativas, tracejadas.</p>
       <p>Este site conta visitas de forma anônima, com o <a href="https://www.goatcounter.com/" target="_blank" rel="noopener noreferrer">GoatCounter</a>: sem cookies e sem coletar dados pessoais.</p>
+      <p><b>Participe.</b> O formulário do botão “Participe” é do <a href="https://tally.so/" target="_blank" rel="noopener noreferrer">Tally</a>, serviço com sede na Bélgica e dados hospedados na União Europeia, e só é carregado quando você clica nele. Ficam guardados apenas o que você enviar: o que você quer, nome e e-mail (opcionais; o e-mail serve só para mandar atualizações a quem pedir), a mensagem e de qual página você veio. Esses dados não são vendidos nem repassados. Para deixar de receber atualizações ou pedir que seus dados sejam apagados, envie uma mensagem pelo próprio formulário.</p>
 <p><a href="#gl-metodo" class="gl-link">Veja o método completo no Glossário</a></p>
       </div>
     </aside>
@@ -780,6 +788,38 @@ fillThemes(); empty();
   if(['#glossario','#gl-paises','#gl-metodo'].includes(location.hash)) set(true);
   document.addEventListener('click',e=>{ const a=e.target.closest('a.gl-link'); if(!a) return; e.preventDefault(); set(true);
     const t=document.querySelector(a.getAttribute('href')); if(t) requestAnimationFrame(()=>t.scrollIntoView({block:'start'})); }); })();
+
+  /* ---------- Participe (Tally, carregado só sob demanda) ---------- */
+  (function(){
+    var FORM='eq1lDO', URL='https://tally.so/r/eq1lDO';
+    function ctx(){ return {pauta:'E a Economia?', parca:''}; }
+    function link(){ var x=ctx(), q=[]; Object.keys(x).forEach(function(k){ if(x[k]) q.push(k+'='+encodeURIComponent(x[k])); }); return URL+(q.length?'?'+q.join('&'):''); }
+    var loading=false, waiting=[];
+    function load(cb){
+      if(window.Tally && window.Tally.openPopup){ cb(true); return; }
+      waiting.push(cb); if(loading) return; loading=true;
+      var s=document.createElement('script'); s.src='https://tally.so/widgets/embed.js'; s.async=true;
+      function done(ok){ loading=false; var w=waiting; waiting=[]; w.forEach(function(f){ f(ok); }); }
+      s.onload=function(){ done(!!(window.Tally && window.Tally.openPopup)); };
+      s.onerror=function(){ s.remove(); done(false); };
+      document.head.appendChild(s);
+    }
+    function fallback(u){ var w=window.open(u,'_blank','noopener'); if(!w) location.href=u; }
+    [].slice.call(document.querySelectorAll('[data-participe]')).forEach(function(b){
+      ['pointerenter','focus','touchstart'].forEach(function(ev){ b.addEventListener(ev, function(){ load(function(){}); }, {passive:true, once:true}); });
+      b.addEventListener('click', function(e){
+        b.href = link();
+        if(e.metaKey || e.ctrlKey || e.shiftKey || e.button===1) return;
+        e.preventDefault();
+        var settled=false, t=setTimeout(function(){ if(!settled){ settled=true; fallback(b.href); } }, 3500);
+        load(function(ok){
+          if(settled) return; settled=true; clearTimeout(t);
+          if(ok){ try{ window.Tally.openPopup(FORM, {layout:'modal', width:560, overlay:true, autoClose:3000, hiddenFields:ctx()}); return; }catch(err){} }
+          fallback(b.href);
+        });
+      });
+    });
+  })();
 </script>
 <script data-goatcounter="https://destrava-conversas.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </body>

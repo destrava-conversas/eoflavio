@@ -1536,6 +1536,13 @@ a.c-go[aria-disabled="true"] .l{text-decoration:none}
 .sum-img-row{margin:22px 0 2px}
 .legend .legend-head .lg-teaser{order:3;flex:1 1 100%;margin:-2px 0 0}
 @media(max-width:600px){.legend .legend-head .lg-teaser{order:2;margin:0}.legend .legend-head .toggle{order:3}}
+.part-btn{display:inline-flex;align-items:center;gap:7px;padding:7px 14px;border-radius:999px;border:1.5px solid rgba(255,255,255,.75);color:#fff;text-decoration:none;font-weight:800;font-size:14px;white-space:nowrap}
+.part-btn:hover{background:rgba(255,255,255,.18);border-color:#fff}
+.part-btn:focus-visible{outline:3px solid #fff;outline-offset:2px}
+.sinais-btn + .part-btn{margin-left:-6px}
+@media(max-width:760px){.part-btn{order:2;padding:6px 11px;font-size:13px}.sinais-btn + .part-btn{margin-left:0}}
+@media(max-width:600px){.part-btn{gap:5px;padding:6px 10px}}
+@media(max-width:379px){.part-btn{padding:0;width:34px;height:34px;justify-content:center}.part-btn .pt{display:none}.part-btn svg{width:17px;height:17px}}
 </style>
 </head>
 <body>
@@ -1573,8 +1580,10 @@ a.c-go[aria-disabled="true"] .l{text-decoration:none}
       <a href="#visao-geral">Visão geral</a>
       <a href="#democracia">Respeito às regras</a>
       <a href="#informacoes">Privacidade e fontes</a>
+      <a href="https://tally.so/r/eq1lDO" target="_blank" rel="noopener" data-participe>Participe</a>
     </nav>
     <a class="sinais-btn" href="#noticias" aria-label="Ir para Sinais"><span class="dot" aria-hidden="true"></span>Sinais</a>
+    <a class="part-btn" href="https://tally.so/r/eq1lDO" target="_blank" rel="noopener" data-participe aria-label="Participe: receber atualizações, reportar um erro ou destacar um acerto" title="Receber atualizações, reportar um erro ou destacar um acerto"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20.5l1.5-4.8A8 8 0 1 1 21 12z"/></svg><span class="pt">Participe</span></a>
     <a class="totop" id="totop" href="#topo" data-top aria-label="Voltar ao topo" hidden><span class="ic" aria-hidden="true">↑</span><span class="tt">Voltar ao topo</span></a>
     <button type="button" class="burger" id="burger" aria-expanded="false" aria-controls="nav" aria-label="Abrir menu"><span></span><span></span><span></span></button>
   </div>
@@ -1925,6 +1934,7 @@ a.c-go[aria-disabled="true"] .l{text-decoration:none}
     <h2 id="h-info">Privacidade e fontes</h2>
     <h3 class="info-h">Privacidade</h3>
     <p>Este site conta visitas de forma anônima, com o <a href="https://www.goatcounter.com/" target="_blank" rel="noopener noreferrer">GoatCounter</a>: sem cookies e sem coletar dados pessoais.</p>
+    <p><b>Participe.</b> O formulário do botão “Participe” é do <a href="https://tally.so/" target="_blank" rel="noopener noreferrer">Tally</a>, serviço com sede na Bélgica e dados hospedados na União Europeia, e só é carregado quando você clica nele. Ficam guardados apenas o que você enviar: o que você quer, nome e e-mail (opcionais; o e-mail serve só para mandar atualizações a quem pedir), a mensagem e, no painel, a pauta e o parça que você estava vendo, para entender o contexto. Esses dados não são vendidos nem repassados. Para deixar de receber atualizações ou pedir que seus dados sejam apagados, envie uma mensagem pelo próprio formulário.</p>
     <h3 class="info-h">Licença</h3>
     <p>O conteúdo deste painel está sob a licença <a href="https://creativecommons.org/licenses/by/4.0/deed.pt-br" target="_blank" rel="noopener noreferrer">Creative Commons Atribuição 4.0 (CC BY 4.0)</a>: pode ser copiado, adaptado e compartilhado, inclusive para fins comerciais, desde que cite o painel “Flávio e os Parças” e o link <a href="https://destrava-conversas.com.br/eoflavio/">destrava-conversas.com.br/eoflavio</a>, e indique se houve mudanças. O código está em <a href="https://github.com/destrava-conversas/eoflavio" target="_blank" rel="noopener noreferrer">github.com/destrava-conversas/eoflavio</a>.</p>
     <h3 class="info-h">Autoria e uso de IA</h3>
@@ -4030,6 +4040,38 @@ LK_R.push(["pl", "educacao", "A reforma de 2017 extinguiu ", [["Polen-Analysen",
   }
   window.__sumCanvas = sumCanvas;
   imgShare('rank-img','rank-img-msg', rankCanvas, function(){ return 'ranking-parcas-do-flavio'+(state.c==='all'?'':'-'+state.c)+'.png'; }, function(){ return 'Ranking das pautas'; });
+
+  /* ---------- Participe (Tally, carregado só sob demanda) ---------- */
+  (function(){
+    var FORM='eq1lDO', URL='https://tally.so/r/eq1lDO';
+    function ctx(){ var p='',c=''; try{ if(state.g && state.g!=='all') p=gname(state.g); else if(state.picked) p='Todas as pautas'; if(state.c && state.c!=='all') c=cname(state.c); }catch(e){} return {pauta:p, parca:c}; }
+    function link(){ var x=ctx(), q=[]; Object.keys(x).forEach(function(k){ if(x[k]) q.push(k+'='+encodeURIComponent(x[k])); }); return URL+(q.length?'?'+q.join('&'):''); }
+    var loading=false, waiting=[];
+    function load(cb){
+      if(window.Tally && window.Tally.openPopup){ cb(true); return; }
+      waiting.push(cb); if(loading) return; loading=true;
+      var s=document.createElement('script'); s.src='https://tally.so/widgets/embed.js'; s.async=true;
+      function done(ok){ loading=false; var w=waiting; waiting=[]; w.forEach(function(f){ f(ok); }); }
+      s.onload=function(){ done(!!(window.Tally && window.Tally.openPopup)); };
+      s.onerror=function(){ s.remove(); done(false); };
+      document.head.appendChild(s);
+    }
+    function fallback(u){ var w=window.open(u,'_blank','noopener'); if(!w) location.href=u; }
+    [].slice.call(document.querySelectorAll('[data-participe]')).forEach(function(b){
+      ['pointerenter','focus','touchstart'].forEach(function(ev){ b.addEventListener(ev, function(){ load(function(){}); }, {passive:true, once:true}); });
+      b.addEventListener('click', function(e){
+        b.href = link();
+        if(e.metaKey || e.ctrlKey || e.shiftKey || e.button===1) return;
+        e.preventDefault();
+        var settled=false, t=setTimeout(function(){ if(!settled){ settled=true; fallback(b.href); } }, 3500);
+        load(function(ok){
+          if(settled) return; settled=true; clearTimeout(t);
+          if(ok){ try{ window.Tally.openPopup(FORM, {layout:'modal', width:560, overlay:true, autoClose:3000, hiddenFields:ctx()}); return; }catch(err){} }
+          fallback(b.href);
+        });
+      });
+    });
+  })();
   imgShare('sum-img','sum-img-msg', sumCanvas, function(){ return 'resumo-'+(state.g==='all'?'todas-as-pautas':state.g)+(state.c==='all'?'':'-'+state.c)+'.png'; }, function(){ return 'Resumo: '+(state.g==='all'?'Todas as pautas':gname(state.g)); });
 
   (function(){
