@@ -2,8 +2,8 @@
 
 Painel cívico com fontes sobre o que fizeram no poder os líderes com quem Flávio Bolsonaro diz querer se alinhar (Bukele, Jair Bolsonaro, PiS, Kast, Milei, Orbán e Trump), com o governo Lula (2023 a 2025) como comparação.
 
-- **Site:** https://destrava-conversas.github.io/eoflavio/
-- **E a Economia?:** https://destrava-conversas.github.io/eoflavio/economia/
+- **Site:** https://destrava-conversas.com.br/eoflavio/
+- **E a Economia?:** https://destrava-conversas.com.br/eoflavio/economia/
 
 ## Princípios
 
