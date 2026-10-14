@@ -1617,7 +1617,7 @@ a.c-go[aria-disabled="true"] .l{text-decoration:none}
         <label class="tf-f tf-sub"><span class="tf-l">2. Parça <span class="tf-opt">(opcional)</span></span><select id="top-pais" aria-label="Parça (opcional)"></select></label>
         <button type="button" class="reset-pauta tf-reset" id="top-clear" disabled aria-label="Reiniciar pauta: limpar os filtros e voltar ao início" title="Limpar os filtros"><span aria-hidden="true">↺</span><span class="rp-t">Reiniciar<span class="rp-long"> pauta</span></span></button>
       </div>
-      <p class="upd">Atualizado em 13 de outubro de 2026</p>
+      <p class="upd">Atualizado em 14 de outubro de 2026</p>
     </div>
 
     <div class="res-card" id="resumo">
@@ -1800,7 +1800,7 @@ a.c-go[aria-disabled="true"] .l{text-decoration:none}
         <section class="lg-card">
           <div class="lg-hd"><span class="ic"><svg class="lg-i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#i-shield"/></svg></span><h3>Fontes e semáforo</h3></div>
           <ul>
-            <li>Fontes públicas, consultadas até <b>12 de outubro de 2026</b>.</li>
+            <li>Fontes públicas, consultadas até <b>14 de outubro de 2026</b>.</li>
             <li><span class="tl g"></span><b>Verde:</b> muito confiável (dados oficiais, organismos internacionais, pesquisa acadêmica, agências).</li>
             <li><span class="tl y"></span><b>Amarelo:</b> confiável (demais veículos e organizações; linha declarada e fontes parciais vêm identificadas).</li>
             <li><b>Alegado:</b> vem só do governo ou de críticos, sem checagem independente.</li>
@@ -1985,9 +1985,11 @@ a.c-go[aria-disabled="true"] .l{text-decoration:none}
     {k:'saude', n:'Saúde e saúde mental'},
     {k:'educacao', n:'Educação e ciência'},
     {k:'renda', n:'Renda e custo de vida'},
-    {k:'religiao', n:'Liberdade religiosa'}
+    {k:'religiao', n:'Liberdade religiosa'},
+    {k:'cidades', n:'Cidades, transporte e moradia'}
   ];
   var CRITERIA = {
+    cidades:'A favor: amplia ou melhora o transporte público, a moradia, o saneamento e a segurança no trânsito, ou reduz o custo para quem usa. Contra: corta ou paralisa investimentos e subsídios, encarece o transporte público ou a moradia, afrouxa regras de segurança no trânsito ou corta verbas de cidades governadas pela oposição.',
     criancas:'A favor: amplia renda, alimentação, saúde, educação e proteção de crianças e adolescentes, inclusive contra a violência. Contra: corta programas e verbas voltados a eles, retira proteções, atrasa vacinas ou os expõe a violência do Estado, como a separação de famílias e a prisão de menores junto com adultos.',
     renda:'A favor: eleva a renda real ou alivia o custo de vida e os impostos de quem ganha menos. Contra: corrói o poder de compra ou concentra renda, como cortes de impostos concentrados nos mais ricos, retirada de subsídios que eleva preços ou tarifas que encarecem o consumo.',
     religiao:'A favor: protege o culto de qualquer fé e de quem não tem fé, reforça o Estado laico ou combate a discriminação religiosa. Contra: restringe ou persegue grupos religiosos, discrimina por religião ou usa o Estado para impor ou privilegiar uma religião.',
@@ -2572,6 +2574,55 @@ LK_R.push(["pl", "educacao", "A reforma de 2017 extinguiu ", [["Polen-Analysen",
    ['Todo Jujuy',{t:'lat',d:'Portal de notícias da província de Jujuy, na Argentina.'}],
    ['Fortune',{t:'esp',d:'Revista de negócios dos EUA.'}],
    ['Mattos Filho',{t:'par',d:'Escritório de advocacia brasileiro. Resumo jurídico da lei.'}]
+  ].forEach(function(x){ if(!SRC[x[0]]) SRC[x[0]]=x[1]; });
+  /* pauta Cidades, transporte e moradia */
+  add('bb','cidades','contra','2019','Suspensão dos radares estáticos, móveis e portáteis nas rodovias federais, para “evitar o uso arrecadatório”; a Justiça Federal mandou retomar o uso em dezembro de 2019.','Migalhas; Poder360');
+  add('bb','cidades','contra','2021','Casa Verde e Amarela, que substituiu o Minha Casa Minha Vida, para de contratar moradias para a faixa de menor renda; cerca de 280 mil unidades ficam paradas ou em obras.','InfoMoney (Estadão)','O governo dizia priorizar a conclusão das obras paradas antes de novas contratações');
+  add('bb','cidades','contra','2020','Lei 14.071 aumenta o limite de pontos para suspender a carteira de motorista: até 40 para quem não comete infração gravíssima (antes, 20).','Congresso em Foco','Discutível: a mesma lei endurece outras regras, como tornar gravíssimo não reduzir a velocidade ao ultrapassar ciclista e proibir pena alternativa para quem mata dirigindo sob efeito de álcool');
+  add('bb','cidades','pro','2020','Marco Legal do Saneamento: meta de 99% da população com água e 90% com coleta e tratamento de esgoto até 2033, com licitação obrigatória dos serviços.','Migalhas; Politize','Discutível: pesquisadoras do Ipea avaliam que a promessa da privatização “não se cumpriu plenamente” e apontam casos de alta de tarifa');
+  add('ar','cidades','contra','2024','Corte de subsídios ao transporte: a passagem mínima de ônibus na Grande Buenos Aires sobe 45% em janeiro de 2024 e acumula alta de 852% até julho de 2025, de $ 52,96 para $ 451,01.','iProfesional; C5N','O governo diz que atualiza as tarifas pela inflação acumulada');
+  add('ar','cidades','contra','2023-2025','Paralisação de obras públicas: 54% das cerca de 2.700 obras herdadas sem concluir ficam sem nenhum avanço físico desde o fim de 2023.','Chequeado');
+  add('ar','cidades','contra','2023','Revogação da Lei de Aluguéis (DNU 70/2023): o aluguel efetivamente pago na Grande Buenos Aires sobe 683% de dezembro de 2023 a agosto de 2026, contra inflação de 247% (INDEC), com reajustes a cada 3 ou 4 meses para a maioria dos inquilinos.','Chequeado (INDEC)','Discutível: a oferta de imóveis para alugar subiu 326% e o preço anunciado em Buenos Aires caiu 32,9% descontada a inflação');
+  add('us','cidades','contra','2025','Cancelamento de US$ 4 bilhões federais para o trem de alta velocidade da Califórnia.','KTVU','O governo diz que o estado gastou sem entregar trilhos; a Califórnia foi à Justiça');
+  add('us','cidades','contra','2025','Congelamento de US$ 18 bilhões do metrô da Segunda Avenida e do túnel Gateway, em Nova York, horas após o início da paralisação do governo federal.','6sqft','Justificativa oficial: revisão de contratos por “DEI”; segundo a Reuters, a medida pressionava os democratas');
+  add('us','cidades','contra','2025','Revogação da aprovação federal do pedágio urbano de Manhattan, celebrada por Trump com “LONG LIVE THE KING!”; um juiz federal declarou a medida ilegal em março de 2026.','NY1; Land Line');
+  add('hu','cidades','contra','2025','“Contribuição de solidariedade” de 89 bilhões de florins descontada diretamente da conta de Budapeste, governada pela oposição; um tribunal suspendeu a cobrança em junho de 2025.','Telex','O governo diz que os valores não são excessivos e que a capital deve contribuir');
+  add('pl','cidades','pro','2019','Fundo para reabrir linhas de ônibus locais em cidades pequenas, contra a “exclusão de transporte”.','Notes from Poland (GUS)','Discutível: a extensão das linhas de ônibus fora das grandes cidades caiu quase 45% entre 2016 e 2022, segundo o órgão oficial de estatística');
+  add('pl','cidades','contra','2016-2019','Promessas não cumpridas: programa habitacional Mieszkanie+.','bpb');
+  add('sv','cidades','pro','2025','Empréstimo de US$ 65 milhões do BCIE para duplicar 8,2 km da via litorânea (Surf City II), com ciclovia, calçadas e uma nova ponte.','Diario El Mundo');
+  add('cl','cidades','contra','2026','O principal subsídio habitacional (DS49) cai 60% na primeira chamada de 2026, e 73% na Região Metropolitana.','CNN Chile (Diario Financiero)','O governo atribui o corte a dívidas e compromissos de anos anteriores');
+  add('cl','cidades','pro','2026','Novo subsídio habitacional para a classe média: o teto do valor do imóvel com apoio do Estado sobe de 2.200 para 4.000 UF.','Minvu','Fonte do próprio governo');
+  add('br','cidades','pro','2024','Retomada das contratações do Minha Casa Minha Vida para a faixa de menor renda, depois de cinco anos, com meta de 187,5 mil moradias.','SBT News');
+  add('br','cidades','contra','2025','Contenção de R$ 31,3 bilhões no Orçamento atinge R$ 4,8 bilhões do Ministério das Cidades, responsável pelo Minha Casa Minha Vida, e R$ 7,6 bilhões do Novo PAC.','Gazeta do Povo','Parte do valor é contingenciamento, que pode ser revertido ao longo do ano');
+  LK_A.push(["bb", "cidades", "Suspensão dos radares estáti", [["Migalhas", "https://www.migalhas.com.br/quentes/308842/bolsonaro-determina-suspensao-de-radares-em-rodovias-federais"], ["Poder360", "https://www.poder360.com.br/brasil/apos-determinacao-judicial-prf-retoma-uso-de-radares-moveis-em-rodovias/"]]]);
+  LK_A.push(["bb", "cidades", "Casa Verde e Amarela, que su", [["InfoMoney", "https://www.infomoney.com.br/?p=1689436"]]]);
+  LK_A.push(["bb", "cidades", "Lei 14.071 aumenta o limite ", [["Congresso em Foco", "https://congressoemfoco.com.br/noticia/38137/novo-codigo-de-transito-entra-em-vigor-hoje-saiba-o-que-muda"]]]);
+  LK_A.push(["bb", "cidades", "Marco Legal do Saneamento: m", [["Migalhas", "https://www.migalhas.com.br/quentes/330757/bolsonaro-sanciona-com-vetos-lei-do-novo-marco-legal-do-saneamento-basico"], ["Politize", "https://www.politize.com.br/marco-legal-do-saneamento-basico/"]]]);
+  LK_A.push(["ar", "cidades", "Corte de subsídios ao transp", [["iProfesional", "https://www.iprofesional.com/actualidad/396548-el-boleto-de-colectivo-aumenta-45-cuanto-cuesta-desde-hoy"], ["C5N", "https://www.c5n.com/sociedad/el-boleto-colectivo-el-amba-aumento-mas-800-que-asumio-javier-milei-n207932/amp"]]]);
+  LK_A.push(["ar", "cidades", "Paralisação de obras pública", [["Chequeado", "https://chequeado.com/investigaciones/javier-milei-paralizo-mas-de-la-mitad-de-las-obras-publicas-que-heredo-sin-terminar-de-la-gestion-de-alberto-fernandez/"]]]);
+  LK_A.push(["ar", "cidades", "Revogação da Lei de Aluguéis", [["Chequeado", "https://chequeado.com/el-explicador/alquileres-en-argentina-que-paso-con-los-precios-y-la-oferta-despues-de-la-derogacion-de-la-ley/"]]]);
+  LK_A.push(["us", "cidades", "Cancelamento de US$ 4 bilhõe", [["KTVU", "https://www.ktvu.com/news/trump-pulls-4-billion-federal-funding-californias-high-speed-rail-project"]]]);
+  LK_A.push(["us", "cidades", "Congelamento de US$ 18 bilhõ", [["6sqft", "https://www.6sqft.com/trump-withholds-18b-for-second-avenue-subway-gateway-tunnel-projects/"]]]);
+  LK_A.push(["us", "cidades", "Revogação da aprovação feder", [["NY1", "https://ny1.com/nyc/all-boroughs/news/2025/02/19/trump-administration-pulls-approval-for-congestion-pricing"], ["Land Line", "https://landline.media/court-shuts-down-trumps-bid-to-end-nyc-congestion-pricing/"]]]);
+  LK_A.push(["hu", "cidades", "“Contribuição de solidarieda", [["Telex", "https://telex.hu/english/2025/06/17/budapest-receives-judicial-protection-state-treasury-barred-from-deducting-solidarity-contribution"]]]);
+  LK_A.push(["pl", "cidades", "Fundo para reabrir linhas de", [["Notes from Poland", "https://notesfrompoland.com/2023/08/04/local-bus-service-coverage-in-poland-falls-by-more-than-40-since-2016/"]]]);
+  LK_A.push(["pl", "cidades", "Promessas não cumpridas: pro", [["bpb", "https://www.bpb.de/themen/europa/polen-analysen/300798/analyse-soziale-probleme-loesen-oder-waehler-gewinnen-die-sozialpolitik-der-pis-seit-2015/"]]]);
+  LK_A.push(["sv", "cidades", "Empréstimo de US$ 65 milhões", [["Diario El Mundo", "https://diario.elmundo.sv/economia/bcie-aprueba-65-millones-para-proyectos-viales-de-la-segunda-fase-de-surf-city"]]]);
+  LK_A.push(["cl", "cidades", "O principal subsídio habitac", [["CNN Chile", "https://www.cnnchile.com/pais/revelan-millonario-recorte-de-60-en-principal-subsidio-habitacional-para-2026-region-metropolitana-seria-la-mas-afectada-por-menos-fondos/"]]]);
+  LK_A.push(["cl", "cidades", "Novo subsídio habitacional p", [["Minvu", "https://www.minvu.gob.cl/noticia/presidente-jose-antonio-kast-en-cuenta-publica-2026-queremos-un-pais-de-propietarios-no-de-arrendatarios/"]]]);
+  LK_A.push(["br", "cidades", "Retomada das contratações do", [["SBT News", "https://sbtnews.sbt.com.br/noticia/governo/programa-minha-casa-minha-vida-retoma-contratacoes-para-baixa-renda-apos-cinco-anos"]]]);
+  LK_A.push(["br", "cidades", "Contenção de R$ 31,3 bilhões", [["Gazeta do Povo", "https://www.gazetadopovo.com.br/economia/saude-cidades-e-defesa-sao-os-mais-atingidos-por-bloqueio-no-orcamento/"]]]);
+  [['Migalhas',{t:'esp',d:'Portal brasileiro de notícias jurídicas.'}],
+   ['InfoMoney',{t:'br',d:'Portal brasileiro de economia e finanças.'}],
+   ['Politize',{t:'esp',d:'Portal brasileiro de educação política, apartidário.'}],
+   ['C5N',{t:'lat',d:'Canal de notícias argentino, crítico ao governo Milei.'}],
+   ['KTVU',{t:'ag',d:'Emissora de TV da Califórnia (afiliada da Fox).'}],
+   ['6sqft',{t:'esp',d:'Portal de notícias urbanas e imobiliárias de Nova York.'}],
+   ['NY1',{t:'ag',d:'Canal de notícias local de Nova York (Spectrum).'}],
+   ['Land Line',{t:'esp',d:'Revista da associação de caminhoneiros autônomos dos EUA (OOIDA).'}],
+   ['Telex',{t:'eur',d:'Portal de notícias independente da Hungria.'}],
+   ['Minvu',{t:'par',d:'Ministério da Habitação e Urbanismo do Chile (fonte do governo).'}],
+   ['SBT News',{t:'br',d:'Portal de notícias da emissora SBT.'}]
   ].forEach(function(x){ if(!SRC[x[0]]) SRC[x[0]]=x[1]; });
   window.__lkMiss = attachLinks(LK_A, A).concat(attachLinks(LK_R, R));
 
