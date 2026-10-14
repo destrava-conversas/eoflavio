@@ -1543,6 +1543,9 @@ a.c-go[aria-disabled="true"] .l{text-decoration:none}
 @media(max-width:760px){.part-btn{order:2;padding:6px 11px;font-size:13px}.sinais-btn + .part-btn{margin-left:0}}
 @media(max-width:600px){.part-btn{gap:5px;padding:6px 10px}}
 @media(max-width:379px){.part-btn{padding:0;width:34px;height:34px;justify-content:center}.part-btn .pt{display:none}.part-btn svg{width:17px;height:17px}}
+.disc-line{margin:12px 0 0;font-size:15px;color:var(--muted)}
+.tag.note.disc{background:var(--ground);color:var(--ink);border:1px dashed var(--line)}
+.col.pro .tag.note.disc{background:var(--ground);color:var(--ink)}
 </style>
 </head>
 <body>
@@ -1633,6 +1636,7 @@ a.c-go[aria-disabled="true"] .l{text-decoration:none}
         </div>
         <div class="ends"><span class="a">Ações contra</span><span class="b">Ações a favor</span></div>
       </div>
+      <p class="disc-line" id="disc-line" hidden></p>
       <div class="img-row sum-img-row"><button type="button" class="imgbtn" id="sum-img">Copiar resumo como imagem</button><span class="img-msg" id="sum-img-msg" role="status" aria-live="polite"></span></div>
       <p class="sum" id="sel-sum" hidden></p>
       <details class="crit-det" id="crit-det"><summary>Como classificamos</summary><p class="crit" id="sel-crit"></p></details>
@@ -2001,7 +2005,7 @@ a.c-go[aria-disabled="true"] .l{text-decoration:none}
   };
 
   var A = [];
-  function add(c,g,s,y,t,src,note){ A.push({c:c,g:g,s:s,y:y,t:t,src:src,note:note||''}); }
+  function add(c,g,s,y,t,src,note){ A.push({c:c,g:g,s:s,y:y,t:t,src:src,note:note||'',disc:/^Discut[íi]vel/i.test(note||'')}); }
 
   /* HUNGRIA */
   add('hu','mulheres','pro','2019','Isenção vitalícia de imposto de renda para mulheres com quatro ou mais filhos.','Heinrich Böll Stiftung');
@@ -2953,7 +2957,7 @@ LK_R.push(["pl", "educacao", "A reforma de 2017 extinguiu ", [["Polen-Analysen",
     var m = el('div','meta');
     m.appendChild(legendTag(i.c, (i.gs||[i.g]).map(gname)));
     if(i.y) m.appendChild(el('span','',i.y));
-    if(i.note) m.appendChild(el('span','tag note',i.note));
+    if(i.note) m.appendChild(el('span','tag note'+(i.disc?' disc':''),(i.disc?'* ':'')+i.note));
     li.appendChild(m);
     var ft = el('div','ifoot');
     ft.appendChild(srcNode(i));
@@ -3125,6 +3129,7 @@ LK_R.push(["pl", "educacao", "A reforma de 2017 extinguiu ", [["Polen-Analysen",
     } else ss.textContent = sub || 'Soma dos sete líderes';
     $('n-contra').textContent = t.contra; (function(){ [['go-contra',t.contra],['go-pro',t.pro]].forEach(function(x){ var a=$(x[0]); if(!a) return; if(x[1]>0){ a.removeAttribute('aria-disabled'); a.setAttribute('title','Ver as ações'); } else { a.setAttribute('aria-disabled','true'); a.removeAttribute('title'); } }); })();
     $('n-pro').textContent = t.pro;
+    (function(){ var n=pick(state.c,state.g,A).filter(function(i){ return i.disc; }).length, dl=$('disc-line'); if(!dl) return; dl.textContent = n ? '* Inclui '+n+(n===1?' ação discutível, marcada na lista com os dois lados.':' ações discutíveis, marcadas na lista com os dois lados.') : ''; dl.hidden = !n; })();
     var lc0 = document.querySelector('.c-contra .l'), lp0 = document.querySelector('.c-pro .l');
     if(lc0) lc0.textContent = t.contra===1 ? 'ação contra' : 'ações contra';
     if(lp0) lp0.textContent = t.pro===1 ? 'ação a favor' : 'ações a favor';
@@ -3923,89 +3928,69 @@ LK_R.push(["pl", "educacao", "A reforma de 2017 extinguiu ", [["Polen-Analysen",
     return lines;
   }
   function sumCanvas(){
-    var W=1080, H=1350, P=72;
+    var W=1080, H=1350, P=64;
     var c=document.createElement('canvas'); c.width=W; c.height=H;
     var g=c.getContext('2d');
     var SANS="'Public Sans', 'Segoe UI', Arial, sans-serif", HEAD="'Bricolage Grotesque','Public Sans','Segoe UI',Arial,sans-serif";
     var INK='#1A2430', MUT='#4A5663', LINE='#D3DAE1', CON='#C2570C', CONI='#A64A08', PRO='#0B6B8F';
     var t = tally(state.c, state.g);
+    var items = pick(state.c, state.g, A), nd = items.filter(function(i){ return i.disc; }).length;
     var cc=null; ALLC.forEach(function(x){ if(x.k===state.c) cc=x; });
     var pauta = state.g==='all' ? 'Todas as pautas' : gname(state.g);
-    var who = !cc ? 'Parças do Flávio: soma dos sete líderes' : (cc.ctrl ? 'Governo Lula, 2023 a 2025 (régua de comparação)' : (cc.sub || (cc.p+' sob '+cc.n+', '+cc.s)));
-    /* fundo e barra */
+    var who = !cc ? 'Os 7 parças do Flávio, somados' : (cc.ctrl ? 'Governo Lula, 2023 a 2025' : (cc.n+' · '+cc.p+', '+cc.s));
+    function fit(txt, weight, size, min, fam, maxW){ g.font=weight+' '+size+'px '+fam; while(g.measureText(txt).width>maxW && size>min){ size--; g.font=weight+' '+size+'px '+fam; } return size; }
     g.fillStyle='#EEF1F4'; g.fillRect(0,0,W,H);
-    g.fillStyle='#0F2440'; g.fillRect(0,0,W,120);
-    g.fillStyle='#fff'; g.textBaseline='middle'; g.font='800 46px '+HEAD; g.fillText('Flávio e os Parças', P, 62);
-    var upd = ((document.querySelector('.upd')||{}).textContent || '').trim();
-    if(upd){ g.textAlign='right'; g.font='500 21px '+SANS; g.fillStyle='#B9C6D6'; g.fillText(upd, W-P, 64); g.textAlign='left'; }
-    /* cartão */
-    var cx=40, cy=160, cw=W-80, ch=H-cy-150;
-    g.fillStyle='#FFFFFF'; roundRect(g,cx,cy,cw,ch,28); g.fill();
-    g.strokeStyle=LINE; g.lineWidth=2; g.stroke();
-    var x=cx+56, maxW=cw-112;
+    g.fillStyle='#0F2440'; g.fillRect(0,0,W,128);
+    g.textBaseline='middle'; g.fillStyle='#fff'; g.font='800 50px '+HEAD; g.fillText('Flávio e os Parças', P, 66);
+    var upd=((document.querySelector('.upd')||{}).textContent||'').replace('Atualizado em ','').trim();
+    if(upd){ g.textAlign='right'; g.fillStyle='#B9C6D6'; g.font='600 28px '+SANS; g.fillText(upd.replace(/ de (\d{4})$/,' $1'), W-P, 68); g.textAlign='left'; }
     g.textBaseline='alphabetic';
-    /* medir */
-    var fs=70; g.font='800 '+fs+'px '+HEAD; while(g.measureText(pauta).width>maxW && fs>38){ fs--; g.font='800 '+fs+'px '+HEAD; }
-    g.font='500 28px '+SANS; var whoL = wrapText(g, who, maxW).slice(0,2);
-    var hA = 22 + 18 + fs + whoL.length*42;
-    var hB = 118 + 50, hC = 32;
-    var tc = state.c!=='br' ? tally('br', state.g) : null;
-    var hD = tc ? 76 : 0;
-    var crit = ($('sel-crit') && !$('sel-crit').hidden) ? $('sel-crit').textContent : '';
-    var cfs=24, lines=[], hE=0;
-    function measureE(){ g.font='400 '+cfs+'px '+SANS; lines = crit ? wrapText(g, crit, maxW) : []; hE = crit ? 34 + lines.length*cfs*1.48 : 0; }
-    measureE();
-    var gaps = [64, 44, tc?72:0, crit?72:0], inner = ch-120;
-    function total(){ return hA+hB+hC+hD+hE+gaps.reduce(function(a,b){return a+b;},0); }
-    while(total()>inner && cfs>17){ cfs--; measureE(); }
-    var extra = Math.max(0, inner-total()), ng = gaps.filter(function(v){return v>0;}).length;
-    var add = Math.min(70, extra/ng); gaps = gaps.map(function(v){ return v>0 ? v+add : 0; });
-    var y = cy + 60 + Math.max(0, inner-total())/2;
-    /* A: título */
-    y+=22; g.fillStyle=MUT; g.font='700 21px '+SANS; g.fillText('O QUE ELES FIZERAM', x, y);
-    y+=18+fs; g.font='800 '+fs+'px '+HEAD; g.fillStyle=INK; g.fillText(pauta, x, y);
-    g.font='500 28px '+SANS; g.fillStyle=MUT; whoL.forEach(function(l){ y+=42; g.fillText(l, x, y); });
-    /* B: números */
-    y+=gaps[0]+118; var half=maxW/2;
-    g.font='800 124px '+HEAD; g.fillStyle=CONI; g.fillText(String(t.contra), x, y);
+    var x=P, maxW=W-2*P;
+    var fs=fit(pauta,'800',88,50,HEAD,maxW);
+    var tc = state.c!=='br' ? tally('br', state.g) : null, zero = t.contra===0 || t.pro===0;
+    if(tc && (tc.contra===0 || tc.pro===0)) zero = true;
+    var notes=[];
+    if(nd) notes.push('* '+nd+(nd===1?' ação discutível: veja os dois lados no painel':' ações discutíveis: veja os dois lados no painel'));
+    if(zero) notes.push('0 = nada encontrado nas fontes, não prova que não existe');
+    var notesTop = notes.length ? H-190-(notes.length-1)*48-34 : H-118;
+    var span = (fs+8)+58+230+64+110+40+(tc?100:0) + 24;
+    var avail = notesTop-40-128;
+    var y = 128 + Math.max(60, (avail-span)/2) + 24;
+    g.fillStyle=MUT; g.font='700 28px '+SANS; g.fillText('O QUE ELES FIZERAM', x, y);
+    y+=fs+8; g.fillStyle=INK; g.font='800 '+fs+'px '+HEAD; g.fillText(pauta, x, y);
+    var ws=fit(who,'600',38,28,SANS,maxW); y+=58; g.fillStyle=MUT; g.font='600 '+ws+'px '+SANS; g.fillText(who, x, y);
+    /* números */
+    y+=230; var half=maxW/2;
+    g.font='800 220px '+HEAD; g.fillStyle=CONI; g.fillText(String(t.contra), x, y);
     g.fillStyle=PRO; g.fillText(String(t.pro), x+half, y);
-    g.font='600 30px '+SANS; g.fillStyle=CONI; g.fillText(t.contra===1?'ação contra':'ações contra', x, y+50);
-    g.fillStyle=PRO; g.fillText(t.pro===1?'ação a favor':'ações a favor', x+half, y+50);
-    y+=50;
-    /* C: termômetro */
-    y+=gaps[1]; var bh=32, mid=x+maxW/2;
-    g.fillStyle='#E6EBF0'; roundRect(g,x,y,maxW,bh,bh/2); g.fill();
-    function sw(v){ return (t.total && v>0) ? Math.max(0.04, v/t.total) * (maxW/2) : 0; }
+    g.font='700 44px '+SANS; g.fillStyle=CONI; g.fillText(t.contra===1?'ação contra':'ações contra', x, y+64);
+    g.fillStyle=PRO; g.fillText(t.pro===1?'ação a favor':'ações a favor', x+half, y+64);
+    /* termômetro */
+    y+=110; var bh=40, mid=x+maxW/2;
+    g.fillStyle='#DDE3E9'; roundRect(g,x,y,maxW,bh,bh/2); g.fill();
+    function sw(v){ return (t.total && v>0) ? Math.max(0.04, v/t.total)*(maxW/2) : 0; }
     var wl=sw(t.contra), wr=sw(t.pro);
     if(wl){ g.fillStyle=CON; roundRect(g,mid-wl,y,wl,bh,{tl:bh/2,bl:bh/2,tr:0,br:0}); g.fill(); }
     if(wr){ g.fillStyle=PRO; roundRect(g,mid,y,wr,bh,{tl:0,bl:0,tr:bh/2,br:bh/2}); g.fill(); }
-    g.fillStyle=INK; g.fillRect(mid-2,y-8,4,bh+16);
+    g.fillStyle=INK; g.fillRect(mid-3,y-10,6,bh+20);
     y+=bh;
-    /* D: régua Lula */
+    /* régua Lula */
     if(tc){
-      y+=gaps[2];
-      g.fillStyle=LINE; g.fillRect(x,y-gaps[2]/2,maxW,2);
-      g.font='700 24px '+SANS; g.fillStyle=INK; g.fillText('Régua de comparação: governo Lula (2023 a 2025)', x, y+20);
-      g.font='500 24px '+SANS; g.fillStyle=MUT;
-      var rl = tc.total ? (tc.contra+(tc.contra===1?' ação contra':' ações contra')+' e '+tc.pro+(tc.pro===1?' ação a favor':' ações a favor')+', pelos mesmos critérios.') : 'Sem ações documentadas nesta pauta.';
-      g.fillText(rl, x, y+58);
-      y+=hD;
+      y+=100;
+      g.fillStyle=LINE; g.fillRect(x,y-62,maxW,3);
+      g.fillStyle=MUT; g.font='700 34px '+SANS; g.fillText('Régua: governo Lula', x, y);
+      var lt; if(tc.total){ g.textAlign='right'; g.font='800 42px '+SANS; g.fillStyle=PRO; var lp=tc.pro+' a favor'; g.fillText(lp, x+maxW, y); var wP=g.measureText(lp).width; g.fillStyle=MUT; g.font='600 42px '+SANS; g.fillText(' · ', x+maxW-wP, y); var wD=g.measureText(' · ').width; g.fillStyle=CONI; g.font='800 42px '+SANS; g.fillText(tc.contra+' contra', x+maxW-wP-wD, y); g.textAlign='left'; }
+      else { g.textAlign='right'; g.fillStyle=MUT; g.font='600 34px '+SANS; g.fillText('nada documentado', x+maxW, y); g.textAlign='left'; }
     }
-    /* E: critério */
-    if(crit){
-      y+=gaps[3];
-      g.fillStyle=LINE; g.fillRect(x,y-gaps[3]/2,maxW,2);
-      g.font='700 24px '+SANS; g.fillStyle=INK; g.fillText('Como classificamos', x, y+20);
-      g.font='400 '+cfs+'px '+SANS; g.fillStyle=MUT;
-      lines.forEach(function(l,ix){ g.fillText(l, x, y+20+34+ix*cfs*1.48); });
-    }
+    /* notas curtas */
+    y = H-190 - (notes.length-1)*48;
+    notes.forEach(function(n){ var ns=fit(n,'600',32,24,SANS,maxW); g.fillStyle=INK; g.font='600 '+ns+'px '+SANS; g.fillText(n, x, y); y+=48; });
     /* rodapé */
-    var fy=cy+ch+50, fx=P-32, fw=W-2*fx;
-    var note='Cada ação vale 1, sem peso por gravidade. Sem ação listada não quer dizer que não exista.';
-    var nfs=21; g.font='500 '+nfs+'px '+SANS; while(g.measureText(note).width>fw && nfs>16){ nfs--; g.font='500 '+nfs+'px '+SANS; }
-    g.fillStyle=MUT; g.fillText(note, fx, fy);
-    g.font='500 24px '+SANS; var lead='Fontes de cada ação em '; g.fillText(lead, fx, fy+46);
-    var lw=g.measureText(lead).width; g.fillStyle='#0F2440'; g.font='700 24px '+SANS; g.fillText(PANEL_URL.replace('https://','').replace(/\/$/,''), fx+lw, fy+46);
+    g.fillStyle='#0F2440'; g.fillRect(0,H-118,W,118);
+    g.textBaseline='middle'; g.fillStyle='#fff'; g.font='800 40px '+SANS;
+    g.fillText(PANEL_URL.replace('https://','').replace(/\/$/,''), P, H-59);
+    g.textAlign='right'; g.fillStyle='#B9C6D6'; g.font='600 28px '+SANS; g.fillText('fontes no painel', W-P, H-57); g.textAlign='left';
+    g.textBaseline='alphabetic';
     return c;
   }
   function imgShare(btId, msgId, makeCanvas, fname, title){
