@@ -1546,6 +1546,7 @@ a.c-go[aria-disabled="true"] .l{text-decoration:none}
 .disc-line{margin:12px 0 0;font-size:15px;color:var(--muted)}
 .tag.note.disc{background:var(--ground);color:var(--ink);border:1px dashed var(--line)}
 .col.pro .tag.note.disc{background:var(--ground);color:var(--ink)}
+.counts .n .ast{font-size:.5em;vertical-align:super;margin-left:2px;line-height:0}
 </style>
 </head>
 <body>
@@ -3180,7 +3181,7 @@ LK_R.push(["pl", "educacao", "A reforma de 2017 extinguiu ", [["Polen-Analysen",
     } else ss.textContent = sub || 'Soma dos sete líderes';
     $('n-contra').textContent = t.contra; (function(){ [['go-contra',t.contra],['go-pro',t.pro]].forEach(function(x){ var a=$(x[0]); if(!a) return; if(x[1]>0){ a.removeAttribute('aria-disabled'); a.setAttribute('title','Ver as ações'); } else { a.setAttribute('aria-disabled','true'); a.removeAttribute('title'); } }); })();
     $('n-pro').textContent = t.pro;
-    (function(){ var n=pick(state.c,state.g,A).filter(function(i){ return i.disc; }).length, dl=$('disc-line'); if(!dl) return; dl.textContent = n ? '* Inclui '+n+(n===1?' ação discutível, marcada na lista com os dois lados.':' ações discutíveis, marcadas na lista com os dois lados.') : ''; dl.hidden = !n; })();
+    (function(){ var dd=pick(state.c,state.g,A).filter(function(i){ return i.disc; }), n=dd.length, dl=$('disc-line'); [['n-contra','contra'],['n-pro','pro']].forEach(function(x){ var e=$(x[0]); if(!e) return; if(dd.some(function(i){ return (i.s==='pro'?'pro':'contra')===x[1]; })){ var a=document.createElement('span'); a.className='ast'; a.textContent='*'; a.setAttribute('aria-label','inclui ação discutível'); e.appendChild(a); } }); if(!dl) return; dl.textContent = n ? '* Inclui '+n+(n===1?' ação discutível, marcada na lista com os dois lados.':' ações discutíveis, marcadas na lista com os dois lados.') : ''; dl.hidden = !n; })();
     var lc0 = document.querySelector('.c-contra .l'), lp0 = document.querySelector('.c-pro .l');
     if(lc0) lc0.textContent = t.contra===1 ? 'ação contra' : 'ações contra';
     if(lp0) lp0.textContent = t.pro===1 ? 'ação a favor' : 'ações a favor';
@@ -4012,8 +4013,9 @@ LK_R.push(["pl", "educacao", "A reforma de 2017 extinguiu ", [["Polen-Analysen",
     var ws=fit(who,'600',38,28,SANS,maxW); y+=58; g.fillStyle=MUT; g.font='600 '+ws+'px '+SANS; g.fillText(who, x, y);
     /* números */
     y+=230; var half=maxW/2;
-    g.font='800 220px '+HEAD; g.fillStyle=CONI; g.fillText(String(t.contra), x, y);
-    g.fillStyle=PRO; g.fillText(String(t.pro), x+half, y);
+    var dC=items.some(function(i){ return i.disc && i.s!=='pro'; }), dP=items.some(function(i){ return i.disc && i.s==='pro'; });
+    function big(v, xx, col, star){ g.font='800 220px '+HEAD; g.fillStyle=col; g.fillText(String(v), xx, y); if(star){ var w=g.measureText(String(v)).width; g.font='800 110px '+HEAD; g.fillText('*', xx+w+6, y-100); } }
+    big(t.contra, x, CONI, dC); big(t.pro, x+half, PRO, dP);
     g.font='700 44px '+SANS; g.fillStyle=CONI; g.fillText(t.contra===1?'ação contra':'ações contra', x, y+64);
     g.fillStyle=PRO; g.fillText(t.pro===1?'ação a favor':'ações a favor', x+half, y+64);
     /* termômetro */
