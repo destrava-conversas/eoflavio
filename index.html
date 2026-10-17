@@ -2637,7 +2637,7 @@ LK_R.push(["pl", "educacao", "A reforma de 2017 extinguiu ", [["Polen-Analysen",
   LK_A.push(["bb", "seguranca", "Cinco nomeações e quatro dir", [["Poder360", "https://poder360.com.br/governo/moro-diz-que-bolsonaro-queria-contato-pessoal-na-pf-para-colher-informacoes/"], ["A Gazeta", "https://www.agazeta.com.br/brasil/bolsonaro-troca-diretor-geral-da-policia-federal-pela-quinta-vez-0222"], ["O Hoje", "https://ohoje.com/2025/10/16/pgr-inquerito-interferencia-bolsonaro-pf/"]]]);
   LK_A.push(["bb", "instituicoes", "Cinco nomeações e quatro dir", [["Poder360", "https://poder360.com.br/governo/moro-diz-que-bolsonaro-queria-contato-pessoal-na-pf-para-colher-informacoes/"], ["A Gazeta", "https://www.agazeta.com.br/brasil/bolsonaro-troca-diretor-geral-da-policia-federal-pela-quinta-vez-0222"], ["O Hoje", "https://ohoje.com/2025/10/16/pgr-inquerito-interferencia-bolsonaro-pf/"]]]);
   LK_A.push(["us", "seguranca", "Pelo menos 30 mortes em cent", [["KJZZ", "https://www.kjzz.org/fronteras-desk/2025-12-26/2025-is-the-deadliest-year-in-ice-detention-since-2004"]]]);
-  LK_A.push(["us", "seguranca", "Agentes de imigração detêm p", [["NPR (ProPublica)", "https://www.wrkf.org/2025-10-16/u-s-citizens-arrested-by-ice-have-been-kicked-dragged-and-detained-for-days-propublica-reports"]]]);
+  LK_A.push(["us", "seguranca", "Agentes de imigração detêm p", [["NPR", "https://www.wrkf.org/2025-10-16/u-s-citizens-arrested-by-ice-have-been-kicked-dragged-and-detained-for-days-propublica-reports"]]]);
   LK_A.push(["us", "seguranca", "Em Minneapolis, agentes fede", [["CBS News", "https://www.cbsnews.com/amp/minnesota/news/what-we-know-about-fatal-ice-shooting-minneapolis"], ["WTTW", "https://news.wttw.com/2026/01/25/what-s-known-so-far-about-killing-alex-pretti-federal-officers-minneapolis"]]]);
   LK_A.push(["ar", "seguranca", "Protocolo “antipiquetes” (de", [["La Nación", "https://www.lanacion.com.ar/politica/human-rights-watch-reclamo-investigar-la-represion-en-la-marcha-de-jubilados-y-cuestiono-el-nid03042025"]]]);
   [['Instituto Igarapé',{t:'pes',d:'Centro de pesquisa brasileiro sobre segurança pública e política de drogas.'}],
@@ -2664,7 +2664,7 @@ LK_R.push(["pl", "educacao", "A reforma de 2017 extinguiu ", [["Polen-Analysen",
   LK_A.push(["hu", "instituicoes", "Ministério do Interior compr", [["SecurityWeek", "https://www.securityweek.com/hungarian-official-government-bought-used-pegasus-spyware/amp/"]]]);
   LK_A.push(["pl", "seguranca", "Programa espião Pegasus usad", [["Notes from Poland", "https://notesfrompoland.com/?p=61966"]]]);
   LK_A.push(["pl", "instituicoes", "Programa espião Pegasus usad", [["Notes from Poland", "https://notesfrompoland.com/?p=61966"]]]);
-  LK_A.push(["sv", "seguranca", "Segundo o Tesouro dos EUA, o", [["Al Jazeera (Reuters)", "https://www.aljazeera.com/news/2021/12/28/el-salvador-gangs"]]]);
+  LK_A.push(["sv", "seguranca", "Segundo o Tesouro dos EUA, o", [["Al Jazeera", "https://www.aljazeera.com/news/2021/12/28/el-salvador-gangs"]]]);
   LK_A.push(["sv", "seguranca", "Recebe no presídio de segura", [["Poder360", "https://www.poder360.com.br/poder-internacional/eua-dizem-ter-pago-us-6-mi-para-enviar-venezuelanos-a-el-salvador/"]]]);
   LK_A.push(["us", "seguranca", "Perdão a cerca de 1.500 réus", [["Just Security", "https://www.justsecurity.org/106689/"]]]);
   LK_A.push(["us", "seguranca", "Deportação de 238 venezuelan", [["States Newsroom", "https://wisconsinexaminer.com/?p=38334"], ["Poder360", "https://www.poder360.com.br/poder-internacional/eua-dizem-ter-pago-us-6-mi-para-enviar-venezuelanos-a-el-salvador/"]]]);
@@ -3137,11 +3137,16 @@ LK_R.push(["pl", "educacao", "A reforma de 2017 extinguiu ", [["Polen-Analysen",
     for(var i=0;i<ch.length;i++){ if(!ch[i].classList.contains('grp')){ if(n===SHOW) return i; n++; } }
     return ch.length;
   }
-  function fitCollapsed(ul){
+  function fitCollapsed(ul, tries){
     var it = ul.children[cutIdx(ul)];
-    if(!it) return;
+    if(!it || !ul.classList.contains('collapsed')) return;
     var h = it.offsetTop + Math.min(it.offsetHeight*0.55, 90);
-    if(h > 150) ul.style.maxHeight = h + 'px';
+    if(it.offsetTop > 0 && h > 150){ ul.style.maxHeight = h + 'px'; return; }
+    /* lista ainda sem medida (oculta ou fora do layout): tenta de novo; se não der, mostra tudo sem bloquear */
+    tries = (tries||0) + 1;
+    if(tries <= 40){ setTimeout(function(){ fitCollapsed(ul, tries); }, 100); return; }
+    ul.classList.remove('collapsed'); ul.style.maxHeight = '';
+    [].slice.call(ul.children).forEach(function(li){ li.removeAttribute('inert'); });
   }
   function setCollapsed(ul, btn, n, on){
     var items = ul.children;
